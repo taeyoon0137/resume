@@ -5,3 +5,20 @@
 
 @import url('./reset.css');
 @import url('./normalize.css');
+
+html,
+body,
+main,
+section,
+div {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+html,
+body,
+div#__next {
+  min-width: 100vw;
+  min-height: 100vh;
+}
