@@ -1,0 +1,14 @@
+/*
+  Copyright 2024 Taeyoon Lee. All Right Reserved.
+
+  This source code is licensed under the file found in the
+  LICENSE file in the root directory of this source tree.
+*/
+
+/*
+  이 파일은 stylex가 동적으로 CSS 스타일을 생성하여 적용하기 위해 필요합니다.
+  전역 설정이 필요한 css들은 이곳에 import 해 주세요.
+*/
+
+@import url("./reset.css"); /* 전역 CSS 리셋 */
+@import url("./initialize.css"); /* 전역 CSS 초기화 */
