@@ -1,0 +1,107 @@
+/*
+  Copyright 2024 Taeyoon Lee. All Right Reserved.
+
+  This source code is licensed under the file found in the
+  LICENSE file in the root directory of this source tree.
+*/
+
+@charset "UTF-8";
+
+body {
+  width: 100vw;
+  height: 100vh;
+  color: var(--content-gray-a1);
+  background-color: var(--background-solid-common);
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-solid-elevate);
+  z-index: -1;
+}
+
+body > header {
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+body > header > a > h1 > svg {
+  width: 32px;
+  height: 32px;
+}
+
+body > header > a > h1 > span {
+  display: flex;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+body > main {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  padding-bottom: 72px;
+}
+
+body > main > h2 {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+body > main > p {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--content-gray-a2);
+  text-align: center;
+  word-break: keep-all;
+}
+
+body > main > ul {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+body > main > ul > a > li {
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+body > main > ul > a > li > svg {
+  width: 20px;
+  height: 20px;
+  color: var(--content-gray-a3);
+}
+
+body > main > ul > a > li > span {
+  color: var(--content-gray-a2);
+}
+
+body > main > ul > a > li:hover > span {
+  text-decoration: underline;
+  text-decoration-color: var(--content-gray-a2);
+}
+
+body > footer {
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  font-size: 14px;
+  color: var(--content-gray-a3);
+  background-color: var(--background-solid-common);
+}
