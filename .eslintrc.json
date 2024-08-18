@@ -1,3 +1,7 @@
 {
-  "extends": ["taeyoon", "taeyoon/react"]
+  "extends": ["taeyoon", "taeyoon/react"],
+  "plugins": ["@stylexjs"],
+  "rules": {
+    "@stylexjs/valid-styles": "error"
+  }
 }

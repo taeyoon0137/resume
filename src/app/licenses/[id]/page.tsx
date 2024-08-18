@@ -10,14 +10,14 @@ import stylex from "@stylexjs/stylex";
 import type { PageProps } from "@/types";
 
 /**
- * ### 루트 페이지
+ * ### License 페이지
  *
- * 이력서 메인 페이지입니다.
+ * 각 자격증 내역을 확인할 수 있는 페이지입니다.
  *
  * @param props {@link PageProps}
  * @page
  */
-const RootPage = (_props: PageProps) => {
+const LicensePage = ({ id }: PageProps<"id">) => {
   return <main {...stylex.props(styles.main)}>테스트입니다.</main>;
 };
 
@@ -33,4 +33,4 @@ const styles = stylex.create({
   },
 });
 
-export default RootPage;
+export default LicensePage;
