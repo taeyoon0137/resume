@@ -14,7 +14,16 @@ import stylexPlugin from "@stylexjs/nextjs-plugin";
  *
  * @type {import('next').NextConfig}
  */
-const nextConfig = {};
+const nextConfig = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
+  },
+};
 
 /**
  * ### StyleX 플러그인 설정

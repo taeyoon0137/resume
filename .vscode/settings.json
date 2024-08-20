@@ -4,7 +4,24 @@
     "**/.pnp.*": true
   },
   "eslint.nodePath": ".yarn/sdks",
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cSpell.words": ["endregion", "msapplication", "nextjs", "predev", "stylex", "stylexjs", "treeshake"]
+  "cSpell.words": [
+    "disablekb",
+    "Echoscript",
+    "endregion",
+    "Hackathon",
+    "modestbranding",
+    "msapplication",
+    "nextjs",
+    "onepiece",
+    "Photoshop",
+    "predev",
+    "Protopiethon",
+    "showinfo",
+    "stylex",
+    "stylexjs",
+    "Supabase",
+    "treeshake"
+  ]
 }

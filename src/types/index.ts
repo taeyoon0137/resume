@@ -6,3 +6,4 @@
  */
 
 export * from "./Next.type";
+export * from "./Props.type";

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import stylex from "@stylexjs/stylex";
+import { Root } from "@/screens";
 
 import type { PageProps } from "@/types";
 
@@ -13,24 +13,13 @@ import type { PageProps } from "@/types";
  * ### 루트 페이지
  *
  * 이력서 메인 페이지입니다.
+ * 이력서를 렌더링합니다.
  *
  * @param props {@link PageProps}
  * @page
  */
-const RootPage = (_props: PageProps) => {
-  return <main {...stylex.props(styles.main)}>테스트입니다.</main>;
+const RootPage = ({ ...props }: PageProps) => {
+  return <Root.Page {...props} />;
 };
-
-/**
- * ### Stylex 스타일
- *
- * stylex 기반의 스타일을 정의합니다.
- */
-const styles = stylex.create({
-  main: {
-    color: "red",
-    backgroundColor: "#000000",
-  },
-});
 
 export default RootPage;
