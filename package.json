@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "rm -rf ./.next && next dev",
     "predev": "rimraf .next",
     "prebuild": "rimraf .next",
     "build": "next build",
@@ -12,15 +12,23 @@
   },
   "dependencies": {
     "@stylexjs/stylex": "^0.7.5",
+    "color": "^4.2.3",
+    "dayjs": "^1.11.12",
+    "framer-motion": "^11.3.28",
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-use": "^17.5.1",
+    "react-youtube": "^10.1.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@babel/runtime": "^7.25.0",
     "@stylexjs/babel-plugin": "^0.7.5",
     "@stylexjs/eslint-plugin": "^0.7.5",
     "@stylexjs/nextjs-plugin": "^0.7.5",
+    "@svgr/webpack": "^8.1.0",
+    "@types/color": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

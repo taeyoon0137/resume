@@ -7,7 +7,9 @@
 
 import "../styles/css/globals.css";
 
-import type { LayoutProps } from "@/types";
+import { Root } from "@/screens";
+import { LayoutProps } from "@/types";
+
 import type { Metadata, Viewport } from "next";
 
 /**
@@ -16,8 +18,11 @@ import type { Metadata, Viewport } from "next";
  * 페이지의 메타데이터를 정의합니다.
  */
 export const metadata: Metadata = {
+  // 기본 메타 태그
   title: "taeyoon. – resume",
   description: "반갑습니다. Product Designer & FE Engineer(RN)로 활동 중인 이태윤입니다.",
+
+  // 파비콘 설정
   icons: [
     { rel: "apple-touch-icon", sizes: "57x57", url: "/favicon/apple-icon-57x57.png" },
     { rel: "apple-touch-icon", sizes: "60x60", url: "/favicon/apple-icon-60x60.png" },
@@ -47,6 +52,10 @@ export const metadata: Metadata = {
  * 페이지의 뷰포트를 정의합니다.
  */
 export const viewport: Viewport = {
+  initialScale: 1.0,
+  maximumScale: 1.0,
+  minimumScale: 1.0,
+  userScalable: false,
   themeColor: "#000000",
 };
 
@@ -56,15 +65,11 @@ export const viewport: Viewport = {
  * 루트 레이아웃을 정의합니다.
  * 이 레이아웃은 모든 화면에 적용됩니다.
  *
- * @param props {LayoutProps}
+ * @param props {@link LayoutProps}<["@modal"]>
  * @component
  */
-const RootLayout = ({ children }: LayoutProps) => {
-  return (
-    <html lang="kr">
-      <body>{children}</body>
-    </html>
-  );
+const RootLayout = ({ ...props }: LayoutProps<["@modal"]>) => {
+  return <Root.Layout {...props} />;
 };
 
 export default RootLayout;

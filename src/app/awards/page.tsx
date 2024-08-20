@@ -5,32 +5,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import stylex from "@stylexjs/stylex";
+import { Awards } from "@/screens";
 
 import type { PageProps } from "@/types";
 
 /**
- * ### Awards 페이지
+ * ### 수상 내역 페이지
  *
- * 수상 내역 목록을 확인할 수 있는 페이지입니다.
+ * 이력서 메인 페이지입니다.
  *
  * @param props {@link PageProps}
  * @page
  */
-const AwardsPage = (_props: PageProps) => {
-  return <main {...stylex.props(styles.main)}>테스트입니다.</main>;
+const AwardsPage = ({ ...props }: PageProps) => {
+  return <Awards.Page {...props} />;
 };
-
-/**
- * ### Stylex 스타일
- *
- * stylex 기반의 스타일을 정의합니다.
- */
-const styles = stylex.create({
-  main: {
-    color: "red",
-    backgroundColor: "#000000",
-  },
-});
 
 export default AwardsPage;
