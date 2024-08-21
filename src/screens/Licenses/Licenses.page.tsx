@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Copyright 2024 Taeyoon Lee. All Right Reserved.
  *
@@ -5,7 +7,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { PageSheet } from "@/components";
+import stylex from "@stylexjs/stylex";
+
+import { PageFooter, PageHeader, PageSheet } from "@/components";
+import { Separator } from "@/elements";
 
 import type { LicensesPageProps } from "./Licenses.type";
 
@@ -20,7 +25,20 @@ import type { LicensesPageProps } from "./Licenses.type";
  * @deprecated 이 컴포넌트 대신 `Licenses.Page`를 사용하세요.
  */
 const LicensesPage = (_props: LicensesPageProps) => {
-  return <PageSheet></PageSheet>;
+  return (
+    <PageSheet>
+      <PageHeader title="자격증" />
+      <div {...stylex.props(styles.scroll)}></div>
+      <Separator />
+      <PageFooter />
+    </PageSheet>
+  );
 };
+
+const styles = stylex.create({
+  scroll: {
+    flexGrow: 1,
+  },
+});
 
 export default LicensesPage;

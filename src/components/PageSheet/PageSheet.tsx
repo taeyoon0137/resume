@@ -61,7 +61,10 @@ const styles = stylex.create({
       [MOBILE]: "12px",
     },
     maxWidth: 980,
-    minHeight: 1660,
+    minHeight: {
+      default: 1660,
+      [MOBILE]: 0,
+    },
     borderRadius: 12,
     backgroundColor: colors.backgroundSolidCommon,
     boxShadow: "0 4px 80px -20px rgba(0, 0, 0, 0.4)",

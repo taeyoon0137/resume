@@ -17,6 +17,13 @@ import { createContext } from "react";
 export const ModalContext = createContext<React.Dispatch<React.SetStateAction<string[]>>>(() => {});
 
 /**
+ * ### IsModalContext
+ *
+ * 현재 Modal로 렌더링되고 있는지 여부를 전달하는 컨텍스트입니다.
+ */
+export const IsModalContext = createContext<boolean>(false);
+
+/**
  * ### IsModalOpenContext
  *
  * layout 상단에 Modal이 렌더링 중인지 여부를 전달하는 컨텍스트입니다.

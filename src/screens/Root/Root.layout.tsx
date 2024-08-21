@@ -57,7 +57,10 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
 
         {/* 상위 페이지 처리 */}
         <ModalContext.Provider value={setModalList}>
-          <AnimatePresence>{modal}</AnimatePresence>
+          <AnimatePresence>
+            여기에 렌더링
+            {modal}
+          </AnimatePresence>
         </ModalContext.Provider>
       </body>
     </html>

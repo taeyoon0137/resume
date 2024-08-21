@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Copyright 2024 Taeyoon Lee. All Right Reserved.
  *

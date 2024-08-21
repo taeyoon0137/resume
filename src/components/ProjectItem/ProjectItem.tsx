@@ -13,6 +13,7 @@ import stylex from "@stylexjs/stylex";
 import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { Icon, Linkable, Tag, Text } from "@/elements";
 
@@ -41,6 +42,7 @@ const ProjectItem = ({
   thumbnail,
   link,
 }: ProjectItemProps) => {
+  const pathname = usePathname();
   const [expand, _setExpand] = useState(false);
 
   return (
@@ -65,7 +67,11 @@ const ProjectItem = ({
             {organization && (
               <>
                 &nbsp;
-                <Linkable href={organization.link} target="_blank" style={styles.orgLink}>
+                <Linkable
+                  href={organization.link}
+                  target="_blank"
+                  style={[styles.orgLink, !!organization.link && styles.orgLinkable]}
+                >
                   <Text>@{organization.name}</Text>
                 </Linkable>
               </>
@@ -81,6 +87,7 @@ const ProjectItem = ({
                     pathname: `/projects`,
                     query: { keyword: techStack },
                   }}
+                  replace={pathname === "/projects"}
                   scroll={false}
                 >
                   <Tag label={techStack} pressable />
@@ -161,6 +168,8 @@ const styles = stylex.create({
   },
   orgLink: {
     display: "inline",
+  },
+  orgLinkable: {
     textDecoration: {
       default: "none",
       ":hover": "underline",
