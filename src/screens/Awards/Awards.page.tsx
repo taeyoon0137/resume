@@ -3,13 +3,14 @@
 /**
  * Copyright 2024 Taeyoon Lee. All Right Reserved.
  *
- * This source code is licensed under the file found in the
- * LICENSE file in the root directory of this source tree.
+ * This source code is awardd under the file found in the
+ * AWARD file in the root directory of this source tree.
  */
 
 import stylex from "@stylexjs/stylex";
 
-import { PageSheet, PageHeader, PageFooter } from "@/components";
+import { PageSheet, PageHeader, PageFooter, ReceivedItem } from "@/components";
+import { content } from "@/contents";
 import { Separator } from "@/elements";
 
 import type { AwardsPageProps } from "./Awards.type";
@@ -28,7 +29,13 @@ const AwardsPage = (_props: AwardsPageProps) => {
   return (
     <PageSheet>
       <PageHeader title="수상 내역" />
-      <div {...stylex.props(styles.scroll)}></div>
+      <ul {...stylex.props(styles.scroll)}>
+        {content.awards.map((award) => (
+          <li key={award.award}>
+            <ReceivedItem title={award.award} info={award.organization} date={award.issueDate} link={award.link} />
+          </li>
+        ))}
+      </ul>
       <Separator />
       <PageFooter />
     </PageSheet>
