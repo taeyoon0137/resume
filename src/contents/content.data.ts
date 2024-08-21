@@ -79,8 +79,9 @@ export const contentData: ContentData = {
           roles: ["Lead Product Designer", "FE Engineer(RN)"],
           startYear: 2020,
           startMonth: 3,
-          endYear: 2024,
-          endMonth: 9,
+          still: true,
+          // endYear: 2024,
+          // endMonth: 9,
         },
         {
           roles: ["Product Designer (계약)"],
