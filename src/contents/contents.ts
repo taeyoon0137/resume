@@ -220,7 +220,7 @@ function getTechStacks(techStacks: string[][]) {
  */
 interface PolyFillJob {
   company: string | undefined;
-  role: string;
+  roles: string[];
   period: string;
   duration: string;
   link: string | undefined;
@@ -246,7 +246,7 @@ function getCompanies(companies: ContentCompany[]) {
           ...prevJob,
           {
             company: i === 0 ? curr.company : undefined,
-            role: currJob.roles.join("\n"),
+            roles: currJob.roles,
             period: currJob.still
               ? `${currJob.startYear}년 ${currJob.startMonth}월 ~`
               : `${currJob.startYear}년 ${currJob.startMonth}월 ~ ${currJob.endYear}년 ${currJob.endMonth}월`,

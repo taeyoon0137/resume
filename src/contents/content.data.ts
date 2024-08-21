@@ -41,8 +41,9 @@ export const contentData: ContentData = {
     ],
   ],
   techStacks: [
-    ["Figma", "Amplitude", "Lottie", "Protopie", "After Effect", "Photoshop", "Illustrator", "Sketch", "Framer"],
+    ["Figma", "Lottie", "Protopie", "After Effect", "Photoshop", "Illustrator", "Sketch", "Framer"],
     ["Typescript", "React Native", "React", "GCP", "Next.js", "Vite", "ESBuild", "Supabase"],
+    ["MyData", "Openbank", "Plaid", "Amplitude", "Hackle"],
   ],
   companies: [
     {
@@ -139,7 +140,17 @@ export const contentData: ContentData = {
       thumbnail: img_project_thumbnail_whatssub,
       link: "https://whatssub.co",
       organization: "주식회사 왓섭",
-      techStacks: ["Figma", "Lottie", "After Effect", "Amplitude"],
+      techStacks: [
+        "Figma",
+        "Amplitude",
+        "MyData",
+        "Openbank",
+        "Lottie",
+        "After Effect",
+        "Photoshop",
+        "Illustrator",
+        "Sketch",
+      ],
       content: {
         summary: [
           "회사 설립 시점부터 서비스 기획 및 디자인",

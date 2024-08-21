@@ -20,3 +20,10 @@ export type RootLayoutProps = LayoutProps<["@modal"]>;
  * 루트 페이지의 프로퍼티 타입을 정의합니다.
  */
 export type RootPageProps = PageProps;
+
+/**
+ * ### RootErrorProps
+ *
+ * 루트 오류 페이지의 프로퍼티 타입을 정의합니다.
+ */
+export type RootErrorProps = PageProps;

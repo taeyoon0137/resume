@@ -8,6 +8,20 @@
 import * as stylex from "@stylexjs/stylex";
 
 /**
+ * ### 모바일 미디어 쿼리
+ *
+ * 모바일 화면에 대한 미디어 쿼리를 정의합니다.
+ */
+const MOBILE = "@media (max-width: 640px)";
+
+/**
+ * ### 태블릿 미디어 쿼리
+ *
+ * 태블릿 화면에 대한 미디어 쿼리를 정의합니다.
+ */
+const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
+
+/**
  * ### Spaces
  *
  * 전역적으로 사용되는 여백 값들을 정의합니다.
@@ -15,6 +29,14 @@ import * as stylex from "@stylexjs/stylex";
  * @stylex
  */
 export const spaces = stylex.defineVars({
-  paddingHorizontal: "64px",
-  paddingVertical: "48px",
+  paddingHorizontal: {
+    default: "64px",
+    [TABLET]: "40px",
+    [MOBILE]: "20px",
+  },
+  paddingVertical: {
+    default: "48px",
+    [TABLET]: "32px",
+    [MOBILE]: "16px",
+  },
 });

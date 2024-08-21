@@ -5,6 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { Fragment } from "react";
+
 import stylex from "@stylexjs/stylex";
 
 import { content } from "@/contents";
@@ -27,26 +29,28 @@ import type { ResumeSummaryProps } from "./ResumeSummary.type";
 const ResumeSummary = ({ style }: ResumeSummaryProps) => {
   return (
     <section {...stylex.props(styles.container, style)}>
-      <div {...stylex.props(styles.column, styles.group)}>
-        <section>
+      <div {...stylex.props(styles.workGroup)}>
+        <section {...stylex.props(styles.workColumn)}>
           <SummaryTitle title="경력" />
           <ul>{renderCompanies()}</ul>
         </section>
-        <section>
+        <section {...stylex.props(styles.workColumn)}>
           <SummaryTitle title="학력" />
           <ul>{renderSchools()}</ul>
         </section>
       </div>
-      <section {...stylex.props(styles.column)}>
-        <SummaryTitle title="수상 내역" />
-        <ul>{renderAwards()}</ul>
-        <SummaryMore label={`수상 내역 ${content.awards.length}개 모두 보기`} href="/awards" />
-      </section>
-      <section {...stylex.props(styles.column)}>
-        <SummaryTitle title="자격증" />
-        <ul>{renderLicenses()}</ul>
-        <SummaryMore label={`자격증 ${content.licenses.length}개 모두 보기`} href="/licenses" />
-      </section>
+      <div {...stylex.props(styles.activityGroup)}>
+        <section {...stylex.props(styles.activityColumn)}>
+          <SummaryTitle title="수상 내역" />
+          <ul>{renderAwards()}</ul>
+          <SummaryMore label={`수상 내역 ${content.awards.length}개 모두 보기`} href="/awards" />
+        </section>
+        <section {...stylex.props(styles.activityColumn)}>
+          <SummaryTitle title="자격증" />
+          <ul>{renderLicenses()}</ul>
+          <SummaryMore label={`자격증 ${content.licenses.length}개 모두 보기`} href="/licenses" />
+        </section>
+      </div>
     </section>
   );
 };
@@ -56,15 +60,23 @@ const ResumeSummary = ({ style }: ResumeSummaryProps) => {
  */
 function renderCompanies() {
   return content.companies.map((company) => (
-    <li key={company.company + company.role}>
+    <li key={company.company + company.roles.join()}>
       <SummaryItem
         title={company.company}
-        info={company.role}
+        info={company.roles.map((role, i) => {
+          if (i === 0) return role;
+          return (
+            <Fragment key={role}>
+              <br />
+              {role}
+            </Fragment>
+          );
+        })}
         caption={
           <>
             {company.period}
-            <div {...stylex.props(styles.itemDateSeparator)}></div>
-            {company.duration}
+            <div {...stylex.props(styles.rowSeparator)}></div>
+            <Text style={styles.duration}>{company.duration}</Text>
           </>
         }
         link={company.link}
@@ -123,19 +135,61 @@ function renderLicenses() {
   });
 }
 
+const MOBILE = "@media (max-width: 640px)";
+const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
 const styles = stylex.create({
   container: {
-    flexDirection: "row",
+    flexDirection: {
+      default: "row",
+      [TABLET]: "column",
+      [MOBILE]: "column",
+    },
     paddingLeft: spaces.paddingHorizontal,
     paddingRight: spaces.paddingHorizontal,
     paddingTop: 12,
     paddingBottom: 12,
-    gap: 24,
+    gap: {
+      default: 24,
+      [MOBILE]: 20,
+    },
   },
-  group: {
-    gap: 16,
+  workGroup: {
+    flexDirection: {
+      default: "column",
+      [TABLET]: "row",
+      [MOBILE]: "column",
+    },
+    flexGrow: 1,
+    flexBasis: 0,
+    columnGap: 16,
+    rowGap: {
+      default: "unset",
+      [MOBILE]: 20,
+    },
   },
-  column: {
+  workColumn: {
+    flexGrow: {
+      default: "unset",
+      [TABLET]: 1,
+      [MOBILE]: "unset",
+    },
+    flexBasis: 0,
+  },
+  activityGroup: {
+    flexDirection: {
+      default: "row",
+      [TABLET]: "row",
+      [MOBILE]: "column",
+    },
+    flexGrow: 2,
+    flexBasis: 0,
+    columnGap: 16,
+    rowGap: {
+      default: "unset",
+      [MOBILE]: 20,
+    },
+  },
+  activityColumn: {
     flexGrow: 1,
     flexBasis: 0,
   },
@@ -144,21 +198,7 @@ const styles = stylex.create({
     textDecoration: "inherit",
     textDecorationColor: colors.contentGrayA3,
   },
-
-  itemContainer: {
-    paddingBottom: 16,
-  },
-  itemTitle: {
-    marginBottom: 6,
-  },
-  itemTitleLink: {
-    marginLeft: 4,
-  },
-  itemInfo: {},
-  itemDate: {
-    marginTop: 6,
-  },
-  itemDateSeparator: {
+  rowSeparator: {
     display: "inline-block",
     marginLeft: 8,
     marginRight: 8,
@@ -166,12 +206,8 @@ const styles = stylex.create({
     height: 10,
     backgroundColor: colors.lineSeparatorStroke,
   },
-  moreButton: {
-    textDecoration: {
-      default: "none",
-      ":hover": "underline",
-    },
-    textDecorationColor: colors.contentGrayA3,
+  duration: {
+    whiteSpace: "nowrap",
   },
 });
 

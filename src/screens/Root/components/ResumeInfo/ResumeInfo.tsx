@@ -42,7 +42,9 @@ const ResumeInfo = ({ style }: ResumeInfoProps) => {
 const ResumeName = () => {
   return (
     <h2>
-      <Text kind="display-a1-bold">{content.info.name}</Text>
+      <Text kind="display-a1-bold" style={styles.name}>
+        {content.info.name}
+      </Text>
     </h2>
   );
 };
@@ -57,14 +59,19 @@ const ResumeJob = () => {
     <div {...stylex.props(styles.jobContainer)}>
       <Text kind="body-a1-medium">
         {content.job.roles.map((role, i) => {
-          if (i === 0) return role;
+          if (i === 0)
+            return (
+              <Text key={role} style={styles.jobTitle}>
+                {role}
+              </Text>
+            );
           return (
             <Fragment key={role}>
               {/* 구분자 */}
               <Text kind="body-a1-regular" color={colors.contentGrayA2} style={styles.jobTitleSeparator}>
                 &
               </Text>
-              {role}
+              <Text style={styles.jobTitle}>{role}</Text>
             </Fragment>
           );
         })}
@@ -77,11 +84,11 @@ const ResumeJob = () => {
       <Text kind="body-a1-regular" color={colors.contentGrayA2}>
         {content.job.period}
         <div {...stylex.props(styles.workDateSeparator)}></div>
-        {content.job.duration}차
+        <Text style={styles.period}>{content.job.duration}차</Text>
         {content.info.memo && (
           <>
             <div {...stylex.props(styles.workDateSeparator)}></div>
-            {content.info.memo}
+            <Text style={styles.period}>{content.info.memo}</Text>
           </>
         )}
       </Text>
@@ -115,12 +122,20 @@ const ResumeContact = () => {
   );
 };
 
+const MOBILE = "@media (max-width: 640px)";
+// const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
 const styles = stylex.create({
   container: {
     paddingTop: 32,
     paddingLeft: spaces.paddingHorizontal,
     paddingRight: spaces.paddingHorizontal,
     paddingBottom: 24,
+  },
+  name: {
+    fontSize: {
+      default: 56, // display-a1
+      [MOBILE]: 40, // display-a2
+    },
   },
   link: (underlineColor?: StyleXVar<string>) => ({
     textDecoration: {
@@ -135,6 +150,9 @@ const styles = stylex.create({
   jobTitleSeparator: {
     marginLeft: 6,
     marginRight: 6,
+  },
+  jobTitle: {
+    display: "inline-block",
   },
   jobCompany: {
     marginLeft: 4,
@@ -157,7 +175,9 @@ const styles = stylex.create({
   },
   linkGroup: {
     flexDirection: "row",
-    gap: 20,
+    flexWrap: "wrap",
+    columnGap: 20,
+    rowGap: 8,
   },
   linkContainer: {
     display: "flex",
@@ -167,6 +187,9 @@ const styles = stylex.create({
   linkIcon: {
     marginTop: 2,
     marginRight: 6,
+  },
+  period: {
+    display: "inline-block",
   },
 });
 

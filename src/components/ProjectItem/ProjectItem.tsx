@@ -117,22 +117,28 @@ const ProjectItem = ({
         )}
       </div>
       {thumbnail && (
-        <figure>
-          <Image src={thumbnail} alt={title} {...stylex.props(styles.thumbnail)} />
+        <figure {...stylex.props(styles.thumbnail)}>
+          <Image src={thumbnail} alt={title} fill />
         </figure>
       )}
     </article>
   );
 };
 
+const MOBILE = "@media (max-width: 640px)";
+const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
 const styles = stylex.create({
   container: {
-    flexDirection: "row",
+    flexDirection: {
+      default: "row",
+      [MOBILE]: "column-reverse",
+    },
     paddingLeft: spaces.paddingHorizontal,
     paddingRight: spaces.paddingHorizontal,
     paddingTop: 12,
     paddingBottom: 32,
-    gap: 40,
+    columnGap: 40,
+    rowGap: 16,
   },
   info: {
     flexGrow: 1,
@@ -201,12 +207,22 @@ const styles = stylex.create({
     backgroundColor: colors.lineSeparatorStroke,
   },
   thumbnail: {
-    width: 240,
-    height: 135,
+    position: "relative",
+    width: {
+      default: 240,
+      [TABLET]: 200,
+      [MOBILE]: "auto",
+    },
+    alignSelf: {
+      default: "flex-start",
+      [MOBILE]: "auto",
+    },
+    aspectRatio: "16 / 9",
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: colors.lineOutline,
     borderRadius: 8,
+    overflow: "hidden",
   },
 });
 
