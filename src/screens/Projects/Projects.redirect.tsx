@@ -35,7 +35,7 @@ const ProjectsRedirect = (_props: PageProps) => {
   function redirectRoot(): void {
     const params = new URLSearchParams(searchParams);
     params.set("redirect", "projects");
-    router.replace(`/?${params.toString()}`);
+    router.replace(`/?${params.toString()}`, { scroll: false });
   }
 
   return <div></div>;
