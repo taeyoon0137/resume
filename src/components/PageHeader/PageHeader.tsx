@@ -57,7 +57,7 @@ const PageHeader = ({ title, below, style, ...props }: PageHeaderProps) => {
     if (isModal) {
       router.back();
     } else {
-      router.replace("/");
+      router.replace("/", { scroll: false });
     }
   }
 

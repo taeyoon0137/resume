@@ -21,10 +21,10 @@ import { Text } from "@/elements/Text";
  * @param props {@link TagProps}
  * @component
  */
-const Tag = ({ label, pressable, style, ...props }: TagProps) => {
+const Tag = ({ label, kind = "secondary", pressable, style, ...props }: TagProps) => {
   return (
-    <div {...stylex.props(styles.tag, style)} {...props}>
-      <Text kind="body-a2-medium" color={colors.contentGrayA2} style={styles.label}>
+    <div {...stylex.props(styles.tag, styles[kind], style)} {...props}>
+      <Text kind="body-a2-medium" style={styles.label}>
         {label}
       </Text>
       {pressable && <div {...stylex.props(styles.dim)} />}
@@ -42,8 +42,8 @@ const styles = stylex.create({
     paddingTop: 4,
     paddingBottom: 4,
     borderRadius: 8,
-    backgroundColor: colors.contentGrayA4,
     overflow: "hidden",
+    transition: "color 400ms, background-color 400ms",
   },
   dim: {
     position: "absolute",
@@ -63,7 +63,16 @@ const styles = stylex.create({
     },
   },
   label: {
+    color: "inherit",
     whiteSpace: "nowrap",
+  },
+  primary: {
+    color: colors.contentInvertA1,
+    backgroundColor: colors.contentGrayA1,
+  },
+  secondary: {
+    color: colors.contentGrayA1,
+    backgroundColor: colors.contentGrayA4,
   },
 });
 

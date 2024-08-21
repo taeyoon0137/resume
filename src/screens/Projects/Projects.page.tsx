@@ -11,6 +11,7 @@ import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
 import stylex from "@stylexjs/stylex";
 import * as hangul from "hangul-js";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { PageFooter, PageHeader, PageSheet, ProjectItem } from "@/components";
@@ -39,6 +40,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
   const searchParams = useSearchParams();
   const [keyword, setKeyword] = useState(searchParams.get("keyword") ?? "");
   const projects = useMemo(getProjects, [keyword]);
+  const subKeyword = useMemo(getSubKeyword, [keyword]);
 
   // 페이지가 로드되었을 때, 포커스 여부가 전달되면 검색창에 포커스를 줍니다.
   useEffect(initFocus, []);
@@ -99,6 +101,33 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
   }
 
   /**
+   * 보조 검색 키워드를 반환합니다.
+   *
+   * @returns 보조 검색 키워드
+   */
+  function getSubKeyword(): string | undefined {
+    // 검색어가 없으면 모든 아무것도 반환하지 않습니다.
+    if (!keyword) return;
+
+    // 검색어를 정제합니다.
+    const cleanKeyword = cleanText(keyword);
+
+    // 찾아볼 보조 검색어 목록입니다.
+    const subKeywords = Object.entries({
+      피그마: "Figma",
+      리액트: "React",
+      리액트네이티브: "React Native",
+      로티: "Lottie",
+    });
+
+    // 보조 검색어를 찾습니다.
+    const subKeyword = subKeywords.find(([key]) => cleanText(key).includes(cleanKeyword));
+
+    // 보조 검색어가 1개라면 반환합니다.
+    return subKeyword?.[1];
+  }
+
+  /**
    * 유연한 검색을 위해, 텍스트를 정제합니다.
    * 또한 자모를 분리하여, 중간 검색이 가능하도록 합니다.
    *
@@ -112,7 +141,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
     // '0-9' : 숫자
     // ^ : not (이외의 문자들)
     // g : 전역 검색
-    return hangul.disassemble(text.replace(/[^가-힣a-zA-Z0-9]/g, "").toLowerCase()).join("");
+    return hangul.disassemble(text.replace(/[^가-힣a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]/g, "").toLowerCase()).join("");
   }
 
   /**
@@ -130,15 +159,11 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
     const params = new URLSearchParams(searchParams);
 
     // 파라미터를 새로운 값으로 업데이트
-    if (event.target.value) {
-      params.set("keyword", event.target.value);
-    } else {
-      params.delete("keyword");
-    }
+    params.set("keyword", event.target.value);
 
     // 변경된 파라미터를 사용해 URL을 업데이트
     // History를 남기지 않기 위해 replace를 사용합니다.
-    router.replace(`?${params.toString()}`);
+    router.replace(`?${params.toString()}`, { scroll: false });
   }
 
   /**
@@ -170,6 +195,20 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
             />
           }
         />
+        {subKeyword && (
+          <Text color={colors.contentGrayA2} style={styles.subKeywordGuide}>
+            혹시&nbsp;
+            <Link
+              href={{ pathname: "/project", query: { keyword: subKeyword } }}
+              scroll={false}
+              replace={true}
+              {...stylex.props(styles.subKeyword)}
+            >
+              {subKeyword}
+            </Link>
+            를 검색하셨나요?
+          </Text>
+        )}
 
         <ul {...stylex.props(styles.scroll)}>
           {projects.map((project) => (
@@ -210,6 +249,20 @@ const styles = stylex.create({
     marginRight: spaces.paddingHorizontal,
     marginTop: 8,
     marginBottom: 12,
+  },
+  subKeywordGuide: {
+    marginLeft: spaces.paddingHorizontal,
+    marginRight: spaces.paddingHorizontal,
+    marginTop: 8,
+    marginBottom: 12,
+  },
+  subKeyword: {
+    textDecoration: {
+      default: "none",
+      ":hover": "underline",
+    },
+    textDecorationColor: colors.contentGrayA2,
+    color: colors.contentGrayA1,
   },
   scroll: {
     flexGrow: 1,

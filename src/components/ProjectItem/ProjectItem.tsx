@@ -11,9 +11,10 @@ import { useState } from "react";
 
 import stylex from "@stylexjs/stylex";
 import { m, AnimatePresence } from "framer-motion";
+import * as hangul from "hangul-js";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 import { Icon, Linkable, Tag, Text } from "@/elements";
 
@@ -43,7 +44,25 @@ const ProjectItem = ({
   link,
 }: ProjectItemProps) => {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [expand, _setExpand] = useState(false);
+
+  /**
+   * 유연한 검색을 위해, 텍스트를 정제합니다.
+   * 또한 자모를 분리하여, 중간 검색이 가능하도록 합니다.
+   *
+   * @param text - 정제할 텍스트
+   * @returns 정제된 텍스트
+   */
+  function cleanText(text: string): string {
+    // 정규식: /[^가-힣a-zA-Z0-9]/g
+    // '가-힣' : 한글
+    // 'a-zA-Z' : 영어 대소문자
+    // '0-9' : 숫자
+    // ^ : not (이외의 문자들)
+    // g : 전역 검색
+    return hangul.disassemble(text.replace(/[^가-힣a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]/g, "").toLowerCase()).join("");
+  }
 
   return (
     <article {...stylex.props(styles.container)}>
@@ -90,7 +109,16 @@ const ProjectItem = ({
                   replace={pathname === "/project"}
                   scroll={false}
                 >
-                  <Tag label={techStack} pressable />
+                  <Tag
+                    label={techStack}
+                    kind={
+                      searchParams.get("keyword") &&
+                      cleanText(techStack).includes(cleanText(searchParams.get("keyword") ?? "갉"))
+                        ? "primary"
+                        : "secondary"
+                    }
+                    pressable
+                  />
                 </Link>
               </li>
             ))}

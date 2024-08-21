@@ -21,6 +21,13 @@ export interface TagProps extends Props<HTMLDivElement, "children"> {
   label: string;
 
   /**
+   * ### 태그 종류
+   *
+   * 태그의 종류를 지정합니다.
+   */
+  kind?: "primary" | "secondary";
+
+  /**
    * ### 클릭 가능 여부
    *
    * 태그를 클릭 가능하게 할지 여부입니다.
