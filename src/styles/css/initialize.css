@@ -12,6 +12,9 @@
 
 @charset "UTF-8";
 
+/* Pretendard */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+
 /* Flexbox 설정 및 React-Native와 구조 일치 */
 /* 사용하게 된 태그만 일일히 삽입합니다. */
 main,
