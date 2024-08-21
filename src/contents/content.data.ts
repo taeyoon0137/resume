@@ -143,7 +143,7 @@ export const contentData: ContentData = {
       link: "https://www.youtube.com/watch?v=qhA2j498cIg",
     },
     {
-      award: "Smarteen App Challenge 앱잼",
+      award: "제 19회 Smarteen App Challenge 앱잼",
       prize: "최우수상",
       organization: "SK 플래닛",
       issueYear: 2019,
@@ -159,7 +159,7 @@ export const contentData: ContentData = {
       link: "https://m.blog.naver.com/kpostbank/221318345067",
     },
     {
-      award: "Smarteen App Challenge 앱잼",
+      award: "제 14회 Smarteen App Challenge 앱잼",
       prize: "장려상",
       organization: "SK 플래닛",
       issueYear: 2017,
