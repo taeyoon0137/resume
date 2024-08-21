@@ -52,10 +52,22 @@ const styles = stylex.create({
     paddingRight: 20,
     paddingTop: 12,
     paddingBottom: 12,
-    borderWidth: 0.5,
+    borderWidth: 0,
     borderRadius: 14,
-    borderColor: colors.lineOutline,
+    outlineWidth: {
+      default: "1px",
+      ":focus": "2px",
+    },
+    outlineColor: {
+      default: colors.contentGrayA3,
+      ":focus": colors.contentGrayA1,
+    },
+    color: {
+      default: colors.contentGrayA1,
+      ":focus": colors.contentGrayA0,
+    },
     backgroundColor: colors.backgroundSolidElevate,
+    transition: "color 400ms, outline-width 200ms, outline-color 200ms",
 
     // "body-a1-regular"
     fontSize: 17,

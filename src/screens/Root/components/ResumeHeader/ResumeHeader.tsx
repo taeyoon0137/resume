@@ -61,6 +61,7 @@ const styles = stylex.create({
     top: -1,
   },
   symbolContainer: {
+    flexDirection: "row",
     paddingTop: 12,
     paddingLeft: spaces.paddingHorizontal,
     paddingRight: spaces.paddingHorizontal,

@@ -36,13 +36,15 @@ const Icon = ({ name, fill = colors.contentGrayA1, size = 24, style, ...props }:
     return icon[name.replace(".", "_") as keyof typeof icon];
   }
 
-  return <IconComponent {...stylex.props(styles.icon(size, fill), style)} {...props} />;
+  return <IconComponent {...stylex.props(styles.size(size), styles.fill(fill), style)} {...props} />;
 };
 
 const styles = stylex.create({
-  icon: (size: number, fill: StyleXVar<string>) => ({
+  size: (size: number) => ({
     width: size,
     height: size,
+  }),
+  fill: (fill: StyleXVar<string>) => ({
     color: fill,
   }),
 });

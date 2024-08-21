@@ -24,6 +24,7 @@
     "stylexjs",
     "Supabase",
     "Surfit",
-    "treeshake"
+    "treeshake",
+    "xmark"
   ]
 }

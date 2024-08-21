@@ -7,13 +7,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useContext, useId, useLayoutEffect } from "react";
+import { useContext, useEffect, useId, useLayoutEffect, useRef } from "react";
 
 import stylex from "@stylexjs/stylex";
 import { cubicBezier, motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
-import { ModalContext } from "@/contexts";
+import { IsModalContext, ModalContext } from "@/contexts";
 
 import type { PageModalProps } from "./PageModal.type";
 import type { AnimationProps } from "framer-motion";
@@ -28,11 +28,16 @@ import type { AnimationProps } from "framer-motion";
  */
 const PageModal = ({ children }: PageModalProps) => {
   const modalId = useId();
+  const scrollRef = useRef<HTMLDivElement>(null);
   const setModal = useContext(ModalContext);
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   // 모달이 렌더링 될 때, 그 소식을 다른 컴포넌트에 전파합니다.
   useLayoutEffect(updateModal, []);
+
+  // 파라메터가 변경되는 경우, 최상단으로 스크롤합니다.
+  useEffect(scrollToTop, [searchParams]);
 
   /**
    * 해당 모달이 렌더링 될 때, 모달의 렌더링 내역을 저장합니다.
@@ -59,6 +64,13 @@ const PageModal = ({ children }: PageModalProps) => {
   }
 
   /**
+   * 최상단으로 스크롤합니다.
+   */
+  function scrollToTop(): void {
+    scrollRef.current?.scrollTo(0, 0);
+  }
+
+  /**
    * 백드롭 클릭 시 동작을 정의합니다.
    */
   function handleBackdropClick(): void {
@@ -66,10 +78,12 @@ const PageModal = ({ children }: PageModalProps) => {
   }
 
   return (
-    <motion.div key={modalId} {...transition} {...stylex.props(styles.modal)}>
-      <div onClick={handleBackdropClick} {...stylex.props(styles.backdrop)} />
-      {children}
-    </motion.div>
+    <IsModalContext.Provider value={true}>
+      <motion.div key={modalId} ref={scrollRef} {...transition} {...stylex.props(styles.modal)}>
+        <div onClick={handleBackdropClick} {...stylex.props(styles.backdrop)} />
+        {children}
+      </motion.div>
+    </IsModalContext.Provider>
   );
 };
 

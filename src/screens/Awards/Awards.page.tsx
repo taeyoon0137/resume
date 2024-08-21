@@ -7,9 +7,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import Link from "next/link";
+import stylex from "@stylexjs/stylex";
 
-import { PageSheet, PageHeader } from "@/components";
+import { PageSheet, PageHeader, PageFooter } from "@/components";
+import { Separator } from "@/elements";
 
 import type { AwardsPageProps } from "./Awards.type";
 
@@ -26,12 +27,18 @@ import type { AwardsPageProps } from "./Awards.type";
 const AwardsPage = (_props: AwardsPageProps) => {
   return (
     <PageSheet>
-      <PageHeader />
-      <Link href="/awards?id=asdkandlasnlkd" scroll={false}>
-        테스트 버튼입니다.
-      </Link>
+      <PageHeader title="수상 내역" />
+      <div {...stylex.props(styles.scroll)}></div>
+      <Separator />
+      <PageFooter />
     </PageSheet>
   );
 };
+
+const styles = stylex.create({
+  scroll: {
+    flexGrow: 1,
+  },
+});
 
 export default AwardsPage;
