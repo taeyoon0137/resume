@@ -18,6 +18,9 @@ import type { Metadata, Viewport } from "next";
  * 페이지의 메타데이터를 정의합니다.
  */
 export const metadata: Metadata = {
+  // 베이스 경로
+  metadataBase: new URL("https://resume.taeyoon.xyz"),
+
   // 기본 메타 태그
   title: "taeyoon. – resume",
   description: "반갑습니다. Product Designer & FE Engineer(RN)로 활동 중인 이태윤입니다.",
