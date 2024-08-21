@@ -9,8 +9,7 @@
 
 import { useEffect } from "react";
 
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import { PageFooter, PageSheet } from "@/components";
 import { Separator } from "@/elements";

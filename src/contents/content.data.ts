@@ -17,6 +17,7 @@ import {
   img_project_thumbnail_whatssub_global,
   img_side_project_thumbnail_cc,
   img_side_project_thumbnail_echoscript,
+  img_side_project_thumbnail_sdvd,
 } from "@/assets";
 
 import type { ContentData } from "./contents.type";
@@ -41,8 +42,19 @@ export const contentData: ContentData = {
     ],
   ],
   techStacks: [
-    ["Figma", "Lottie", "Protopie", "After Effect", "Photoshop", "Illustrator", "Sketch", "Framer"],
-    ["Typescript", "React Native", "React", "GCP", "Next.js", "Vite", "ESBuild", "Supabase"],
+    [
+      "Figma",
+      "Lottie",
+      "Protopie",
+      "After Effect",
+      "Photoshop",
+      "Illustrator",
+      "Sketch",
+      "Framer",
+      "Final Cut Pro X",
+      "Motion Pro X",
+    ],
+    ["Typescript", "React Native", "React", "Yarn", "Node", "GCP", "Next.js", "Vite", "ESBuild", "Supabase", "Sentry"],
     ["MyData", "Openbank", "Plaid", "Amplitude", "Hackle"],
   ],
   companies: [
@@ -109,6 +121,38 @@ export const contentData: ContentData = {
       link: "https://www.facebook.com/sharedesignspectrum/photos/a.204620676609804/541263699612165/?type=3",
       pin: true,
     },
+    {
+      award: "Coding Campus 해커톤",
+      prize: "입상",
+      organization: "JA Korea, Samsung SDS",
+      issueYear: 2019,
+      issueMonth: 7,
+      link: "https://www.youtube.com/watch?v=qhA2j498cIg",
+    },
+    {
+      award: "Smarteen App Challenge 앱잼",
+      prize: "최우수상",
+      organization: "SK 플래닛",
+      issueYear: 2019,
+      issueMonth: 4,
+      link: "https://game.donga.com/91814",
+    },
+    {
+      award: "2018 대한민국 우표디자인 공모대전",
+      prize: "금상",
+      organization: "한국우편사업진흥원",
+      issueYear: 2018,
+      issueMonth: 2,
+      link: "https://m.blog.naver.com/kpostbank/221318345067",
+    },
+    {
+      award: "Smarteen App Challenge 앱잼",
+      prize: "장려상",
+      organization: "SK 플래닛",
+      issueYear: 2017,
+      issueMonth: 12,
+      link: "https://www.donga.com/news/It/article/all/20171221/87859003/1",
+    },
   ],
   licenses: [
     {
@@ -132,6 +176,36 @@ export const contentData: ContentData = {
       issueMonth: 8,
       pin: true,
     },
+    {
+      license: "International Computer Driving License (Module 2, 4, 6)",
+      organization: "ICDL",
+      issueYear: 2014,
+      issueMonth: 2,
+    },
+    {
+      license: "ITQ 정보기술자격 한글파워포인트 A",
+      organization: "한국생산성본부",
+      issueYear: 2014,
+      issueMonth: 1,
+    },
+    {
+      license: "GTQi 일러스트레이터1급",
+      organization: "한국생산성본부",
+      issueYear: 2013,
+      issueMonth: 10,
+    },
+    {
+      license: "ITQ 정보기술자격 한글엑셀 A",
+      organization: "한국생산성본부",
+      issueYear: 2013,
+      issueMonth: 9,
+    },
+    {
+      license: "GTQ 일러스트레이터1급",
+      organization: "한국생산성본부",
+      issueYear: 2012,
+      issueMonth: 10,
+    },
   ],
   projects: [
     {
@@ -149,6 +223,7 @@ export const contentData: ContentData = {
         "After Effect",
         "Photoshop",
         "Illustrator",
+        "Protopie",
         "Sketch",
       ],
       content: {
@@ -192,7 +267,7 @@ export const contentData: ContentData = {
       thumbnail: img_project_thumbnail_whatssub_global,
       link: "https://whatssub.co",
       organization: "주식회사 왓섭",
-      techStacks: ["Figma", "Lottie", "Amplitude"],
+      techStacks: ["Figma", "Lottie", "Amplitude", "After Effect", "Photoshop", "Illustrator", "Hackle"],
       content: {
         summary: [
           "해외 서비스 제공을 위한 서비스 기획 및 디자인 재설계",
@@ -213,7 +288,7 @@ export const contentData: ContentData = {
       thumbnail: img_project_thumbnail_bang,
       link: "https://devfolio.co/projects/bang-ea5c",
       organization: "주식회사 왓섭",
-      techStacks: ["Figma", "Typescript", "React-Native"],
+      techStacks: ["Figma", "Typescript", "React-Native", "Plaid"],
       content: {
         summary: [
           "블록체인을 활용한 결제 내역 기반의 리뷰 SNS 플랫폼 기획 및 디자인",
@@ -230,7 +305,7 @@ export const contentData: ContentData = {
       roles: ["FE Engineer"],
       thumbnail: img_project_thumbnail_whatssub_figma_plugin,
       organization: "주식회사 왓섭",
-      techStacks: ["Figma", "Typescript", "Vite", "ESBuild", "React", "Amplitude"],
+      techStacks: ["Figma", "Typescript", "Vite", "ESBuild", "React", "Amplitude", "Hackle"],
       content: {
         summary: [
           "피그마 내에서 정기적인 유지보수 작업을 자동화 하기 위한 자체 플러그인 개발",
@@ -308,6 +383,22 @@ export const contentData: ContentData = {
       },
       startYear: 2023,
       startMonth: 9,
+      duration: 2 * 7,
+    },
+    {
+      project: "서울디자인고등학교 제 8회 졸업전시회",
+      roles: ["Graphic Designer"],
+      thumbnail: img_side_project_thumbnail_sdvd,
+      link: "https://vimeo.com/1001172391",
+      techStacks: ["Final Cur Pro X", "Motion Pro X"],
+      content: {
+        summary: [
+          "졸업전시회 준비 위원회로서 관련 그래픽 제작 및 전시회 준비",
+          "홍보 영상 제작 및 졸업전시 전시 배치, 전시관 장비 설치 등의 업무 수행",
+        ],
+      },
+      startYear: 2019,
+      startMonth: 8,
       duration: 2 * 7,
     },
   ],

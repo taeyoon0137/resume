@@ -17,6 +17,7 @@ export { default as img_project_thumbnail_bang } from "./img_project_thumbnail_b
 export { default as img_project_thumbnail_whatssub_design_system } from "./img_project_thumbnail_whatssub_design_system.png";
 export { default as img_side_project_thumbnail_cc } from "./img_side_project_thumbnail_cc.png";
 export { default as img_side_project_thumbnail_echoscript } from "./img_side_project_thumbnail_echoscript.png";
+export { default as img_side_project_thumbnail_sdvd } from "./img_side_project_thumbnail_sdvd.png";
 export { default as img_activity_thumbnail_design_off } from "./img_activity_thumbnail_design_off.png";
 export { default as img_activity_thumbnail_whatssub_blog_interview } from "./img_activity_thumbnail_whatssub_blog_interview.png";
 export { default as img_activity_thumbnail_medium_semantic } from "./img_activity_thumbnail_medium_semantic.png";
