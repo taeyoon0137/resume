@@ -22,6 +22,15 @@ export const metadata: Metadata = {
   title: "taeyoon. – resume",
   description: "반갑습니다. Product Designer & FE Engineer(RN)로 활동 중인 이태윤입니다.",
 
+  // 오픈 그래프
+  openGraph: {
+    siteName: "taeyoon. – resume",
+    title: "taeyoon. – resume",
+    description: "Product Designer & FE Engineer(RN)",
+    images: "/img_open_graph.png",
+    url: "https://resume.taeyoon.xyz",
+  },
+
   // 파비콘 설정
   icons: [
     { rel: "apple-touch-icon", sizes: "57x57", url: "/favicon/apple-icon-57x57.png" },
