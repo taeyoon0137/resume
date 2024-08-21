@@ -6,6 +6,7 @@
  */
 
 import ProjectsPage from "./Projects.page";
+import ProjectsRedirect from "./Projects.redirect";
 
 /**
  * ### Projects
@@ -22,6 +23,15 @@ export const Projects = {
    * @page
    */
   Page: ProjectsPage,
+
+  /**
+   * ### 리다이렉트
+   *
+   * 리다이렉트를 할 수 있는 컴포넌트입니다.
+   *
+   * @redirect
+   */
+  Redirect: ProjectsRedirect,
 };
 
 export * from "./Projects.type";

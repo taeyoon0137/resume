@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * Copyright 2024 Taeyoon Lee. All Right Reserved.
  *
@@ -7,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useEffect } from "react";
+import { Suspense } from "react";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { Projects } from "@/screens";
 
 import type { PageProps } from "@/types";
 
@@ -22,21 +20,11 @@ import type { PageProps } from "@/types";
  * @page
  */
 const ProjectsPage = (_props: PageProps) => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  useEffect(redirectRoot, []);
-
-  /**
-   * 모달로 렌더링 될 수 있도록, 루트로 이동 후 다시 렌더링합니다.
-   */
-  function redirectRoot(): void {
-    const params = new URLSearchParams(searchParams);
-    params.set("redirect", "projects");
-    router.replace(`/?${params.toString()}`);
-  }
-
-  return null;
+  return (
+    <Suspense fallback={<div></div>}>
+      <Projects.Redirect />
+    </Suspense>
+  );
 };
 
 export default ProjectsPage;

@@ -6,6 +6,7 @@
  */
 
 import AwardsPage from "./Awards.page";
+import AwardsRedirect from "./Awards.redirect";
 
 /**
  * ### Awards
@@ -22,6 +23,16 @@ export const Awards = {
    * @page
    */
   Page: AwardsPage,
+
+  /**
+   * ### 리다이렉트
+   *
+   * 리다이렉트를 할 수 있는 컴포넌트입니다.
+   *
+   * @param props {@link AwardsRedirectProps}
+   * @redirect
+   */
+  Redirect: AwardsRedirect,
 };
 
 export * from "./Awards.type";

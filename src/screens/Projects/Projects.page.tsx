@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
 import stylex from "@stylexjs/stylex";
 import * as hangul from "hangul-js";
@@ -155,46 +155,48 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
   }
 
   return (
-    <PageSheet>
-      <PageHeader
-        title="프로젝트"
-        below={
-          <TextInput
-            ref={inputRef}
-            value={keyword}
-            onChange={handleKeywordChange}
-            onKeyDown={handleKeydown}
-            placeholder={`${projects.length}개의 프로젝트`}
-            style={styles.searchBar}
-          />
-        }
-      />
-
-      <ul {...stylex.props(styles.scroll)}>
-        {projects.map((project) => (
-          <li key={project.title}>
-            <ProjectItem
-              title={project.title}
-              role={project.role}
-              organization={project.organization ?? { name: "개인 프로젝트" }}
-              techStacks={project.techStacks}
-              summary={project.summary}
-              period={project.period}
-              duration={project.duration}
-              thumbnail={project.thumbnail}
-              link={project.link}
+    <Suspense fallback={<div></div>}>
+      <PageSheet>
+        <PageHeader
+          title="프로젝트"
+          below={
+            <TextInput
+              ref={inputRef}
+              value={keyword}
+              onChange={handleKeywordChange}
+              onKeyDown={handleKeydown}
+              placeholder={`${projects.length}개의 프로젝트`}
+              style={styles.searchBar}
             />
-          </li>
-        ))}
-        {projects.length === 0 && (
-          <div {...stylex.props(styles.empty)}>
-            <Text color={colors.contentGrayA3}>검색 결과가 없습니다.</Text>
-          </div>
-        )}
-      </ul>
-      <Separator />
-      <PageFooter />
-    </PageSheet>
+          }
+        />
+
+        <ul {...stylex.props(styles.scroll)}>
+          {projects.map((project) => (
+            <li key={project.title}>
+              <ProjectItem
+                title={project.title}
+                role={project.role}
+                organization={project.organization ?? { name: "개인 프로젝트" }}
+                techStacks={project.techStacks}
+                summary={project.summary}
+                period={project.period}
+                duration={project.duration}
+                thumbnail={project.thumbnail}
+                link={project.link}
+              />
+            </li>
+          ))}
+          {projects.length === 0 && (
+            <div {...stylex.props(styles.empty)}>
+              <Text color={colors.contentGrayA3}>검색 결과가 없습니다.</Text>
+            </div>
+          )}
+        </ul>
+        <Separator />
+        <PageFooter />
+      </PageSheet>
+    </Suspense>
   );
 };
 

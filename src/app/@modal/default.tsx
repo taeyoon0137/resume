@@ -14,7 +14,7 @@
  * @component
  */
 const ModalDefault = () => {
-  return null;
+  return <div></div>;
 };
 
 export default ModalDefault;
