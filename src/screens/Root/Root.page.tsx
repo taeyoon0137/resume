@@ -69,7 +69,7 @@ const RootPage = (_props: RootPageProps) => {
 
     // 모달로 이동합니다.
     // 기존 파라메터를 정리할 수 있도록 딜레이를 줍니다.
-    setTimeout(() => router.push(param), 200);
+    setTimeout(() => router.push(param, { scroll: false }), 200);
   }
 
   return (
