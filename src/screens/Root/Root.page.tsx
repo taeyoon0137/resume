@@ -61,14 +61,15 @@ const RootPage = (_props: RootPageProps) => {
   function openModal(): void {
     if (!redirectStore) return;
 
+    // 정보를 삭제하기 전, 복사하여 저장합니다.
+    const param = redirectStore;
+
+    // 정보를 삭제합니다.
+    setRedirectStore("");
+
+    // 모달로 이동합니다.
     // 기존 파라메터를 정리할 수 있도록 딜레이를 줍니다.
-    setTimeout(() => {
-      // 모달로 이동하고 저장된 주소를 초기화합니다.
-      setRedirectStore((prev) => {
-        router.push(prev);
-        return "";
-      });
-    }, 200);
+    setTimeout(() => router.push(param), 200);
   }
 
   return (
