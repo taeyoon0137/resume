@@ -62,7 +62,7 @@ const ResumeProjectList = () => {
         <m.div {...animation} {...stylex.props(styles.ignoreCollapse)}>
           <section>
             <SectionHeader title="프로젝트" />
-            <Link href={{ pathname: `/projects`, query: { focus: true } }} {...stylex.props(styles.searchContainer)}>
+            <Link href={{ pathname: `/project`, query: { focus: true } }} {...stylex.props(styles.searchContainer)}>
               <TextInput placeholder="프로젝트나 기술 검색" mocking />
             </Link>
             <ul>

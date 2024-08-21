@@ -34,7 +34,7 @@ const AwardsRedirect = (_props: PageProps) => {
    */
   function redirectRoot(): void {
     const params = new URLSearchParams(searchParams);
-    params.set("redirect", "awards");
+    params.set("redirect", "award");
     router.replace(`/?${params.toString()}`, { scroll: false });
   }
 
