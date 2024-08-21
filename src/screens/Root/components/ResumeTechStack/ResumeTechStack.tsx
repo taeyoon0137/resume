@@ -30,7 +30,7 @@ const ResumeTechStack = (_props: ResumeTechStackProps) => {
         <li key={techStack}>
           <Link
             href={{
-              pathname: `/projects`,
+              pathname: `/project`,
               query: { keyword: techStack },
             }}
             scroll={false}

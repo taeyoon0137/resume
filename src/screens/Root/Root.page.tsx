@@ -48,7 +48,9 @@ const RootPage = (_props: RootPageProps) => {
     params.delete("redirect");
 
     // 모달로 이동
-    router.push(`/${modal}?${params.toString()}`);
+    const parameters = params.toString();
+    router.replace("/", { scroll: false });
+    setTimeout(() => router.push(`/${modal}?${parameters}`, { scroll: false }), 400);
   }
 
   return (

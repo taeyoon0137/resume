@@ -34,7 +34,7 @@ const LicensesRedirect = (_props: PageProps) => {
    */
   function redirectRoot(): void {
     const params = new URLSearchParams(searchParams);
-    params.set("redirect", "licenses");
+    params.set("redirect", "license");
     router.replace(`/?${params.toString()}`, { scroll: false });
   }
 

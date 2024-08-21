@@ -43,12 +43,12 @@ const ResumeSummary = ({ style }: ResumeSummaryProps) => {
         <section {...stylex.props(styles.activityColumn)}>
           <SummaryTitle title="수상 내역" />
           <ul>{renderAwards()}</ul>
-          <SummaryMore label={`수상 내역 ${content.awards.length}개 모두 보기`} href="/awards" />
+          <SummaryMore label={`수상 내역 ${content.awards.length}개 모두 보기`} href="/award" />
         </section>
         <section {...stylex.props(styles.activityColumn)}>
           <SummaryTitle title="자격증" />
           <ul>{renderLicenses()}</ul>
-          <SummaryMore label={`자격증 ${content.licenses.length}개 모두 보기`} href="/licenses" />
+          <SummaryMore label={`자격증 ${content.licenses.length}개 모두 보기`} href="/license" />
         </section>
       </div>
     </section>

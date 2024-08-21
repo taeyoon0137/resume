@@ -84,10 +84,10 @@ const ProjectItem = ({
               <li key={techStack}>
                 <Link
                   href={{
-                    pathname: `/projects`,
+                    pathname: `/project`,
                     query: { keyword: techStack },
                   }}
-                  replace={pathname === "/projects"}
+                  replace={pathname === "/project"}
                   scroll={false}
                 >
                   <Tag label={techStack} pressable />
