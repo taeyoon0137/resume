@@ -50,7 +50,7 @@ export const colors = stylex.defineVars({
   },
   contentGrayA5: {
     default: "#00000000",
-    [DARK]: "#fffffff7",
+    [DARK]: "#ffffff00",
   },
   contentWhiteA0: {
     default: "#ffffffff",
