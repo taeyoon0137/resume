@@ -75,7 +75,11 @@ const ResumeJob = () => {
             </Fragment>
           );
         })}
-        <Link href={content.job.link} {...stylex.props(styles.link(colors.contentTintBlueA2), styles.jobCompany)}>
+        <Link
+          href={content.job.link}
+          target="_blank"
+          {...stylex.props(styles.link(colors.contentTintBlueA2), styles.jobCompany)}
+        >
           <Text kind="body-a1-medium" color={colors.contentTintBlueA1}>
             @{content.job.handle}
           </Text>
@@ -109,7 +113,11 @@ const ResumeContact = () => {
           <div key={contactGroup[0].type + contactGroup[0].value} {...stylex.props(styles.linkGroup)}>
             {contactGroup.map((contact) => (
               <li key={contact.type + contact.value}>
-                <Link href={contact.link} {...stylex.props(styles.link(colors.contentGrayA2), styles.linkContainer)}>
+                <Link
+                  href={contact.link}
+                  target="_blank"
+                  {...stylex.props(styles.link(colors.contentGrayA2), styles.linkContainer)}
+                >
                   <Icon name={contact.icon} size={20} style={styles.linkIcon} />
                   <Text kind="body-a1-regular">{contact.value}</Text>
                 </Link>
