@@ -53,7 +53,7 @@ const Text = ({ kind, color, style, children, ...props }: TextProps) => {
 const styles = stylex.create({
   typo: (color?: StyleXVar<string>) => ({
     fontFamily:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
+      '-apple-system, BlinkMacSystemFont, Pretendard, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
     color: color,
   }),
   "super-a1-bold": {
