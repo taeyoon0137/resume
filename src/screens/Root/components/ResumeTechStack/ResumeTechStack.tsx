@@ -26,22 +26,18 @@ import type { ResumeTechStackProps } from "./ResumeTechStack.type";
 const ResumeTechStack = (_props: ResumeTechStackProps) => {
   return (
     <ul {...stylex.props(styles.container)}>
-      {content.techStacks.map((techStackGroup) => (
-        <div key={techStackGroup[0]} {...stylex.props(styles.stackGroup)}>
-          {techStackGroup.map((techStack) => (
-            <li key={techStack}>
-              <Link
-                href={{
-                  pathname: `/projects`,
-                  query: { keyword: techStack },
-                }}
-                scroll={false}
-              >
-                <Tag label={techStack} pressable />
-              </Link>
-            </li>
-          ))}
-        </div>
+      {content.techStacks.map((techStack) => (
+        <li key={techStack}>
+          <Link
+            href={{
+              pathname: `/projects`,
+              query: { keyword: techStack },
+            }}
+            scroll={false}
+          >
+            <Tag label={techStack} pressable />
+          </Link>
+        </li>
       ))}
     </ul>
   );
@@ -49,16 +45,14 @@ const ResumeTechStack = (_props: ResumeTechStackProps) => {
 
 const styles = stylex.create({
   container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
     paddingLeft: spaces.paddingHorizontal,
     paddingRight: spaces.paddingHorizontal,
     paddingTop: 12,
     paddingBottom: 20,
-    gap: 8,
-  },
-  stackGroup: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 6,
+    columnGap: 6,
+    rowGap: 8,
   },
 });
 
