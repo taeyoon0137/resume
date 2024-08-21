@@ -26,6 +26,7 @@ const SummaryMore = ({ label, href }: SummaryMoreProps) => {
 
 const styles = stylex.create({
   moreButton: {
+    marginBottom: 16,
     textDecoration: {
       default: "none",
       ":hover": "underline",

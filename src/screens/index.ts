@@ -5,9 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export * from "./Activities";
 export * from "./Awards";
 export * from "./Licenses";
 export * from "./Projects";
 export * from "./Root";
-export * from "./SideProjects";

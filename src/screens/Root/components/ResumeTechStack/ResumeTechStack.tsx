@@ -27,7 +27,7 @@ const ResumeTechStack = (_props: ResumeTechStackProps) => {
   return (
     <ul {...stylex.props(styles.container)}>
       {content.techStacks.map((techStackGroup) => (
-        <div key={techStackGroup[0]} {...stylex.props(styles.stackContainer)}>
+        <div key={techStackGroup[0]} {...stylex.props(styles.stackGroup)}>
           {techStackGroup.map((techStack) => (
             <li key={techStack}>
               <Link
@@ -55,8 +55,9 @@ const styles = stylex.create({
     paddingBottom: 20,
     gap: 8,
   },
-  stackContainer: {
+  stackGroup: {
     flexDirection: "row",
+    flexWrap: "wrap",
     gap: 6,
   },
 });

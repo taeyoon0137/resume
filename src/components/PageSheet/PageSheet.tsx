@@ -14,7 +14,6 @@ import stylex from "@stylexjs/stylex";
 import { IsModalOpenContext } from "@/contexts";
 
 import { colors } from "../../styles/variable/colors.stylex";
-import { spaces } from "../../styles/variable/spaces.stylex";
 
 import type { PageSheetProps } from "./PageSheet.type";
 
@@ -37,13 +36,30 @@ const PageSheet = ({ style, children, ...props }: PageSheetProps) => {
   );
 };
 
+const MOBILE = "@media (max-width: 640px)";
+const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
 const styles = stylex.create({
   container: {
-    marginTop: spaces.paddingVertical,
-    marginBottom: spaces.paddingVertical,
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "100%",
+    marginTop: {
+      default: "56px",
+      [TABLET]: "20px",
+      [MOBILE]: "12px",
+    },
+    marginBottom: {
+      default: "56px",
+      [TABLET]: "20px",
+      [MOBILE]: "12px",
+    },
+    marginLeft: {
+      default: "auto",
+      [TABLET]: "20px",
+      [MOBILE]: "12px",
+    },
+    marginRight: {
+      default: "auto",
+      [TABLET]: "20px",
+      [MOBILE]: "12px",
+    },
     maxWidth: 980,
     minHeight: 1660,
     borderRadius: 12,

@@ -38,11 +38,19 @@ const PageFooter = () => {
   );
 };
 
+const MOBILE = "@media (max-width: 640px)";
+// const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
 const styles = stylex.create({
   footer: {
-    flexDirection: "row",
+    flexDirection: {
+      default: "row",
+      [MOBILE]: "column",
+    },
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: {
+      default: "center",
+      [MOBILE]: "flex-start",
+    },
     paddingLeft: spaces.paddingHorizontal,
     paddingRight: spaces.paddingHorizontal,
     paddingTop: 12,
@@ -50,6 +58,10 @@ const styles = stylex.create({
   },
   contact: {
     flexDirection: "row",
+    marginTop: {
+      default: 0,
+      [MOBILE]: 16,
+    },
     gap: 16,
   },
   contactItem: {

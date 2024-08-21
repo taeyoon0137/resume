@@ -53,6 +53,8 @@ const ResumeHeader = () => {
   );
 };
 
+const MOBILE = "@media (max-width: 640px)";
+const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
 const styles = stylex.create({
   symbolContainerSticky: {
     position: "sticky",
@@ -83,10 +85,26 @@ const styles = stylex.create({
     borderBottomColor: colors.lineSeparatorStroke,
   },
   symbol: {
-    marginLeft: -8,
-    marginRight: -8,
-    width: 52,
-    height: 52,
+    marginLeft: {
+      default: -8,
+      [TABLET]: -6,
+      [MOBILE]: -4,
+    },
+    marginRight: {
+      default: -8,
+      [TABLET]: -6,
+      [MOBILE]: -4,
+    },
+    width: {
+      default: 52,
+      [TABLET]: 40,
+      [MOBILE]: 32,
+    },
+    height: {
+      default: 52,
+      [TABLET]: 40,
+      [MOBILE]: 32,
+    },
     color: colors.contentGrayA1,
     transition: "transform 200ms",
   },

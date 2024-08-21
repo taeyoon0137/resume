@@ -59,11 +59,11 @@ const ResumeProjectList = () => {
   return (
     <LazyMotion features={domAnimation} strict>
       <div aria-expanded={expand} {...stylex.props(styles.container(expand))}>
-        <m.div {...animation}>
+        <m.div {...animation} {...stylex.props(styles.ignoreCollapse)}>
           <section>
             <SectionHeader title="프로젝트" />
             <Link href={{ pathname: `/projects`, query: { focus: true } }} {...stylex.props(styles.searchContainer)}>
-              <TextInput placeholder="프로젝트 이름이나 기술로 검색해보세요" mocking />
+              <TextInput placeholder="프로젝트나 기술 검색" mocking />
             </Link>
             <ul>
               {content.projects.map((project) => (
@@ -136,6 +136,8 @@ const ResumeProjectList = () => {
   );
 };
 
+const MOBILE = "@media (max-width: 640px)";
+// const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
 const styles = stylex.create({
   container: (expand: boolean) => ({
     "::after": {
@@ -152,6 +154,12 @@ const styles = stylex.create({
     flexGrow: 1,
     overflow: "hidden",
   }),
+  ignoreCollapse: {
+    height: {
+      default: 0,
+      [MOBILE]: "auto !important",
+    },
+  },
   searchContainer: {
     display: "flex",
     flexDirection: "column",
@@ -163,6 +171,10 @@ const styles = stylex.create({
   expandButton: {
     justifyContent: "center",
     alignItems: "center",
+    display: {
+      default: "flex",
+      [MOBILE]: "none",
+    },
     paddingTop: 8,
     paddingBottom: 12,
     borderWidth: 0,
