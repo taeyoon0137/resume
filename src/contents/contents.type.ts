@@ -188,7 +188,7 @@ export const ContentData = z.object({
   memo: z.string().optional(),
   copyright: z.string(),
   contacts: ContentContact.array().array(),
-  techStacks: z.string().array().array(),
+  techStacks: z.string().array(),
   companies: ContentCompany.array(),
   schools: ContentSchool.array(),
   awards: ContentAward.array(),

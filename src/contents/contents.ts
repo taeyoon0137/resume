@@ -210,7 +210,7 @@ function getContacts(contacts: ContentContact[][]) {
  * @param techStacks - 테크 스택 목록
  * @returns 테크 스택 목록
  */
-function getTechStacks(techStacks: string[][]) {
+function getTechStacks(techStacks: string[]) {
   return techStacks;
 }
 
