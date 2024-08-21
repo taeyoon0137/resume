@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "rm -rf ./.next && next dev",
-    "predev": "rimraf .next",
-    "prebuild": "rimraf .next",
-    "build": "next build",
+    "clean": "rm -rf ./.next",
+    "dev": "yarn clean && next dev",
+    "build": "yarn clean && next build",
     "start": "next start",
     "lint": "next lint"
   },
