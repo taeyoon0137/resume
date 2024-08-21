@@ -10,12 +10,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import stylex from "@stylexjs/stylex";
+import * as hangul from "hangul-js";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { PageFooter, PageHeader, PageSheet, ProjectItem } from "@/components";
 import { content } from "@/contents";
-import { Separator, TextInput } from "@/elements";
+import { Separator, Text, TextInput } from "@/elements";
 
+import { colors } from "../../styles/variable/colors.stylex";
 import { spaces } from "../../styles/variable/spaces.stylex";
 
 import type { ProjectsPageProps } from "./Projects.type";
@@ -98,6 +100,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
 
   /**
    * 유연한 검색을 위해, 텍스트를 정제합니다.
+   * 또한 자모를 분리하여, 중간 검색이 가능하도록 합니다.
    *
    * @param text - 정제할 텍스트
    * @returns 정제된 텍스트
@@ -109,7 +112,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
     // '0-9' : 숫자
     // ^ : not (이외의 문자들)
     // g : 전역 검색
-    return text.replace(/[^가-힣a-zA-Z0-9]/g, "").toLowerCase();
+    return hangul.disassemble(text.replace(/[^가-힣a-zA-Z0-9]/g, "").toLowerCase()).join("");
   }
 
   /**
@@ -183,6 +186,11 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
             />
           </li>
         ))}
+        {projects.length === 0 && (
+          <div {...stylex.props(styles.empty)}>
+            <Text color={colors.contentGrayA3}>검색 결과가 없습니다.</Text>
+          </div>
+        )}
       </ul>
       <Separator />
       <PageFooter />
@@ -190,6 +198,8 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
   );
 };
 
+const MOBILE = "@media (max-width: 640px)";
+// const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
 const styles = stylex.create({
   searchBar: {
     display: "flex",
@@ -201,6 +211,19 @@ const styles = stylex.create({
   },
   scroll: {
     flexGrow: 1,
+  },
+  empty: {
+    alignItems: "center",
+    paddingTop: {
+      default: 32,
+      [MOBILE]: 16,
+    },
+    paddingBottom: {
+      default: 32,
+      [MOBILE]: 16,
+    },
+    paddingLeft: spaces.paddingHorizontal,
+    paddingRight: spaces.paddingHorizontal,
   },
 });
 

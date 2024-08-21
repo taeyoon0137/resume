@@ -9,7 +9,8 @@
 
 import stylex from "@stylexjs/stylex";
 
-import { PageFooter, PageHeader, PageSheet } from "@/components";
+import { PageFooter, PageHeader, PageSheet, ReceivedItem } from "@/components";
+import { content } from "@/contents";
 import { Separator } from "@/elements";
 
 import type { LicensesPageProps } from "./Licenses.type";
@@ -28,7 +29,13 @@ const LicensesPage = (_props: LicensesPageProps) => {
   return (
     <PageSheet>
       <PageHeader title="자격증" />
-      <div {...stylex.props(styles.scroll)}></div>
+      <ul {...stylex.props(styles.scroll)}>
+        {content.licenses.map((license) => (
+          <li key={license.license}>
+            <ReceivedItem title={license.license} info={license.organization} date={license.issueDate} />
+          </li>
+        ))}
+      </ul>
       <Separator />
       <PageFooter />
     </PageSheet>

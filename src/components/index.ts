@@ -11,4 +11,5 @@ export * from "./PageHeader";
 export * from "./PageModal";
 export * from "./PageSheet";
 export * from "./ProjectItem";
+export * from "./ReceivedItem";
 export * from "./SectionHeader";
