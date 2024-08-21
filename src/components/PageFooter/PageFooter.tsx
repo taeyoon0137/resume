@@ -28,7 +28,7 @@ const PageFooter = () => {
       <ul {...stylex.props(styles.contact)}>
         {content.contacts.map((contactGroup) =>
           contactGroup.map((contact) => (
-            <Link key={contact.link} href={contact.link}>
+            <Link key={contact.link} href={contact.link} target="_blank">
               <Icon name={contact.icon} style={styles.contactItem} />
             </Link>
           )),
