@@ -9,8 +9,6 @@
 
 import { useMemo, useState } from "react";
 
-import { useLockBodyScroll } from "react-use";
-
 import stylex from "@stylexjs/stylex";
 import { AnimatePresence } from "framer-motion";
 
@@ -33,9 +31,6 @@ import type { RootLayoutProps } from "./Root.type";
 const RootLayout = ({ modal, children }: RootLayoutProps) => {
   const [modalList, setModalList] = useState<string[]>([]);
   const isModalOpen = useMemo(getIsModalOpen, [modalList.length]);
-
-  // 모달이 열려있을 때, body 스크롤을 막습니다.
-  useLockBodyScroll(isModalOpen);
 
   /**
    * 모달이 1개 이상 열려있는지 확인합니다.
