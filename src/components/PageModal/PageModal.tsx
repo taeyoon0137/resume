@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useContext, useEffect, useId, useLayoutEffect, useRef } from "react";
+import { Suspense, useContext, useEffect, useId, useLayoutEffect, useRef } from "react";
 
 import stylex from "@stylexjs/stylex";
 import { cubicBezier, motion } from "framer-motion";
@@ -78,12 +78,14 @@ const PageModal = ({ children }: PageModalProps) => {
   }
 
   return (
-    <IsModalContext.Provider value={true}>
-      <motion.div key={modalId} ref={scrollRef} {...transition} {...stylex.props(styles.modal)}>
-        <div onClick={handleBackdropClick} {...stylex.props(styles.backdrop)} />
-        {children}
-      </motion.div>
-    </IsModalContext.Provider>
+    <Suspense fallback={<div></div>}>
+      <IsModalContext.Provider value={true}>
+        <motion.div key={modalId} ref={scrollRef} {...transition} {...stylex.props(styles.modal)}>
+          <div onClick={handleBackdropClick} {...stylex.props(styles.backdrop)} />
+          {children}
+        </motion.div>
+      </IsModalContext.Provider>
+    </Suspense>
   );
 };
 

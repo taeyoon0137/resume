@@ -6,6 +6,7 @@
  */
 
 import LicensesPage from "./Licenses.page";
+import LicensesRedirect from "./Licenses.redirect";
 
 /**
  * ### Licenses
@@ -22,6 +23,16 @@ export const Licenses = {
    * @page
    */
   Page: LicensesPage,
+
+  /**
+   * ### 리다이렉트
+   *
+   * 리다이렉트를 할 수 있는 컴포넌트입니다.
+   *
+   * @param props {@link LicensesRedirectProps}
+   * @redirect
+   */
+  Redirect: LicensesRedirect,
 };
 
 export * from "./Licenses.type";
