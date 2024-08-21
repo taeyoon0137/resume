@@ -6,6 +6,9 @@
  */
 
 import { PageFooter, PageSheet } from "@/components";
+import { Separator } from "@/elements";
+
+import { ResumeHeader, ResumeInfo, ResumeProjectList, ResumeSummary, ResumeTechStack } from "./components";
 
 import type { RootPageProps } from "./Root.type";
 
@@ -22,6 +25,15 @@ import type { RootPageProps } from "./Root.type";
 const RootPage = (_props: RootPageProps) => {
   return (
     <PageSheet>
+      <ResumeHeader />
+      <ResumeInfo />
+      <ResumeTechStack />
+      <Separator margin={24} />
+      <ResumeSummary />
+      <Separator />
+      <ResumeProjectList />
+      <Separator />
+      <PageFooter />
     </PageSheet>
   );
 };

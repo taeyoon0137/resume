@@ -16,7 +16,36 @@
 /* 사용하게 된 태그만 일일히 삽입합니다. */
 body,
 main,
-div {
+div,
+canvas,
+hr,
+section,
+article,
+ul,
+ol,
+li,
+header,
+footer,
+input,
+button {
   display: flex;
   flex-direction: column;
+}
+
+/* 일괄 적용 */
+* {
+  word-break: keep-all;
+  box-sizing: border-box;
+}
+
+/* a 태그 기본 스타일 제거 */
+a {
+  color: inherit;
+  text-decoration: inherit;
+  text-decoration-color: transparent;
+}
+
+/* 빠져나간 영역 숨기기 */
+body {
+  overflow-x: hidden;
 }

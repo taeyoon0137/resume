@@ -49,6 +49,27 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
   return (
     <html lang="kr">
       <body>
+        {/* 배경 렌더링 */}
+        <PageBackground style={styles.background} />
+
+        {/* 페이지 처리 */}
+        <IsModalOpenContext.Provider value={isModalOpen}>{children}</IsModalOpenContext.Provider>
+
+        {/* 상위 페이지 처리 */}
+        <ModalContext.Provider value={setModalList}>
+          <AnimatePresence>{modal}</AnimatePresence>
+        </ModalContext.Provider>
+
+        {/* 불안정 경고 */}
+        {/* <div {...stylex.props(styles.warningContainer)}>
+          <div {...stylex.props(styles.warning)}>
+            <Text kind="body-a2-semibold">현재 작업 중입니다.</Text>
+            <Text kind="body-a3-regular" color={colors.contentGrayA2}>
+              다소 불안정하거나, 불러와지지 않는 페이지가 있을 수 있습니다. 궁금한 사항이 있다면, 언제든 연락
+              부탁드립니다.
+            </Text>
+          </div>
+        </div> */}
       </body>
     </html>
   );
