@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -31,9 +31,11 @@ import type { RootPageProps } from "./Root.type";
 const RootPage = (_props: RootPageProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [redirectStore, setRedirectStore] = useState("");
 
   // 모달 저장 및 열기
   useEffect(redirectModal, []);
+  useEffect(openModal, [redirectStore]);
 
   /**
    * 모달로 렌더링하기 위해 루트로 이동한 경우,
@@ -48,7 +50,25 @@ const RootPage = (_props: RootPageProps) => {
     params.delete("redirect");
 
     // 모달로 이동
-    router.push(`/${modal}?${params.toString()}`);
+    router.replace("/");
+    setRedirectStore(`/${modal}?${params.toString()}`);
+  }
+
+  /**
+   * 저장된 주소로 모달을 엽니다.
+   * 이후 저장된 주소를 초기화합니다.
+   */
+  function openModal(): void {
+    if (!redirectStore) return;
+
+    // 기존 파라메터를 정리할 수 있도록 딜레이를 줍니다.
+    setTimeout(() => {
+      // 모달로 이동하고 저장된 주소를 초기화합니다.
+      setRedirectStore((prev) => {
+        router.push(prev);
+        return "";
+      });
+    }, 200);
   }
 
   return (
