@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import stylex from "@stylexjs/stylex";
 import { AnimatePresence } from "framer-motion";
@@ -32,6 +32,25 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
   const [modalList, setModalList] = useState<string[]>([]);
   const isModalOpen = useMemo(getIsModalOpen, [modalList.length]);
 
+  useEffect(scrollLock, [isModalOpen]);
+
+  /**
+   * 모달이 열렸을 때, body 스크롤을 차단합니다.
+   *
+   * @returns 클린업 함수
+   */
+  function scrollLock(): () => void {
+    const body = document.body;
+
+    if (isModalOpen) {
+      body.style.overflow = "hidden";
+    }
+
+    return () => {
+      body.style.overflow = "";
+    };
+  }
+
   /**
    * 모달이 1개 이상 열려있는지 확인합니다.
    *
@@ -52,10 +71,7 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
 
         {/* 상위 페이지 처리 */}
         <ModalContext.Provider value={setModalList}>
-          <AnimatePresence>
-            여기에 렌더링
-            {modal}
-          </AnimatePresence>
+          <AnimatePresence>{modal}</AnimatePresence>
         </ModalContext.Provider>
       </body>
     </html>
