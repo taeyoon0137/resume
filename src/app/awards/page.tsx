@@ -21,7 +21,7 @@ import type { PageProps } from "@/types";
  */
 const AwardsPage = (_props: PageProps) => {
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense>
       <Awards.Redirect />
     </Suspense>
   );
