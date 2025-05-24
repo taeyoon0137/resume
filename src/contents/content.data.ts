@@ -19,6 +19,7 @@ import {
   img_side_project_thumbnail_echoscript,
   img_side_project_thumbnail_sdvd,
 } from "@/assets";
+import { helper } from "@/helpers";
 
 import type { ContentData } from "./contents.type";
 
@@ -30,10 +31,10 @@ import type { ContentData } from "./contents.type";
 export const contentData: ContentData = {
   name: "이태윤",
   memo: "산업기능요원 진행 중",
-  copyright: "Copyright 2024 Taeyoon Lee. All Right Reserved.",
+  copyright: `Copyright ${helper.year} Taeyoon Lee. All Right Reserved.`,
   contacts: [
     [
-      { type: "phone", value: "010-1234-5678" },
+      // { type: "phone", value: "010-3737-1157" },
       { type: "email", value: "taeyoon0137@gmail.com" },
     ],
     [
@@ -71,6 +72,12 @@ export const contentData: ContentData = {
   ],
   companies: [
     {
+      company: "벤디트 주식회사",
+      handle: "vendit",
+      link: "https://vendit.co.kr",
+      jobs: [{ roles: ["Product Designer"], startYear: 2024, startMonth: 11, still: true }],
+    },
+    {
       company: "주식회사 왓섭",
       handle: "whatssub",
       link: "https://whatssub.co",
@@ -79,32 +86,16 @@ export const contentData: ContentData = {
           roles: ["Lead Product Designer", "FE Engineer(RN)"],
           startYear: 2020,
           startMonth: 3,
-          still: true,
-          // endYear: 2024,
-          // endMonth: 9,
+          endYear: 2024,
+          endMonth: 10,
         },
-        {
-          roles: ["Product Designer (계약)"],
-          startYear: 2019,
-          startMonth: 6,
-          endYear: 2020,
-          endMonth: 2,
-        },
+        { roles: ["Product Designer (계약)"], startYear: 2019, startMonth: 6, endYear: 2020, endMonth: 2 },
       ],
     },
   ],
   schools: [
-    {
-      school: "서울디자인고등학교",
-      major: "시각디자인과",
-      startYear: 2017,
-      endYear: 2020,
-    },
-    {
-      school: "용산고등학교",
-      major: "과학중점반",
-      startYear: 2017,
-    },
+    { school: "서울디자인고등학교", major: "시각디자인과", startYear: 2017, endYear: 2020 },
+    { school: "용산고등학교", major: "과학중점반", startYear: 2017 },
   ],
   awards: [
     {
@@ -168,13 +159,7 @@ export const contentData: ContentData = {
     },
   ],
   licenses: [
-    {
-      license: "정보처리기능사",
-      organization: "한국산업인력공단",
-      issueYear: 2023,
-      issueMonth: 9,
-      pin: true,
-    },
+    { license: "정보처리기능사", organization: "한국산업인력공단", issueYear: 2023, issueMonth: 9, pin: true },
     {
       license: "컴퓨터그래픽스운용기능사",
       organization: "한국산업인력공단",
@@ -195,30 +180,10 @@ export const contentData: ContentData = {
       issueYear: 2014,
       issueMonth: 2,
     },
-    {
-      license: "ITQ 정보기술자격 한글파워포인트 A",
-      organization: "한국생산성본부",
-      issueYear: 2014,
-      issueMonth: 1,
-    },
-    {
-      license: "GTQi 일러스트레이터1급",
-      organization: "한국생산성본부",
-      issueYear: 2013,
-      issueMonth: 10,
-    },
-    {
-      license: "ITQ 정보기술자격 한글엑셀 A",
-      organization: "한국생산성본부",
-      issueYear: 2013,
-      issueMonth: 9,
-    },
-    {
-      license: "GTQ 일러스트레이터1급",
-      organization: "한국생산성본부",
-      issueYear: 2012,
-      issueMonth: 10,
-    },
+    { license: "ITQ 정보기술자격 한글파워포인트 A", organization: "한국생산성본부", issueYear: 2014, issueMonth: 1 },
+    { license: "GTQi 일러스트레이터1급", organization: "한국생산성본부", issueYear: 2013, issueMonth: 10 },
+    { license: "ITQ 정보기술자격 한글엑셀 A", organization: "한국생산성본부", issueYear: 2013, issueMonth: 9 },
+    { license: "GTQ 일러스트레이터1급", organization: "한국생산성본부", issueYear: 2012, issueMonth: 10 },
   ],
   projects: [
     {
@@ -249,6 +214,11 @@ export const contentData: ContentData = {
           "Lottie를 통한 애니메이션 제공",
           "Flow 구조 고안을 통한 플랫폼 최적화 된 구조 구축",
           "Amplitude를 통한 성과 추적",
+        ],
+        details: [
+          "왓섭은 모바일 애플리케이션 서비스로, 결제 내역 연동을 통해 이용 중인 고정 지출을 탐지하고, 결제일 전에 알림을 받아볼 수 있는 서비스입니다. 또한 원하지 않는 고정 지출이 있다면, 터치 한 번에 해지하거나, 구독 할 수도 있습니다.",
+          "회사의 설립 시점부터 참여하였으며, 소규모의 프로젝트들도 존재하였으나, 크게 메이저 버전 단위로 구분하였습니다. 서비스를 무에서부터 기획하고, 이를 지속적으로 발전시켜나가는 과정을 경험할 수 있었습니다.",
+          "서비스를 제공하며 3회의 Apple 오늘의 앱 선정, 회원가입률 90%대, 연동률 60%대를 계속해서 유지하였습니다. 또한 지속적인 제 3자 블로그나 인플루언서의 언급을 통해, 유입 사용자의 80% 이상이 오가닉 이용자라는 수치를 기록하였습니다.",
         ],
       },
       still: true,
@@ -420,9 +390,7 @@ export const contentData: ContentData = {
       project: "살아 움직이는 디자인 시스템, WDS – DESIGN OFF",
       link: "https://brunch.co.kr/@ultra0034/152",
       thumbnail: img_activity_thumbnail_design_off,
-      content: {
-        summary: ["WDS에 대해 컨퍼런스 발표", "디자인 시스템의 초기 구축과 운용에 대해서 다룸"],
-      },
+      content: { summary: ["WDS에 대해 컨퍼런스 발표", "디자인 시스템의 초기 구축과 운용에 대해서 다룸"] },
       startYear: 2023,
       startMonth: 5,
     },

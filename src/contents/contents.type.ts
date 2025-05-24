@@ -159,7 +159,7 @@ export const ContentProject = z.object({
   content: z
     .object({
       summary: z.string().array().optional(),
-      details: z.string().optional(),
+      details: z.string().array().optional(),
     })
     .optional(),
   member: z.number().optional(),
