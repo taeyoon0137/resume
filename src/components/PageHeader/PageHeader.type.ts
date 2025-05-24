@@ -8,6 +8,11 @@
 import type { Props } from "@/types";
 import type { HTMLMotionProps } from "framer-motion";
 
+/**
+ * ### PageHeader 프로퍼티
+ *
+ * 페이지 헤더 컴포넌트의 프로퍼티입니다.
+ */
 export interface PageHeaderProps extends Props<HTMLHeadingElement, "children" | "title" | keyof HTMLMotionProps<"h2">> {
   /**
    * ### 페이지 제목
