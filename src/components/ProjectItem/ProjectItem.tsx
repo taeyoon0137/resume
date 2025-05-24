@@ -64,9 +64,66 @@ const ProjectItem = ({
     return hangul.disassemble(text.replace(/[^가-힣a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]/g, "").toLowerCase()).join("");
   }
 
+  /**
+   * 기술 스택 목록을 렌더링합니다.
+   * 검색어가 포함된 기술 스택은 강조합니다.
+   *
+   * @param techStack - 기술 스택
+   * @returns 기술 스택 태그
+   */
+  function renderTechStack(techStack: string): React.ReactNode {
+    const currentKeyword = searchParams.get("keyword");
+    const isSearched = currentKeyword && cleanText(techStack).includes(cleanText(currentKeyword));
+
+    return (
+      <li key={techStack}>
+        <Link
+          href={{ pathname: `/project`, query: { keyword: techStack } }}
+          replace={pathname === "/project"}
+          scroll={false}
+        >
+          <Tag label={techStack} kind={isSearched ? "primary" : "secondary"} pressable />
+        </Link>
+      </li>
+    );
+  }
+
+  /**
+   * 상세 내용을 렌더링합니다.
+   *
+   * @param detail - 상세 내용
+   * @returns 상세 내용
+   */
+  function renderDetail(detail: string): React.ReactNode {
+    return (
+      <p key={detail} {...stylex.props(styles.summaryItem)}>
+        <Text kind="body-a2-regular" color={colors.contentGrayA2}>
+          {detail}
+        </Text>
+      </p>
+    );
+  }
+
+  /**
+   * 요약 내용을 렌더링합니다.
+   *
+   * @param summary - 요약 내용
+   * @returns 요약 내용
+   */
+  function renderSummary(summary: string): React.ReactNode {
+    return (
+      <li key={summary} {...stylex.props(styles.summaryItem)}>
+        <Text kind="body-a2-regular" color={colors.contentGrayA2}>
+          {summary}
+        </Text>
+      </li>
+    );
+  }
+
   return (
     <article {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.info)}>
+        {/* 제목 */}
         <h4>
           <Text kind="title-a2-bold" style={[styles.title, !!link && styles.titleLink]}>
             <Linkable href={link} target="_blank">
@@ -80,6 +137,8 @@ const ProjectItem = ({
             </Linkable>
           </Text>
         </h4>
+
+        {/* 직책 및 소속 */}
         {role && (
           <Text color={colors.contentGrayA2} style={styles.role}>
             {role}
@@ -97,48 +156,18 @@ const ProjectItem = ({
             )}
           </Text>
         )}
-        {techStacks && (
-          <ul {...stylex.props(styles.techStack)}>
-            {techStacks.map((techStack) => (
-              <li key={techStack}>
-                <Link
-                  href={{
-                    pathname: `/project`,
-                    query: { keyword: techStack },
-                  }}
-                  replace={pathname === "/project"}
-                  scroll={false}
-                >
-                  <Tag
-                    label={techStack}
-                    kind={
-                      searchParams.get("keyword") &&
-                      cleanText(techStack).includes(cleanText(searchParams.get("keyword") ?? "갉"))
-                        ? "primary"
-                        : "secondary"
-                    }
-                    pressable
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+
+        {/* 기술 스택 */}
+        {techStacks && <ul {...stylex.props(styles.techStack)}>{techStacks.map(renderTechStack)}</ul>}
+
+        {/* 상세 내용 */}
         <AnimatePresence>
           {expand
-            ? details && <></>
-            : summary && (
-                <m.ul {...stylex.props(styles.summary)}>
-                  {summary.map((row) => (
-                    <li key={row} {...stylex.props(styles.summaryItem)}>
-                      <Text kind="body-a2-regular" color={colors.contentGrayA2}>
-                        {row}
-                      </Text>
-                    </li>
-                  ))}
-                </m.ul>
-              )}
+            ? details && <m.div>{details.map(renderDetail)}</m.div>
+            : summary && <m.ul {...stylex.props(styles.summary)}>{summary.map(renderSummary)}</m.ul>}
         </AnimatePresence>
+
+        {/* 기간 */}
         {period && (
           <Text kind="body-a2-regular" color={colors.contentGrayA2} style={styles.period}>
             {period}
@@ -151,6 +180,8 @@ const ProjectItem = ({
           </Text>
         )}
       </div>
+
+      {/* 썸네일 */}
       {thumbnail && (
         <figure {...stylex.props(styles.thumbnail)}>
           <Image src={thumbnail} alt={title} fill />

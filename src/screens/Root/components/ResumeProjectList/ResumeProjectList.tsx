@@ -74,6 +74,7 @@ const ResumeProjectList = () => {
                     organization={project.organization}
                     techStacks={project.techStacks}
                     summary={project.summary}
+                    details={project.details}
                     period={project.period}
                     duration={project.duration}
                     thumbnail={project.thumbnail}

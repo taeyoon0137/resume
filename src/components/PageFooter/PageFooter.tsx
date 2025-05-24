@@ -14,6 +14,8 @@ import { Icon, Text } from "@/elements";
 import { colors } from "../../styles/variable/colors.stylex";
 import { spaces } from "../../styles/variable/spaces.stylex";
 
+import type { PageFooterProps } from "./PageFooter.type";
+
 /**
  * ### Page Footer
  *
@@ -21,19 +23,35 @@ import { spaces } from "../../styles/variable/spaces.stylex";
  *
  * @component
  */
-const PageFooter = () => {
+const PageFooter = ({ style, ...props }: PageFooterProps) => {
+  /**
+   * 연락처 그룹을 렌더링합니다.
+   *
+   * @param contactGroup - 연락처 그룹 정보
+   * @returns 연락처 그룹
+   */
+  function renderContactGroup(contactGroup: (typeof content.contacts)[number]): React.ReactNode {
+    return contactGroup.map(renderContact);
+  }
+
+  /**
+   * 연락처를 렌더링합니다.
+   *
+   * @param contact - 연락처 정보
+   * @returns 연락처 아이콘
+   */
+  function renderContact(contact: (typeof content.contacts)[number][number]): React.ReactNode {
+    return (
+      <Link key={contact.link} href={contact.link} target="_blank">
+        <Icon name={contact.icon} style={styles.contactItem} />
+      </Link>
+    );
+  }
+
   return (
-    <footer {...stylex.props(styles.footer)}>
+    <footer {...stylex.props(styles.footer, style)} {...props}>
       <Text color={colors.contentGrayA3}>{content.info.copyrights}</Text>
-      <ul {...stylex.props(styles.contact)}>
-        {content.contacts.map((contactGroup) =>
-          contactGroup.map((contact) => (
-            <Link key={contact.link} href={contact.link} target="_blank">
-              <Icon name={contact.icon} style={styles.contactItem} />
-            </Link>
-          )),
-        )}
-      </ul>
+      <ul {...stylex.props(styles.contact)}>{content.contacts.map(renderContactGroup)}</ul>
     </footer>
   );
 };

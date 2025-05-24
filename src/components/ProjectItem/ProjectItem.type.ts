@@ -74,7 +74,7 @@ export interface ProjectItemProps extends Props<HTMLDivElement, "children" | "su
    *
    * 프로젝트 상세 내용을 작성한 내용입니다.
    */
-  details?: string;
+  details?: string[];
 
   /**
    * ### 프로젝트 기간
