@@ -19,9 +19,9 @@ import type { PageBackgroundProps } from "./PageBackground.type";
  *
  * @component
  */
-const PageBackground = ({ style }: PageBackgroundProps) => {
+const PageBackground = ({ style, ...props }: PageBackgroundProps) => {
   return (
-    <div aria-hidden="true" {...stylex.props(styles.container, style)}>
+    <div aria-hidden="true" {...stylex.props(styles.container, style)} {...props}>
       <Gradient colors={content.style.backgrounds} style={styles.gradient} />
       <div {...stylex.props(styles.blur)}></div>
     </div>
