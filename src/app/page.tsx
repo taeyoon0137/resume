@@ -22,7 +22,7 @@ import type { PageProps } from "@/types";
  */
 const RootPage = ({ ...props }: PageProps) => {
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense>
       <Root.Page {...props} />
     </Suspense>
   );

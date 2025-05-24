@@ -21,7 +21,7 @@ import type { PageProps } from "@/types";
  */
 const ProjectsPage = (_props: PageProps) => {
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense>
       <Projects.Redirect />
     </Suspense>
   );
