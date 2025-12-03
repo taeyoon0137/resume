@@ -9,7 +9,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 import { AnimatePresence } from "framer-motion";
 
 import { PageBackground } from "@/components";

@@ -7,7 +7,7 @@
 
 import { Fragment } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 
 import { content } from "@/contents";
 import { Text } from "@/elements";

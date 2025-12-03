@@ -9,7 +9,7 @@
 
 import { useContext, useEffect, useRef, useState } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 import { motion } from "framer-motion";
 
 import { Symbol } from "@/assets";

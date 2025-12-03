@@ -9,7 +9,7 @@
 
 import { Suspense, useContext, useEffect, useId, useLayoutEffect, useRef } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 import { cubicBezier, motion } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 

@@ -9,7 +9,7 @@
 
 import { useContext } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 
 import { IsModalOpenContext } from "@/contexts";
 

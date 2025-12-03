@@ -7,7 +7,7 @@
 
 import { useMemo } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 
 import { icon } from "@/assets";
 

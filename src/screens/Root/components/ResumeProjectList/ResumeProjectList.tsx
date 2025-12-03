@@ -9,7 +9,7 @@
 
 import { useState } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 import { domAnimation, HTMLMotionProps, LazyMotion, m } from "framer-motion";
 import Link from "next/link";
 
@@ -149,7 +149,7 @@ const styles = stylex.create({
       bottom: 0,
       right: 0,
       height: expand ? 0 : 80,
-      background: `linear-gradient(0deg, ${colors.backgroundSolidCommon} 0%, ${colors.contentGrayA5} 100%)`,
+      backgroundImage: `linear-gradient(0deg, ${colors.backgroundSolidCommon} 0%, ${colors.contentGrayA5} 100%)`,
     },
     position: "relative",
     flexGrow: 1,

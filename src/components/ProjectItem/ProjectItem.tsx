@@ -9,7 +9,7 @@
 
 import { useState } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 import { m, AnimatePresence } from "framer-motion";
 import * as hangul from "hangul-js";
 import Image from "next/image";

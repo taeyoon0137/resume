@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 
 import { Icon, Linkable, Text } from "@/elements";
 

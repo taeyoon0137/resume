@@ -9,7 +9,7 @@
 
 import { forwardRef, useImperativeHandle, useRef } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 
 import { colors } from "../../styles/variable/colors.stylex";
 

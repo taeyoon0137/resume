@@ -9,7 +9,7 @@
 
 import { useEffect, useMemo, useRef } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 import Color from "color";
 
 import { Particle } from "./classes";

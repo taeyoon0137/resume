@@ -9,7 +9,7 @@
 
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
-import stylex from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 import * as hangul from "hangul-js";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
