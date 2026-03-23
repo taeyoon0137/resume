@@ -1,0 +1,135 @@
+   ▲ Next.js 15.5.14
+
+   Creating an optimized production build ...
+   Disabled SWC as replacement for Babel because of custom Babel configuration ".babelrc.js" https://nextjs.org/docs/messages/swc-disabled
+   `compiler` options in `next.config.js` will be ignored while using Babel https://nextjs.org/docs/messages/ignored-compiler-options
+GETTING WEBPACK CONFIG
+======================
+Count: 1
+Build ID: 23QJiV0UTaxs-MRyNpdrI
+Server: true
+Env: prod
+GETTING WEBPACK CONFIG
+======================
+Count: 2
+Build ID: 23QJiV0UTaxs-MRyNpdrI
+Server: true
+Env: prod
+GETTING WEBPACK CONFIG
+======================
+Count: 3
+Build ID: 23QJiV0UTaxs-MRyNpdrI
+Server: false
+Env: prod
+   Using external babel configuration from /Users/vendit/Develop/personal/resume/.babelrc.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '@stylexjs/babel-plugin/lib/index' in /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files for build dependencies doesn't lead to expected result '/Users/vendit/Develop/personal/resume/node_modules/@stylexjs/babel-plugin/lib/index.js', but to '/Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@stylexjs/babel-plugin/lib/index.js' instead. Resolving dependencies are ignored for this path.
+<w>  at unknown 4 @stylexjs/babel-plugin/lib/index
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/module-types.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/module-types.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/configuration.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/configuration.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/index.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/config-chain.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/config-chain.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/full.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/full.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/index.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/transform.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/transform.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/index.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/custom-webpack-plugin.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/custom-webpack-plugin.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/index.js
+<w>  at resolve esm file @stylexjs/nextjs-plugin
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/next.config.mjs
+<w>  at file /Users/vendit/Develop/personal/resume/next.config.mjs
+<w>  at resolve commonjs /Users/vendit/Develop/personal/resume/next.config.mjs
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '@stylexjs/babel-plugin/lib/index' in /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files for build dependencies doesn't lead to expected result '/Users/vendit/Develop/personal/resume/node_modules/@stylexjs/babel-plugin/lib/index.js', but to '/Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@stylexjs/babel-plugin/lib/index.js' instead. Resolving dependencies are ignored for this path.
+<w>  at unknown 4 @stylexjs/babel-plugin/lib/index
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/module-types.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/module-types.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/plugins.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/plugins.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/index.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/config-chain.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/config-chain.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/full.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/full.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/index.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/transform-ast.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/transform-ast.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/index.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/custom-webpack-plugin.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/custom-webpack-plugin.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/index.js
+<w>  at resolve esm file @stylexjs/nextjs-plugin
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/next.config.mjs
+<w>  at file /Users/vendit/Develop/personal/resume/next.config.mjs
+<w>  at resolve commonjs /Users/vendit/Develop/personal/resume/next.config.mjs
+[BABEL] Note: The code generator has deoptimised the styling of /Users/vendit/Develop/personal/resume/node_modules/next/dist/compiled/next-devtools/index.js as it exceeds the max of 500KB.
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '@stylexjs/babel-plugin/lib/index' in /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files for build dependencies doesn't lead to expected result '/Users/vendit/Develop/personal/resume/node_modules/@stylexjs/babel-plugin/lib/index.js', but to '/Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@stylexjs/babel-plugin/lib/index.js' instead. Resolving dependencies are ignored for this path.
+<w>  at unknown 4 @stylexjs/babel-plugin/lib/index
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/module-types.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/module-types.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/configuration.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/configuration.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/files/index.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/config-descriptors.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/config-descriptors.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/item.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/item.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/config/index.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/parse.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/parse.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/node_modules/@babel/core/lib/index.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/custom-webpack-plugin.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/custom-webpack-plugin.js
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/index.js
+<w>  at file /Users/vendit/Develop/personal/resume/node_modules/@stylexjs/nextjs-plugin/src/index.js
+<w>  at resolve esm file @stylexjs/nextjs-plugin
+<w>  at file dependencies /Users/vendit/Develop/personal/resume/next.config.mjs
+<w>  at file /Users/vendit/Develop/personal/resume/next.config.mjs
+<w>  at resolve commonjs /Users/vendit/Develop/personal/resume/next.config.mjs
+ ✓ Compiled successfully in 31.0s
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+   Collecting page data ...
+   Generating static pages (0/10) ...
+   Generating static pages (2/10) 
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ƒ /                                      347 B         514 kB
+├ ○ /_not-found                            132 B         347 kB
+├ ƒ /award                                 347 B         514 kB
+├ ○ /awards                                347 B         514 kB
+├ ƒ /license                               347 B         514 kB
+├ ○ /licenses                              347 B         514 kB
+├ ƒ /project                               347 B         514 kB
+└ ○ /projects                              347 B         514 kB
++ First Load JS shared by all             347 kB
+  ├ chunks/4bd1b696-da2e47cdb2de7720.js  54.2 kB
+  ├ chunks/683-1a7ed2ffbb0865fb.js       68.7 kB
+  ├ chunks/ed9f2dc4-796a7f5f8174aada.js   222 kB
+  └ other shared chunks (total)          2.06 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

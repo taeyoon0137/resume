@@ -17,7 +17,7 @@ import { colors } from "../../../../styles/variable/colors.stylex";
 import { spaces } from "../../../../styles/variable/spaces.stylex";
 
 import type { ResumeInfoProps } from "./ResumeInfo.type";
-import type { StyleXVar } from "@stylexjs/stylex/lib/StyleXTypes";
+import type { StyleXVar } from "@stylexjs/stylex/lib/types/StyleXTypes";
 
 /**
  * ### 이력서 정보
@@ -150,7 +150,7 @@ const styles = stylex.create({
       default: "none",
       ":hover": "underline",
     },
-    textDecorationColor: underlineColor,
+    textDecorationColor: underlineColor ?? null,
   }),
   jobContainer: {
     marginTop: 16,

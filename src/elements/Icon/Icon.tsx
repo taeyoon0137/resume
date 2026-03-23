@@ -14,7 +14,7 @@ import { icon } from "@/assets";
 import { colors } from "../../styles/variable/colors.stylex";
 
 import type { IconProps } from "./Icon.type";
-import type { StyleXVar } from "@stylexjs/stylex/lib/StyleXTypes";
+import type { StyleXVar } from "@stylexjs/stylex/lib/types/StyleXTypes";
 
 /**
  * ### Icon

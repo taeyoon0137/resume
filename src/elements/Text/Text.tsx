@@ -16,7 +16,7 @@ import { TextContext } from "@/contexts";
 import { colors } from "../../styles/variable/colors.stylex";
 
 import type { TextProps } from "./Text.type";
-import type { StyleXVar } from "@stylexjs/stylex/lib/StyleXTypes";
+import type { StyleXVar } from "@stylexjs/stylex/lib/types/StyleXTypes";
 
 /**
  * ### Text

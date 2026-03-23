@@ -6,7 +6,7 @@
  */
 
 import type { Props } from "@/types";
-import type { StyleXVar } from "@stylexjs/stylex/lib/StyleXTypes";
+import type { StyleXVar } from "@stylexjs/stylex/lib/types/StyleXTypes";
 
 /**
  * ### Text 프로퍼티

@@ -16,7 +16,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { IsModalContext, ModalContext } from "@/contexts";
 
 import type { PageModalProps } from "./PageModal.type";
-import type { AnimationProps } from "framer-motion";
+import type { MotionProps } from "framer-motion";
 
 /**
  * ### PageModal
@@ -27,6 +27,14 @@ import type { AnimationProps } from "framer-motion";
  * @component
  */
 const PageModal = ({ children }: PageModalProps) => {
+  return (
+    <Suspense fallback={<div></div>}>
+      <PageModalInner>{children}</PageModalInner>
+    </Suspense>
+  );
+};
+
+const PageModalInner = ({ children }: PageModalProps) => {
   const modalId = useId();
   const scrollRef = useRef<HTMLDivElement>(null);
   const setModal = useContext(ModalContext);
@@ -78,14 +86,12 @@ const PageModal = ({ children }: PageModalProps) => {
   }
 
   return (
-    <Suspense fallback={<div></div>}>
-      <IsModalContext.Provider value={true}>
-        <motion.div key={modalId} ref={scrollRef} {...transition} {...stylex.props(styles.modal)}>
-          <div onClick={handleBackdropClick} {...stylex.props(styles.backdrop)} />
-          {children}
-        </motion.div>
-      </IsModalContext.Provider>
-    </Suspense>
+    <IsModalContext.Provider value={true}>
+      <motion.div key={modalId} ref={scrollRef} {...transition} {...stylex.props(styles.modal)}>
+        <div onClick={handleBackdropClick} {...stylex.props(styles.backdrop)} />
+        {children}
+      </motion.div>
+    </IsModalContext.Provider>
   );
 };
 
@@ -94,7 +100,7 @@ const PageModal = ({ children }: PageModalProps) => {
  *
  * 화면 전환 애니메이션을 설정합니다.
  */
-const transition: AnimationProps = {
+const transition: MotionProps = {
   initial: {
     y: "100vh",
     opacity: 0,
