@@ -47,6 +47,10 @@ export interface IParticle {
    */
   rgb: number[];
 
+  colorSolid: string;
+
+  colorTransparent: string;
+
   /**
    * ### x축 속도
    *

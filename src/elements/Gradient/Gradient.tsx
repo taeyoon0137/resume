@@ -34,6 +34,8 @@ const Gradient = ({ colors, style, ...props }: GradientProps) => {
     particles: [],
     minRadius: 0,
     maxRadius: 0,
+    animationFrameId: 0,
+    ctx: null,
   });
 
   useEffect(initializeCanvas, []);
@@ -56,20 +58,26 @@ const Gradient = ({ colors, style, ...props }: GradientProps) => {
    * @see https://www.youtube.com/watch?v=D6EiRSRhsbQ
    */
   function initializeCanvas(): () => void {
-    // 픽셀 비율을 설정합니다.
-    canvasConfig.current.pixelRatio = window.devicePixelRatio > 1 ? 2 : 1;
+    canvasConfig.current.pixelRatio = 1;
 
-    // 크기 조정 리스너를 설정합니다.
-    if (canvasRef.current) canvasRef.current.addEventListener("resize", resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    // 애니메이션을 실행합니다.
-    const handleID = window.requestAnimationFrame(animateParticles);
+    function handleVisibility(): void {
+      if (document.hidden) {
+        window.cancelAnimationFrame(canvasConfig.current.animationFrameId);
+      } else {
+        canvasConfig.current.animationFrameId = window.requestAnimationFrame(animateParticles);
+      }
+    }
+    document.addEventListener("visibilitychange", handleVisibility);
 
-    // 클린업을 수행합니다.
+    canvasConfig.current.animationFrameId = window.requestAnimationFrame(animateParticles);
+
     return () => {
-      if (canvasRef.current) canvasRef.current.removeEventListener("resize", resizeCanvas);
-      window.cancelAnimationFrame(handleID);
+      window.removeEventListener("resize", resizeCanvas);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.cancelAnimationFrame(canvasConfig.current.animationFrameId);
     };
   }
 
@@ -77,33 +85,27 @@ const Gradient = ({ colors, style, ...props }: GradientProps) => {
    * 캔버스 크기가 조정되었을 때, 이를 반영합니다.
    */
   function resizeCanvas(): void {
-    // 캔버스가 존재하지 않을 경우 종료합니다.
     if (!canvasRef.current) return;
 
-    // 캔버스의 2D 컨텍스트를 가져옵니다.
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
 
-    // 캔버스의 크기를 조정합니다.
-    // 실제 픽셀 단위를 사용하기 위해 픽셀 비율로 나눕니다.
+    canvasConfig.current.ctx = ctx;
+
     canvasConfig.current.canvasWidth = canvasRef.current.clientWidth;
     canvasConfig.current.canvasHeight = canvasRef.current.clientHeight;
 
-    // 캔버스의 크기를 설정합니다.
     canvasRef.current.width = canvasConfig.current.canvasWidth * canvasConfig.current.pixelRatio;
     canvasRef.current.height = canvasConfig.current.canvasHeight * canvasConfig.current.pixelRatio;
-    ctx.scale(canvasConfig.current.pixelRatio, canvasConfig.current.pixelRatio);
+    ctx.setTransform(canvasConfig.current.pixelRatio, 0, 0, canvasConfig.current.pixelRatio, 0, 0);
 
-    // 파티클 크기를 설정합니다.
     canvasConfig.current.minRadius =
       Math.min(canvasConfig.current.canvasWidth, canvasConfig.current.canvasHeight) * 0.6;
     canvasConfig.current.maxRadius =
       Math.min(canvasConfig.current.canvasWidth, canvasConfig.current.canvasHeight) * 1.25;
 
-    // 전역 색상을 설정합니다.
     ctx.globalCompositeOperation = "saturation";
 
-    // 애니메이션을 재설정합니다.
     createParticles();
   }
 
@@ -135,20 +137,13 @@ const Gradient = ({ colors, style, ...props }: GradientProps) => {
    * window.requestAnimationFrame을 통해 재귀적으로 호출합니다.
    */
   function animateParticles() {
-    // 재귀적으로 호출합니다.
-    window.requestAnimationFrame(animateParticles);
+    canvasConfig.current.animationFrameId = window.requestAnimationFrame(animateParticles);
 
-    // 캔버스가 존재하지 않을 경우 종료합니다.
-    if (!canvasRef.current) return;
+    const ctx = canvasConfig.current.ctx;
+    if (!canvasRef.current || !ctx) return;
 
-    // 캔버스의 2D 컨텍스트를 가져옵니다.
-    const ctx = canvasRef.current.getContext("2d");
-    if (!ctx) return;
-
-    // 캔버스를 초기화합니다.
     ctx.clearRect(0, 0, canvasConfig.current.canvasWidth, canvasConfig.current.canvasHeight);
 
-    // 각 파티클을 움직입니다.
     for (const particle of canvasConfig.current.particles) {
       particle.move(ctx, canvasConfig.current.canvasWidth, canvasConfig.current.canvasHeight);
     }

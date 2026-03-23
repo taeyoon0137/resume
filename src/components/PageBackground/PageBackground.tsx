@@ -51,7 +51,7 @@ const styles = stylex.create({
     left: 0,
     width: "100vw",
     height: "100vh",
-    backdropFilter: "blur(200px)",
+    backdropFilter: "blur(60px)",
   },
 });
 

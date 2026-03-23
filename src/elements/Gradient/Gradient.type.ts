@@ -70,4 +70,19 @@ export interface CanvasConfig {
    * 입자의 최대 반지름을 정의합니다.
    */
   maxRadius: number;
+
+  /**
+   * ### 애니메이션 프레임 ID
+   *
+   * 현재 실행 중인 requestAnimationFrame의 ID를 기록합니다.
+   * 클린업 시 이 ID를 사용하여 프레임 루프를 정지합니다.
+   */
+  animationFrameId: number;
+
+  /**
+   * ### 캔버스 2D 컨텍스트
+   *
+   * 매 프레임 getContext("2d") 호출을 피하기 위해 캐시합니다.
+   */
+  ctx: CanvasRenderingContext2D | null;
 }

@@ -7,6 +7,8 @@
 
 import type { IParticle } from "./Particle.type";
 
+const TWO_PI = Math.PI * 2;
+
 /**
  * ### Particle
  *
@@ -14,23 +16,25 @@ import type { IParticle } from "./Particle.type";
  */
 class Particle implements IParticle {
   constructor(x: number, y: number, radius: number, rgb: number[]) {
-    // 값 할당
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.rgb = rgb;
 
-    // 무작위 값 할당
+    this.colorSolid = `rgba(${rgb.join(", ")}, 1)`;
+    this.colorTransparent = `rgba(${rgb.join(", ")}, 0)`;
+
     this.vx = Math.random() * 12;
     this.vy = Math.random() * 12;
     this.sinValue = Math.random();
   }
 
-  // 내부 변수 정의
   x;
   y;
   radius;
   rgb;
+  colorSolid;
+  colorTransparent;
   vx;
   vy;
   sinValue;
@@ -67,12 +71,12 @@ class Particle implements IParticle {
     // 그라데이션을 생성합니다.
     ctx.beginPath();
     const g = ctx.createRadialGradient(this.x, this.y, this.radius * 0.01, this.x, this.y, this.radius);
-    g.addColorStop(0, `rgba(${this.rgb.join(", ")}, 1)`);
-    g.addColorStop(1, `rgba(${this.rgb.join(", ")}, 0)`);
+    g.addColorStop(0, this.colorSolid);
+    g.addColorStop(1, this.colorTransparent);
 
     // 옮겨진 입자를 그립니다.
     ctx.fillStyle = g;
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    ctx.arc(this.x, this.y, this.radius, 0, TWO_PI, false);
     ctx.fill();
   }
 }
