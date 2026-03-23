@@ -34,7 +34,7 @@ const Text = ({ kind, color, style, children, ...props }: TextProps) => {
   // 텍스트 컨텍스트의 값에 따라 텍스트 컬러를 변경합니다.
   if (textContext) {
     return (
-      <span {...stylex.props(styles.typo(color), kind && styles[kind], style)} {...props}>
+      <span {...stylex.props(styles.typo(color ?? null), kind && styles[kind], style)} {...props}>
         {children}
       </span>
     );
@@ -51,10 +51,10 @@ const Text = ({ kind, color, style, children, ...props }: TextProps) => {
 };
 
 const styles = stylex.create({
-  typo: (color?: StyleXVar<string>) => ({
+  typo: (color?: StyleXVar<string> | null) => ({
     fontFamily:
       '-apple-system, BlinkMacSystemFont, Pretendard, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
-    color: color,
+    color: color ?? null,
   }),
   "super-a1-bold": {
     fontSize: 80,
