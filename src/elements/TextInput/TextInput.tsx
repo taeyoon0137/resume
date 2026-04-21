@@ -15,7 +15,10 @@ import { colors } from "../../styles/variable/colors.stylex";
 
 import type { TextInputProps } from "./TextInput.type";
 
-const TextInput = forwardRef<HTMLInputElement, TextInputProps>(({ mocking, onFocus, style, ...props }, ref) => {
+const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
+  { mocking, onFocus, style, ...props },
+  ref,
+) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   // 외부 ref 전달
