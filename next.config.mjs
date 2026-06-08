@@ -7,6 +7,8 @@
 
 import stylexPlugin from "@stylexjs/nextjs-plugin";
 
+const __dirname = new URL(".", import.meta.url).pathname;
+
 /**
  * ### Next.js 설정
  *
@@ -15,6 +17,7 @@ import stylexPlugin from "@stylexjs/nextjs-plugin";
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  outputFileTracingRoot: __dirname,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -30,7 +33,5 @@ const nextConfig = {
  *
  * StyleX 플러그인 설정을 지정합니다.
  */
-const __dirname = new URL(".", import.meta.url).pathname;
-
 // StyleX 플러그인 설정을 적용합니다.
 export default stylexPlugin({ rootDir: __dirname })(nextConfig);
