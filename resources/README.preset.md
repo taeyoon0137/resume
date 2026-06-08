@@ -13,24 +13,15 @@
   Then run ./scripts/readme_update.sh to embed existing hero images into resources/readme-hero.svg.
 -->
 <p align="center">
-  <a href="https://github.com/taeyoon0137/resume">
-    <img src="./resources/readme-hero.svg" alt="resume hero image" width="100%" />
+  <a href="${repositoryUrl}">
+    <img src="../resources/readme-hero.svg" alt="${projectName} hero image" width="100%" />
   </a>
 </p>
 
 <h1 align="center">taeyoon. – resume</h1>
 <p align="center">반가워요 👋 프로덕트 디자이너 & 프론트엔드 엔지니어, 이태윤입니다.</p>
 
-<p align="center">
-  <a href="https://github.com/taeyoon0137/resume"><img src="https://img.shields.io/badge/0.1.0-%23101010?label=resume&labelColor=%234D24E2" /></a>
-</p>
-<p align="center">
-  <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-%23000000?&logo=nextdotjs&logoColor=%23FFFFFF" /></a>
-  <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-%2320232A?&logo=react&logoColor=%2361DAFB" /></a>
-  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-%233178C6?&logo=typescript&logoColor=%23FFFFFF" /></a>
-  <a href="https://stylexjs.com/"><img src="https://img.shields.io/badge/StyleX-%23101010" /></a>
-  <a href="https://yarnpkg.com/"><img src="https://img.shields.io/badge/Yarn-%232C8EBB?&logo=yarn&logoColor=%23FFFFFF" /></a>
-</p>
+${badgeBlock}
 
 - [🚀 시작하기](#시작하기)
 - [✍️ 콘텐츠 관리](#콘텐츠-관리)
