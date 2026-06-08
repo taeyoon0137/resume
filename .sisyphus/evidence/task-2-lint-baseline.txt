@@ -1,4 +1,0 @@
-
- ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/basic-features/eslint#migrating-existing-config
-✔ No ESLint warnings or errors
-Exit code: 0

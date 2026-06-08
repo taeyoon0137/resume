@@ -1,6 +1,0 @@
-src/elements/Icon/Icon.tsx(17,32): error TS2307: Cannot find module '@stylexjs/stylex/lib/StyleXTypes' or its corresponding type declarations.
-src/elements/Icon/Icon.type.ts(9,32): error TS2307: Cannot find module '@stylexjs/stylex/lib/StyleXTypes' or its corresponding type declarations.
-src/elements/Text/Text.tsx(19,32): error TS2307: Cannot find module '@stylexjs/stylex/lib/StyleXTypes' or its corresponding type declarations.
-src/elements/Text/Text.type.ts(9,32): error TS2307: Cannot find module '@stylexjs/stylex/lib/StyleXTypes' or its corresponding type declarations.
-src/screens/Root/components/ResumeInfo/ResumeInfo.tsx(20,32): error TS2307: Cannot find module '@stylexjs/stylex/lib/StyleXTypes' or its corresponding type declarations.
-Exit code: 0
