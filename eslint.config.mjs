@@ -30,7 +30,7 @@ const DEFAULT_LIBRARIES = [
 ].join(",");
 
 export default defineConfig([
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", ".yarn/**", "out/**", "build/**", "next-env.d.ts"]),
   ...nextVitals,
   ...nextTs,
   {
