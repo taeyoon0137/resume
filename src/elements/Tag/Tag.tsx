@@ -9,9 +9,9 @@ import * as stylex from "@stylexjs/stylex";
 
 import { colors } from "../../styles/variable/colors.stylex";
 
-import { Text } from "@/elements/Text";
-
 import type { TagProps } from "./Tag.type";
+
+import { Text } from "@/elements/Text";
 
 /**
  * ### 태그
