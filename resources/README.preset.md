@@ -14,7 +14,7 @@
 -->
 <p align="center">
   <a href="${repositoryUrl}">
-    <img src="../resources/readme-hero.svg" alt="${projectName} hero image" width="100%" />
+    <img src="../resources/readme-hero.svg" alt="resume hero image" width="100%" />
   </a>
 </p>
 
