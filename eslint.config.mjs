@@ -5,38 +5,19 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import nextPlugin from "@next/eslint-plugin-next";
 import stylex from "@stylexjs/eslint-plugin";
 import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
 import prettier from "eslint-config-prettier/flat";
-import importPlugin from "eslint-plugin-import";
-import unusedImports from "eslint-plugin-unused-imports";
+import taeyoon from "eslint-config-taeyoon/react";
 import globals from "globals";
-
-const DEFAULT_LIBRARIES = [
-  "react",
-  "react-dom",
-  "react-router-dom",
-  "react-native",
-  "react-native-reanimated",
-  "recoil",
-  "react-query",
-  "next?(/*)",
-  "zod",
-  "lodash",
-  "axios",
-  "superagent",
-].join(",");
 
 export default defineConfig([
   globalIgnores([".next/**", ".yarn/**", "out/**", "build/**", "next-env.d.ts"]),
-  ...nextVitals,
-  ...nextTs,
+  ...taeyoon,
+  nextPlugin.configs["core-web-vitals"],
   {
     plugins: {
-      import: importPlugin,
-      "unused-imports": unusedImports,
       "@stylexjs": stylex,
     },
     languageOptions: {
@@ -46,73 +27,24 @@ export default defineConfig([
       },
     },
     rules: {
-      curly: "off",
-      "no-case-declarations": "off",
-      "no-redeclare": "off",
-      "no-undef": "off",
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { varsIgnorePattern: "^_", argsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" },
-      ],
-      "nonblock-statement-body-position": "error",
-      "prefer-const": "error",
-      "no-import-assign": "off",
-      quotes: "off",
-
-      "react-hooks/exhaustive-deps": "off",
       "react-hooks/refs": "off",
       "react-hooks/use-memo": "off",
       "react-hooks/components-during-render": "off",
       "react-hooks/static-components": "off",
 
+      "@stylexjs/valid-styles": "error",
+    },
+  },
+  {
+    files: ["**/*.{ts,tsx,mts,cts}"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { varsIgnorePattern: "^_", argsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" },
+      ],
+      "@typescript-eslint/no-unused-expressions": "warn",
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "off",
-
-      "unused-imports/no-unused-imports": "warn",
-
-      "@stylexjs/valid-styles": "error",
-
-      "import/order": [
-        "error",
-        {
-          groups: ["builtin", "external", "sibling", "parent", "internal", "object", "index", "type"],
-          pathGroups: [
-            {
-              pattern: "*.{css,scss,sass}",
-              group: "builtin",
-              position: "before",
-            },
-            {
-              pattern: `{${DEFAULT_LIBRARIES}}`,
-              group: "builtin",
-              position: "before",
-            },
-            {
-              pattern: "react-!(native+(*))",
-              group: "builtin",
-              position: "before",
-            },
-            {
-              pattern: "{react-native-*,*-react-native}",
-              group: "builtin",
-              position: "before",
-            },
-            {
-              pattern: "{@/*, @*, @/**/*, @**/*}",
-              group: "external",
-              position: "after",
-            },
-          ],
-          "newlines-between": "always",
-          pathGroupsExcludedImportTypes: ["type"],
-          alphabetize: {
-            order: "asc",
-            orderImportKind: "asc",
-            caseInsensitive: true,
-          },
-        },
-      ],
     },
   },
   prettier,
