@@ -16,6 +16,10 @@ import { Particle } from "./classes";
 
 import type { GradientProps, CanvasConfig } from "./Gradient.type";
 
+const SPEED_CYCLE_MS = 7000;
+const MIN_SPEED_RATIO = 1 / 3;
+const MAX_SPEED_RATIO = 1;
+
 /**
  * ### Gradient
  *
@@ -35,6 +39,7 @@ const Gradient = ({ colors, style, ...props }: GradientProps) => {
     minRadius: 0,
     maxRadius: 0,
     animationFrameId: 0,
+    animationStartTime: null,
     ctx: null,
   });
 
@@ -133,10 +138,30 @@ const Gradient = ({ colors, style, ...props }: GradientProps) => {
   }
 
   /**
+   * 현재 프레임에 적용할 파티클 속도 계수를 계산합니다.
+   *
+   * @param timestamp requestAnimationFrame이 전달한 현재 시각입니다.
+   * @returns 현재 프레임의 속도 계수입니다.
+   */
+  function getSpeedRatio(timestamp: number): number {
+    if (canvasConfig.current.animationStartTime === null) {
+      canvasConfig.current.animationStartTime = timestamp;
+    }
+
+    const elapsedTime = timestamp - canvasConfig.current.animationStartTime;
+    const cycleProgress = (elapsedTime % SPEED_CYCLE_MS) / SPEED_CYCLE_MS;
+    const sineValue = Math.sin(cycleProgress * Math.PI * 2 + Math.PI / 2);
+
+    return MIN_SPEED_RATIO + ((sineValue + 1) / 2) * (MAX_SPEED_RATIO - MIN_SPEED_RATIO);
+  }
+
+  /**
    * 파티클을 애니메이션합니다.
    * window.requestAnimationFrame을 통해 재귀적으로 호출합니다.
+   *
+   * @param timestamp requestAnimationFrame이 전달한 현재 시각입니다.
    */
-  function animateParticles() {
+  function animateParticles(timestamp: number) {
     canvasConfig.current.animationFrameId = window.requestAnimationFrame(animateParticles);
 
     const ctx = canvasConfig.current.ctx;
@@ -144,8 +169,10 @@ const Gradient = ({ colors, style, ...props }: GradientProps) => {
 
     ctx.clearRect(0, 0, canvasConfig.current.canvasWidth, canvasConfig.current.canvasHeight);
 
+    const speedRatio = getSpeedRatio(timestamp);
+
     for (const particle of canvasConfig.current.particles) {
-      particle.move(ctx, canvasConfig.current.canvasWidth, canvasConfig.current.canvasHeight);
+      particle.move(ctx, canvasConfig.current.canvasWidth, canvasConfig.current.canvasHeight, speedRatio);
     }
   }
 

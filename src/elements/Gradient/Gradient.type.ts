@@ -80,6 +80,13 @@ export interface CanvasConfig {
   animationFrameId: number;
 
   /**
+   * ### 애니메이션 시작 시각
+   *
+   * 속도 변조 주기의 기준이 되는 requestAnimationFrame 타임스탬프입니다.
+   */
+  animationStartTime: number | null;
+
+  /**
    * ### 캔버스 2D 컨텍스트
    *
    * 매 프레임 getContext("2d") 호출을 피하기 위해 캐시합니다.

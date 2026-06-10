@@ -84,6 +84,7 @@ export interface IParticle {
    * @param ctx - 캔버스 렌더링 컨텍스트
    * @param canvasWidth - 캔버스 너비
    * @param canvasHeight - 캔버스 높이
+   * @param speedRatio - 현재 프레임에 적용할 속도 계수
    */
-  move(ctx: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number): void;
+  move(ctx: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number, speedRatio: number): void;
 }

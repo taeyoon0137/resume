@@ -8,6 +8,8 @@
 import type { IParticle } from "./Particle.type";
 
 const TWO_PI = Math.PI * 2;
+const MAX_PARTICLE_SPEED = 2;
+const RADIUS_WAVE_SPEED = 0.01;
 
 /**
  * ### Particle
@@ -24,8 +26,8 @@ class Particle implements IParticle {
     this.colorSolid = `rgba(${rgb.join(", ")}, 1)`;
     this.colorTransparent = `rgba(${rgb.join(", ")}, 0)`;
 
-    this.vx = Math.random() * 12;
-    this.vy = Math.random() * 12;
+    this.vx = Math.random() * MAX_PARTICLE_SPEED;
+    this.vy = Math.random() * MAX_PARTICLE_SPEED;
     this.sinValue = Math.random();
   }
 
@@ -39,16 +41,16 @@ class Particle implements IParticle {
   vy;
   sinValue;
 
-  move(ctx: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number): void {
+  move(ctx: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number, speedRatio: number): void {
     // 사인 값 증가
-    this.sinValue += 0.01;
+    this.sinValue += RADIUS_WAVE_SPEED * speedRatio;
 
     // 사인 값 기반 반지름 이동
-    this.radius += Math.sin(this.sinValue);
+    this.radius += Math.sin(this.sinValue) * speedRatio;
 
     // 입자 이동
-    this.x += this.vx;
-    this.y += this.vy;
+    this.x += this.vx * speedRatio;
+    this.y += this.vy * speedRatio;
 
     // 캔버스 경계 처리
     // 입자가 경계에 충돌하면 이동 속도를 반전합니다.
