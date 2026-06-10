@@ -72,7 +72,7 @@ export const contentData: ContentData = {
   ],
   companies: [
     {
-      company: "벤디트 주식회사",
+      company: "주식회사 벤디트",
       handle: "vendit",
       link: "https://vendit.co.kr",
       jobs: [{ roles: ["Product Designer"], startYear: 2024, startMonth: 11, still: true }],
