@@ -28,6 +28,9 @@
     "Supabase",
     "Surfit",
     "treeshake",
+    "VCLOUD",
+    "VKIOSK",
+    "VPMS",
     "xmark"
   ]
 }
