@@ -12,4 +12,5 @@ export { default as globe } from "./globe.svg";
 export { default as link } from "./link.svg";
 export { default as moon } from "./moon.svg";
 export { default as phone_fill } from "./phone.fill.svg";
+export { default as star } from "./star.svg";
 export { default as xmark } from "./xmark.svg";

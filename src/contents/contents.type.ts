@@ -156,6 +156,7 @@ export const ContentProject = z.object({
   roles: z.string().array().optional(),
   organization: z.string().optional(),
   techStacks: z.string().array().optional(),
+  priority: z.number().int().optional(),
   content: z
     .object({
       summary: z.string().array().optional(),

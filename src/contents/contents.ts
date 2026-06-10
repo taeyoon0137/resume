@@ -373,6 +373,7 @@ function getProjects(projects: ContentProject[]) {
       rootProject: project.rootProject,
       role: project.roles?.join(" & "),
       link: project.link,
+      priority: project.priority,
       organization: orgName
         ? {
             name: orgName,

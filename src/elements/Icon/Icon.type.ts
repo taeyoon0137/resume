@@ -53,4 +53,5 @@ export type IconName =
   | "link"
   | "moon"
   | "phone.fill"
+  | "star"
   | "xmark";
