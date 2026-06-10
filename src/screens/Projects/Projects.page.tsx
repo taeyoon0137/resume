@@ -197,7 +197,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
         />
         {subKeyword && (
           <Text color={colors.contentGrayA2} style={styles.subKeywordGuide}>
-            혹시&nbsp;
+            혹시{" "}
             <Link
               href={{ pathname: "/project", query: { keyword: subKeyword } }}
               scroll={false}

@@ -12,6 +12,16 @@ import { LayoutProps } from "@/types";
 
 import type { Metadata, Viewport } from "next";
 
+const siteUrl = "https://resume.taeyoon.xyz";
+const siteTitle = "taeyoon. – resume";
+const siteDescription = "반갑습니다. Product Designer & FE Engineer(RN)로 활동 중인 이태윤입니다.";
+const openGraphImage = {
+  alt: siteTitle,
+  height: 630,
+  url: "/img_open_graph.png",
+  width: 1200,
+};
+
 /**
  * ### metadata 프로퍼티
  *
@@ -19,24 +29,49 @@ import type { Metadata, Viewport } from "next";
  */
 export const metadata: Metadata = {
   // 베이스 경로
-  metadataBase: new URL("https://resume.taeyoon.xyz"),
+  metadataBase: new URL(siteUrl),
 
   // 기본 메타 태그
-  title: "taeyoon. – resume",
-  description: "반갑습니다. Product Designer & FE Engineer(RN)로 활동 중인 이태윤입니다.",
+  title: siteTitle,
+  description: siteDescription,
+  applicationName: siteTitle,
+  authors: [{ name: "Taeyoon Lee", url: "https://taeyoon.xyz" }],
+  creator: "Taeyoon Lee",
 
   // 대체 URL
   alternates: {
     canonical: "/",
   },
 
+  // 검색 엔진
+  robots: {
+    follow: true,
+    googleBot: {
+      follow: true,
+      index: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+    index: true,
+  },
+
   // 오픈 그래프
   openGraph: {
-    siteName: "taeyoon. – resume",
-    title: "taeyoon. – resume",
-    description: "Product Designer & FE Engineer(RN)",
-    images: "/img_open_graph.png",
-    url: "https://resume.taeyoon.xyz",
+    siteName: siteTitle,
+    title: siteTitle,
+    description: siteDescription,
+    images: [openGraphImage],
+    locale: "ko_KR",
+    url: siteUrl,
+  },
+
+  // 트위터 카드
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: [openGraphImage],
   },
 
   // 파비콘 설정

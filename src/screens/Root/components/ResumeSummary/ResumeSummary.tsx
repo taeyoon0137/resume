@@ -108,7 +108,7 @@ function renderAwards() {
         <SummaryItem
           title={
             <>
-              <Text style={styles.award}>{award.award}&nbsp;</Text>
+              <Text style={styles.award}>{award.award} </Text>
               <Text style={styles.award}>{award.prize}</Text>
             </>
           }

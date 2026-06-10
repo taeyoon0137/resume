@@ -78,6 +78,7 @@ const ResumeJob = () => {
         <Link
           href={content.job.link}
           target="_blank"
+          rel="noopener noreferrer"
           {...stylex.props(styles.link(colors.contentTintBlueA2), styles.jobCompany)}
         >
           <Text kind="body-a1-medium" color={colors.contentTintBlueA1}>
@@ -117,6 +118,7 @@ const ResumeContact = () => {
                   <Link
                     href={contact.link}
                     target="_blank"
+                    rel="noopener noreferrer"
                     {...stylex.props(styles.link(colors.contentGrayA2), styles.linkContainer)}
                   >
                     <Icon name={contact.icon} size={20} style={styles.linkIcon} />

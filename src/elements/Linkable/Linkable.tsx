@@ -19,13 +19,15 @@ import type { LinkableProps } from "./Linkable.type";
  * @param props {@link LinkableProps}
  * @component
  */
-const Linkable = ({ href, style, children, ...props }: LinkableProps) => {
+const Linkable = ({ href, style, children, target, rel, ...props }: LinkableProps) => {
   if (!href) {
     return <div {...stylex.props(style)}>{children}</div>;
   }
 
+  const linkRel = target === "_blank" && !rel ? "noopener noreferrer" : rel;
+
   return (
-    <Link href={href} {...stylex.props(style)} {...props}>
+    <Link href={href} target={target} rel={linkRel} {...stylex.props(style)} {...props}>
       {children}
     </Link>
   );

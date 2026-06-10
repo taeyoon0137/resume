@@ -22,8 +22,7 @@ const SummaryItem = ({ title, info, caption, link, style, ...props }: SummaryIte
             <Linkable href={link} target="_blank">
               {title}
               {link && (
-                <span {...stylex.props(styles.titleLink)}>
-                  &nbsp;
+                <span {...stylex.props(styles.titleLink, styles.titleLinkIcon)}>
                   <Icon name="link" size={20} fill={colors.contentGrayA3} />
                 </span>
               )}
@@ -54,6 +53,11 @@ const styles = stylex.create({
       ":hover": "underline",
     },
     textDecorationColor: colors.contentGrayA3,
+  },
+  titleLinkIcon: {
+    display: "inline-flex",
+    marginLeft: 4,
+    verticalAlign: "middle",
   },
   date: {
     marginTop: 6,

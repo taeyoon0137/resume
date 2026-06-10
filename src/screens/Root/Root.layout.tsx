@@ -13,11 +13,53 @@ import * as stylex from "@stylexjs/stylex";
 import { AnimatePresence } from "framer-motion";
 
 import { PageBackground } from "@/components";
+import { content } from "@/contents";
 import { IsModalOpenContext, ModalContext } from "@/contexts";
 
 import { colors } from "../../styles/variable/colors.stylex";
 
 import type { RootLayoutProps } from "./Root.type";
+
+const siteUrl = "https://resume.taeyoon.xyz";
+const profilePageId = `${siteUrl}/#profile`;
+const personId = `${siteUrl}/#person`;
+const flatContacts = content.contacts.flat();
+const email = flatContacts.find((contact) => contact.type === "email")?.value;
+const sameAs = flatContacts
+  .filter((contact) => contact.type === "web" || contact.type === "github")
+  .map((contact) => contact.link);
+const structuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": personId,
+      "@type": "Person",
+      email,
+      jobTitle: content.job.roles,
+      name: content.info.name,
+      sameAs,
+      url: siteUrl,
+      worksFor: {
+        "@type": "Organization",
+        name: content.job.company,
+        url: content.job.link,
+      },
+    },
+    {
+      "@id": profilePageId,
+      "@type": "ProfilePage",
+      about: {
+        "@id": personId,
+      },
+      inLanguage: "ko-KR",
+      mainEntity: {
+        "@id": personId,
+      },
+      name: "taeyoon. – resume",
+      url: siteUrl,
+    },
+  ],
+}).replace(/</g, "\\u003c");
 
 /**
  * ### RootLayout
@@ -63,6 +105,8 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
   return (
     <html lang="ko">
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
+
         {/* 배경 렌더링 */}
         <PageBackground style={styles.background} />
 
