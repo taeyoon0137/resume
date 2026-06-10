@@ -9,6 +9,8 @@ import stylexPlugin from "@stylexjs/nextjs-plugin";
 
 const __dirname = new URL(".", import.meta.url).pathname;
 
+const portfolioPath = "/Portfolio%20%E2%80%93%20Taeyoon%20Lee%202026.pdf";
+
 /**
  * ### Next.js 설정
  *
@@ -18,6 +20,32 @@ const __dirname = new URL(".", import.meta.url).pathname;
  */
 const nextConfig = {
   outputFileTracingRoot: __dirname,
+  async headers() {
+    return [
+      {
+        source: "/portfolio",
+        headers: [
+          {
+            key: "Content-Disposition",
+            value:
+              "attachment; filename=\"Portfolio - Taeyoon Lee 2026.pdf\"; filename*=UTF-8''Portfolio%20%E2%80%93%20Taeyoon%20Lee%202026.pdf",
+          },
+          {
+            key: "Content-Type",
+            value: "application/pdf",
+          },
+        ],
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/portfolio",
+        destination: portfolioPath,
+      },
+    ];
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
