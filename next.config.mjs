@@ -41,4 +41,9 @@ const nextConfig = {
  * StyleX 플러그인 설정을 지정합니다.
  */
 // StyleX 플러그인 설정을 적용합니다.
-export default stylexPlugin({ rootDir: __dirname })(nextConfig);
+export default stylexPlugin({
+  rootDir: __dirname,
+  babelConfig: {
+    babelrc: false,
+  },
+})(nextConfig);

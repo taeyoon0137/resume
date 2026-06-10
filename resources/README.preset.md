@@ -27,6 +27,7 @@ ${badgeBlock}
 - [✍️ 콘텐츠 관리](#콘텐츠-관리)
 - [🛠️ 스크립트](#스크립트)
 - [🗂️ 레포지토리 구성](#레포지토리-구성)
+- [📝 노트](#노트)
 
 <a id="시작하기"></a>
 
@@ -110,3 +111,11 @@ resume
 ├── package.json                # Yarn scripts와 의존성 목록
 └── README.md                   # 자동 생성 결과물
 ```
+
+<a id="노트"></a>
+
+## 📝 노트
+
+- [`@stylexjs/nextjs-plugin`](https://www.npmjs.com/package/@stylexjs/nextjs-plugin)은 지원 중단 상태지만 직접 보안 이슈는 없어 우선 유지합니다. 이후 Tailwind CSS 등 유지보수되는 도구로 전환을 검토 중입니다.
+- SWC/Babel 경고는 `.babelrc.js`를 제거하고 StyleX loader가 외부 Babel 설정을 읽지 않도록 처리했습니다.
+- [`postcss` Dependabot 경고](https://github.com/advisories/GHSA-qx2v-qp2m-jg93)는 Next.js 전이 의존성 업데이트가 없어 Yarn `resolutions`로 `8.5.15`를 강제했습니다. Next.js가 패치 버전을 직접 의존하면 이 resolution은 제거합니다.
