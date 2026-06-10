@@ -59,7 +59,7 @@ const ResumeProjectList = () => {
 
   return (
     <LazyMotion features={domAnimation} strict>
-      <div {...stylex.props(styles.container(expand))}>
+      <div {...stylex.props(styles.container, expand && styles.containerExpanded)}>
         <m.div id={contentId} {...animation} {...stylex.props(styles.ignoreCollapse)}>
           <section>
             <SectionHeader title="프로젝트" />
@@ -145,7 +145,7 @@ const ResumeProjectList = () => {
 const MOBILE = "@media (max-width: 640px)";
 // const TABLET = "@media (min-width: 640px) and (max-width: 980px)";
 const styles = stylex.create({
-  container: (expand: boolean) => ({
+  container: {
     "::after": {
       content: "''",
       display: "flex",
@@ -153,13 +153,18 @@ const styles = stylex.create({
       left: 0,
       bottom: 0,
       right: 0,
-      height: expand ? 0 : 80,
+      height: 80,
       backgroundImage: `linear-gradient(0deg, ${colors.backgroundSolidCommon} 0%, ${colors.contentGrayA5} 100%)`,
     },
     position: "relative",
     flexGrow: 1,
     overflow: "hidden",
-  }),
+  },
+  containerExpanded: {
+    "::after": {
+      height: 0,
+    },
+  },
   ignoreCollapse: {
     height: {
       default: 0,
