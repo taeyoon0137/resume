@@ -12,7 +12,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { motion } from "framer-motion";
 
-import { Symbol } from "@/assets";
+import { TaeyoonSymbol } from "@/assets";
 import { IsModalOpenContext } from "@/contexts";
 
 import { colors } from "../../../../styles/variable/colors.stylex";
@@ -48,7 +48,7 @@ const ResumeHeader = () => {
         !isModalOpen && sticky && styles.symbolContainerOnSticky,
       )}
     >
-      <Symbol {...stylex.props(styles.symbol, sticky && styles.symbolSticky)} />
+      <TaeyoonSymbol {...stylex.props(styles.symbol, sticky && styles.symbolSticky)} />
     </motion.header>
   );
 };

@@ -5,9 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-// Symbol
-export { default as Symbol } from "./symbol.svg";
-
 // Project Thumbnail
 export { default as img_project_thumbnail_whatssub_blog } from "./img_project_thumbnail_whatssub_blog.png";
 export { default as img_project_thumbnail_whatssub } from "./img_project_thumbnail_whatssub.png";
@@ -21,3 +18,6 @@ export { default as img_side_project_thumbnail_sdvd } from "./img_side_project_t
 export { default as img_activity_thumbnail_design_off } from "./img_activity_thumbnail_design_off.png";
 export { default as img_activity_thumbnail_whatssub_blog_interview } from "./img_activity_thumbnail_whatssub_blog_interview.png";
 export { default as img_activity_thumbnail_medium_semantic } from "./img_activity_thumbnail_medium_semantic.png";
+
+// Symbol
+export { default as TaeyoonSymbol } from "./taeyoon_symbol.svg";
