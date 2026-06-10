@@ -5,15 +5,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { PageModal } from "@/components";
-import { Projects } from "@/screens";
-
 import type { PageProps } from "@/types";
+
+import { PageModal } from "@/components/PageModal";
+import { Projects } from "@/screens/Projects";
 
 /**
  * ### 참여 프로젝트 목록 페이지
  *
- * 참여했던 프로젝트 목록을 확인할 수 있는 페이지입니다.
+ * 참여했던 프로젝트 목록을 모달로 확인할 수 있는 페이지입니다.
  *
  * @param props {@link PageProps}
  * @page

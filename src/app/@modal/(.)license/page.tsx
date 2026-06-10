@@ -5,25 +5,25 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { PageModal } from "@/components";
-import { Awards } from "@/screens";
-
 import type { PageProps } from "@/types";
 
+import { PageModal } from "@/components/PageModal";
+import { Licenses } from "@/screens/Licenses";
+
 /**
- * ### 수상 내역 페이지
+ * ### 자격증 목록 페이지
  *
- * 이력서 메인 페이지입니다.
+ * 자격증 목록을 모달로 확인할 수 있는 페이지입니다.
  *
  * @param props {@link PageProps}
  * @page
  */
-const AwardsPage = ({ ...props }: PageProps) => {
+const LicensesPage = ({ ...props }: PageProps) => {
   return (
     <PageModal>
-      <Awards.Page {...props} />
+      <Licenses.Page {...props} />
     </PageModal>
   );
 };
 
-export default AwardsPage;
+export default LicensesPage;

@@ -21,5 +21,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ["/portfolio", "/download/portfolio", "/Portfolio%20%E2%80%93%20Taeyoon%20Lee%202026.pdf"],
       userAgent: "*",
     },
+    sitemap: "https://resume.taeyoon.xyz/sitemap.xml",
   };
 }

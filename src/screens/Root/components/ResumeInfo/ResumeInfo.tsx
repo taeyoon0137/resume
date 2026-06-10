@@ -110,20 +110,22 @@ const ResumeContact = () => {
     <nav {...stylex.props(styles.linkListContainer)}>
       <ul {...stylex.props(styles.linkList)}>
         {content.contacts.map((contactGroup) => (
-          <div key={contactGroup[0].type + contactGroup[0].value} {...stylex.props(styles.linkGroup)}>
-            {contactGroup.map((contact) => (
-              <li key={contact.type + contact.value}>
-                <Link
-                  href={contact.link}
-                  target="_blank"
-                  {...stylex.props(styles.link(colors.contentGrayA2), styles.linkContainer)}
-                >
-                  <Icon name={contact.icon} size={20} style={styles.linkIcon} />
-                  <Text kind="body-a1-regular">{contact.value}</Text>
-                </Link>
-              </li>
-            ))}
-          </div>
+          <li key={contactGroup[0].type + contactGroup[0].value}>
+            <ul {...stylex.props(styles.linkGroup)}>
+              {contactGroup.map((contact) => (
+                <li key={contact.type + contact.value}>
+                  <Link
+                    href={contact.link}
+                    target="_blank"
+                    {...stylex.props(styles.link(colors.contentGrayA2), styles.linkContainer)}
+                  >
+                    <Icon name={contact.icon} size={20} style={styles.linkIcon} />
+                    <Text kind="body-a1-regular">{contact.value}</Text>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </li>
         ))}
       </ul>
     </nav>

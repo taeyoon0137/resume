@@ -61,16 +61,17 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
   }
 
   return (
-    <html lang="kr">
+    <html lang="ko">
       <body>
         {/* 배경 렌더링 */}
         <PageBackground style={styles.background} />
 
-        {/* 페이지 처리 */}
-        <IsModalOpenContext.Provider value={isModalOpen}>{children}</IsModalOpenContext.Provider>
-
-        {/* 상위 페이지 처리 */}
+        {/* 모달 상태 처리 */}
         <ModalContext.Provider value={setModalList}>
+          {/* 페이지 처리 */}
+          <IsModalOpenContext.Provider value={isModalOpen}>{children}</IsModalOpenContext.Provider>
+
+          {/* 상위 페이지 처리 */}
           <AnimatePresence>{modal}</AnimatePresence>
         </ModalContext.Provider>
       </body>

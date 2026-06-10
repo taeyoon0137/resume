@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   title: "taeyoon. – resume",
   description: "반갑습니다. Product Designer & FE Engineer(RN)로 활동 중인 이태윤입니다.",
 
+  // 대체 URL
+  alternates: {
+    canonical: "/",
+  },
+
   // 오픈 그래프
   openGraph: {
     siteName: "taeyoon. – resume",
@@ -65,9 +70,6 @@ export const metadata: Metadata = {
  */
 export const viewport: Viewport = {
   initialScale: 1.0,
-  maximumScale: 1.0,
-  minimumScale: 1.0,
-  userScalable: false,
   themeColor: "#000000",
 };
 

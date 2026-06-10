@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useState } from "react";
+import { useId, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 import { domAnimation, HTMLMotionProps, LazyMotion, m } from "framer-motion";
@@ -28,6 +28,7 @@ import { spaces } from "../../../../styles/variable/spaces.stylex";
  * @component
  */
 const ResumeProjectList = () => {
+  const contentId = useId();
   const [expand, setExpand] = useState(false);
 
   /**
@@ -58,11 +59,15 @@ const ResumeProjectList = () => {
 
   return (
     <LazyMotion features={domAnimation} strict>
-      <div aria-expanded={expand} {...stylex.props(styles.container(expand))}>
-        <m.div {...animation} {...stylex.props(styles.ignoreCollapse)}>
+      <div {...stylex.props(styles.container(expand))}>
+        <m.div id={contentId} {...animation} {...stylex.props(styles.ignoreCollapse)}>
           <section>
             <SectionHeader title="프로젝트" />
-            <Link href={{ pathname: `/project`, query: { focus: true } }} {...stylex.props(styles.searchContainer)}>
+            <Link
+              href={{ pathname: `/project`, query: { focus: true } }}
+              aria-label="프로젝트 검색"
+              {...stylex.props(styles.searchContainer)}
+            >
               <TextInput placeholder="프로젝트나 기술 검색" mocking />
             </Link>
             <ul>
@@ -128,7 +133,7 @@ const ResumeProjectList = () => {
           </section>
         </m.div>
       </div>
-      <button onClick={toggleExpand} {...stylex.props(styles.expandButton)}>
+      <button onClick={toggleExpand} aria-expanded={expand} aria-controls={contentId} {...stylex.props(styles.expandButton)}>
         <Text kind="body-a1-medium" color={colors.contentGrayA2}>
           {expand ? "줄이기" : "모두 보기"}
         </Text>

@@ -42,10 +42,34 @@ const PageFooter = ({ style, ...props }: PageFooterProps) => {
    */
   function renderContact(contact: (typeof content.contacts)[number][number]): React.ReactNode {
     return (
-      <Link key={contact.link} href={contact.link} target="_blank">
-        <Icon name={contact.icon} style={styles.contactItem} />
-      </Link>
+      <li key={contact.link}>
+        <Link href={contact.link} target="_blank" rel="noopener noreferrer" aria-label={getContactLabel(contact)}>
+          <Icon name={contact.icon} aria-hidden="true" style={styles.contactItem} />
+        </Link>
+      </li>
     );
+  }
+
+  /**
+   * 연락처 링크의 접근 가능한 이름을 반환합니다.
+   *
+   * @param contact - 연락처 정보
+   * @returns 연락처 링크 라벨
+   */
+  function getContactLabel(contact: (typeof content.contacts)[number][number]): string {
+    switch (contact.type) {
+      case "email":
+        return `${contact.value}로 이메일 보내기`;
+
+      case "github":
+        return `${contact.value} GitHub 열기`;
+
+      case "phone":
+        return `${contact.value}로 전화하기`;
+
+      case "web":
+        return `${contact.value} 웹사이트 열기`;
+    }
   }
 
   return (
