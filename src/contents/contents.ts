@@ -79,6 +79,7 @@ function getJobMonthLength(startYear: number, startMonth: number, endYear: numbe
 
 /**
  * 시작월부터 종료월까지 경과한 프로젝트 개월 수를 반환합니다.
+ * 같은 월에 시작하고 종료한 프로젝트도 최소 1개월로 계산합니다.
  *
  * @param startYear 시작 연도입니다.
  * @param startMonth 시작 월입니다.
@@ -87,7 +88,7 @@ function getJobMonthLength(startYear: number, startMonth: number, endYear: numbe
  * @returns 프로젝트 개월 수입니다.
  */
 function getProjectMonthLength(startYear: number, startMonth: number, endYear: number, endMonth: number) {
-  return getMonthDifference(startYear, startMonth, endYear, endMonth);
+  return Math.max(getMonthDifference(startYear, startMonth, endYear, endMonth), 1);
 }
 
 /**
@@ -365,6 +366,7 @@ function getProjects(projects: ContentProject[]) {
       : project.endYear && project.endMonth
         ? getProjectMonthLength(project.startYear, project.startMonth, project.endYear, project.endMonth)
         : undefined;
+    const durationText = getProjectDurationText(project, duration);
 
     return {
       title: project.project,
@@ -380,13 +382,51 @@ function getProjects(projects: ContentProject[]) {
       techStacks: project.techStacks,
       summary: project.content?.summary,
       details: project.content?.details,
-      period: project.still
-        ? `${project.startYear}년 ${project.startMonth}월 ~`
-        : project.endYear && project.endMonth
-          ? `${project.startYear}년 ${project.startMonth}월 ~ ${project.endYear}년 ${project.endMonth}월`
-          : `${project.startYear}년 ${project.startMonth}월`,
-      duration: duration ? formatMonthLength(duration) : undefined,
+      period: getProjectPeriod(project),
+      duration: durationText,
       thumbnail: project.thumbnail,
     };
   });
+}
+
+/**
+ * 프로젝트 시작월과 종료월이 같은지 확인합니다.
+ *
+ * @param project {@link ContentProject}
+ * @returns 시작월과 종료월이 같은지 여부
+ */
+function isSameProjectMonth(project: ContentProject): boolean {
+  return project.startYear === project.endYear && project.startMonth === project.endMonth;
+}
+
+/**
+ * 프로젝트 기간 텍스트를 반환합니다.
+ *
+ * @param project {@link ContentProject}
+ * @returns 프로젝트 기간 텍스트
+ */
+function getProjectPeriod(project: ContentProject): string {
+  if (project.still) return `${project.startYear}년 ${project.startMonth}월 ~`;
+
+  if (project.endYear && project.endMonth && !isSameProjectMonth(project)) {
+    return `${project.startYear}년 ${project.startMonth}월 ~ ${project.endYear}년 ${project.endMonth}월`;
+  }
+
+  return `${project.startYear}년 ${project.startMonth}월`;
+}
+
+/**
+ * 프로젝트 진행 기간 텍스트를 반환합니다.
+ * 단일 월 또는 1개월 이하의 프로젝트에 주 단위 기간이 있으면 주 단위로 표시합니다.
+ *
+ * @param project {@link ContentProject}
+ * @param monthLength 월 단위 프로젝트 기간입니다.
+ * @returns 프로젝트 진행 기간 텍스트
+ */
+function getProjectDurationText(project: ContentProject, monthLength?: number): string | undefined {
+  if (project.weeks && (monthLength === undefined || monthLength <= 1)) return `${project.weeks}주`;
+
+  if (monthLength === undefined) return undefined;
+
+  return formatMonthLength(monthLength);
 }

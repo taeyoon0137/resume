@@ -168,6 +168,7 @@ export const ContentProject = z.object({
   still: z.boolean().optional(),
   endYear: z.number().optional(),
   endMonth: z.number().min(1).max(12).optional(),
+  weeks: z.number().int().positive().optional(),
   duration: z.number().optional(),
 });
 export type ContentProject = z.infer<typeof ContentProject>;
