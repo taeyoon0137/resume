@@ -7,3 +7,4 @@
 
 export * from "./ModalContext";
 export * from "./TextContext";
+export * from "./ThemeContext";

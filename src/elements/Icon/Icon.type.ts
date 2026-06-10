@@ -45,4 +45,12 @@ export interface IconProps extends Props<HTMLElement> {
  *
  * 사용 가능한 아이콘 이름 목록입니다.
  */
-export type IconName = "chevron.left" | "envelope.fill" | "github" | "globe" | "link" | "phone.fill" | "xmark";
+export type IconName =
+  | "chevron.left"
+  | "envelope.fill"
+  | "github"
+  | "globe"
+  | "link"
+  | "moon"
+  | "phone.fill"
+  | "xmark";

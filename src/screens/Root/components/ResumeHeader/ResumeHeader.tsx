@@ -13,7 +13,8 @@ import * as stylex from "@stylexjs/stylex";
 import { motion } from "framer-motion";
 
 import { TaeyoonSymbol } from "@/assets";
-import { IsModalOpenContext } from "@/contexts";
+import { IsModalOpenContext, ThemeContext } from "@/contexts";
+import { Icon } from "@/elements";
 
 import { colors } from "../../../../styles/variable/colors.stylex";
 import { spaces } from "../../../../styles/variable/spaces.stylex";
@@ -29,6 +30,7 @@ const ResumeHeader = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [sticky, setSticky] = useState(false);
   const isModalOpen = useContext(IsModalOpenContext);
+  const theme = useContext(ThemeContext);
 
   useEffect(assignObserver, []);
 
@@ -36,6 +38,17 @@ const ResumeHeader = () => {
     const observer = new IntersectionObserver(([e]) => setSticky(e.intersectionRatio < 1), { threshold: [1] });
     if (headerRef.current) observer.observe(headerRef.current);
     return () => observer.disconnect();
+  }
+
+  /**
+   * 테마 버튼의 접근성 레이블을 반환합니다.
+   *
+   * @returns 테마 버튼 레이블
+   */
+  function getThemeButtonLabel(): string {
+    if (theme.themeMode === "system") return `테마: 시스템 (${theme.resolvedThemeMode === "dark" ? "다크" : "라이트"})`;
+    if (theme.themeMode === "dark") return "테마: 다크";
+    return "테마: 라이트";
   }
 
   return (
@@ -49,6 +62,16 @@ const ResumeHeader = () => {
       )}
     >
       <TaeyoonSymbol {...stylex.props(styles.symbol, sticky && styles.symbolSticky)} />
+      <button
+        type="button"
+        onClick={theme.toggleThemeMode}
+        aria-label={getThemeButtonLabel()}
+        title={getThemeButtonLabel()}
+        aria-pressed={theme.themeMode !== "system"}
+        {...stylex.props(styles.themeButton)}
+      >
+        <Icon name="moon" size={20} fill={colors.contentGrayA1} />
+      </button>
     </motion.header>
   );
 };
@@ -61,7 +84,9 @@ const styles = stylex.create({
     top: -1,
   },
   symbolContainer: {
+    alignItems: "center",
     flexDirection: "row",
+    justifyContent: "space-between",
     paddingTop: 12,
     paddingLeft: spaces.paddingHorizontal,
     paddingRight: spaces.paddingHorizontal,
@@ -111,6 +136,30 @@ const styles = stylex.create({
   },
   symbolSticky: {
     transform: "scale(0.88)",
+  },
+  themeButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: {
+      default: 40,
+      [TABLET]: 36,
+      [MOBILE]: 32,
+    },
+    height: {
+      default: 40,
+      [TABLET]: 36,
+      [MOBILE]: 32,
+    },
+    borderWidth: 0,
+    borderRadius: 8,
+    color: colors.contentGrayA1,
+    backgroundColor: {
+      default: colors.contentGrayA4,
+      ":hover": colors.contentGrayA3,
+      ":active": colors.contentGrayA4,
+    },
+    transition: "background-color 200ms",
+    cursor: "pointer",
   },
 });
 

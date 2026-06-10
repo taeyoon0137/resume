@@ -10,5 +10,6 @@ export { default as envelope_fill } from "./envelope.fill.svg";
 export { default as github } from "./github.svg";
 export { default as globe } from "./globe.svg";
 export { default as link } from "./link.svg";
+export { default as moon } from "./moon.svg";
 export { default as phone_fill } from "./phone.fill.svg";
 export { default as xmark } from "./xmark.svg";

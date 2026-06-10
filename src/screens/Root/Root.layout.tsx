@@ -14,11 +14,12 @@ import { AnimatePresence } from "framer-motion";
 
 import { PageBackground } from "@/components";
 import { content } from "@/contents";
-import { IsModalOpenContext, ModalContext } from "@/contexts";
+import { IsModalOpenContext, ModalContext, ThemeContext } from "@/contexts";
 
-import { colors } from "../../styles/variable/colors.stylex";
+import { colors, darkTheme, lightTheme } from "../../styles/variable/colors.stylex";
 
 import type { RootLayoutProps } from "./Root.type";
+import type { ResolvedThemeMode, ThemeMode } from "@/contexts";
 
 const siteUrl = "https://resume.taeyoon.xyz";
 const profilePageId = `${siteUrl}/#profile`;
@@ -72,9 +73,31 @@ const structuredData = JSON.stringify({
  */
 const RootLayout = ({ modal, children }: RootLayoutProps) => {
   const [modalList, setModalList] = useState<string[]>([]);
+  const [themeMode, setThemeMode] = useState<ThemeMode>("system");
+  const [systemThemeMode, setSystemThemeMode] = useState<ResolvedThemeMode>("light");
   const isModalOpen = useMemo(getIsModalOpen, [modalList.length]);
+  const resolvedThemeMode = themeMode === "system" ? systemThemeMode : themeMode;
 
   useEffect(scrollLock, [isModalOpen]);
+  useEffect(observeSystemTheme, []);
+
+  /**
+   * 시스템 테마 변경을 감지합니다.
+   *
+   * @returns 클린업 함수
+   */
+  function observeSystemTheme(): () => void {
+    const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function syncSystemThemeMode(): void {
+      setSystemThemeMode(mediaQueryList.matches ? "dark" : "light");
+    }
+
+    syncSystemThemeMode();
+    mediaQueryList.addEventListener("change", syncSystemThemeMode);
+
+    return () => mediaQueryList.removeEventListener("change", syncSystemThemeMode);
+  }
 
   /**
    * 모달이 열렸을 때, body 스크롤을 차단합니다.
@@ -102,8 +125,58 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
     return modalList.length > 0;
   }
 
+  /**
+   * 테마 버튼을 눌렀을 때 다음 테마 상태로 변경합니다.
+   */
+  function toggleThemeMode(): void {
+    setThemeMode(getNextThemeMode());
+  }
+
+  /**
+   * 다음 테마 상태를 반환합니다.
+   *
+   * @returns 다음 테마 상태
+   */
+  function getNextThemeMode(): ThemeMode {
+    if (themeMode === "system") {
+      const currentSystemThemeMode = getCurrentSystemThemeMode();
+
+      return currentSystemThemeMode === "dark" ? "light" : "dark";
+    }
+
+    return "system";
+  }
+
+  /**
+   * 클릭 시점의 시스템 테마를 반환합니다.
+   *
+   * @returns 시스템 테마
+   */
+  function getCurrentSystemThemeMode(): ResolvedThemeMode {
+    if (typeof window === "undefined") return systemThemeMode;
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  const themeContext = useMemo(
+    () => ({
+      themeMode,
+      resolvedThemeMode,
+      toggleThemeMode,
+    }),
+    [themeMode, resolvedThemeMode, toggleThemeMode],
+  );
+
   return (
-    <html lang="ko">
+    <html
+      lang="ko"
+      data-theme={themeMode}
+      {...stylex.props(
+        themeMode === "light" && lightTheme,
+        themeMode === "dark" && darkTheme,
+        resolvedThemeMode === "dark" ? styles.darkColorScheme : styles.lightColorScheme,
+      )}
+    >
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
 
@@ -112,11 +185,14 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
 
         {/* 모달 상태 처리 */}
         <ModalContext.Provider value={setModalList}>
-          {/* 페이지 처리 */}
-          <IsModalOpenContext.Provider value={isModalOpen}>{children}</IsModalOpenContext.Provider>
+          {/* 테마 상태 처리 */}
+          <ThemeContext.Provider value={themeContext}>
+            {/* 페이지 처리 */}
+            <IsModalOpenContext.Provider value={isModalOpen}>{children}</IsModalOpenContext.Provider>
 
-          {/* 상위 페이지 처리 */}
-          <AnimatePresence>{modal}</AnimatePresence>
+            {/* 상위 페이지 처리 */}
+            <AnimatePresence>{modal}</AnimatePresence>
+          </ThemeContext.Provider>
         </ModalContext.Provider>
       </body>
     </html>
@@ -124,6 +200,12 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
 };
 
 const styles = stylex.create({
+  lightColorScheme: {
+    colorScheme: "light",
+  },
+  darkColorScheme: {
+    colorScheme: "dark",
+  },
   background: {
     position: "fixed",
     display: "block",
