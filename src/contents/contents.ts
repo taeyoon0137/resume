@@ -65,6 +65,45 @@ function createContent(data: ContentData) {
 }
 
 /**
+ * 시작월과 종료월을 모두 포함한 재직 개월 수를 반환합니다.
+ *
+ * @param startYear 시작 연도입니다.
+ * @param startMonth 시작 월입니다.
+ * @param endYear 종료 연도입니다.
+ * @param endMonth 종료 월입니다.
+ * @returns 재직 개월 수입니다.
+ */
+function getJobMonthLength(startYear: number, startMonth: number, endYear: number, endMonth: number) {
+  return getMonthDifference(startYear, startMonth, endYear, endMonth) + 1;
+}
+
+/**
+ * 시작월부터 종료월까지 경과한 프로젝트 개월 수를 반환합니다.
+ *
+ * @param startYear 시작 연도입니다.
+ * @param startMonth 시작 월입니다.
+ * @param endYear 종료 연도입니다.
+ * @param endMonth 종료 월입니다.
+ * @returns 프로젝트 개월 수입니다.
+ */
+function getProjectMonthLength(startYear: number, startMonth: number, endYear: number, endMonth: number) {
+  return getMonthDifference(startYear, startMonth, endYear, endMonth);
+}
+
+/**
+ * 두 연월 사이의 월 차이를 반환합니다.
+ *
+ * @param startYear 시작 연도입니다.
+ * @param startMonth 시작 월입니다.
+ * @param endYear 종료 연도입니다.
+ * @param endMonth 종료 월입니다.
+ * @returns 월 차이입니다.
+ */
+function getMonthDifference(startYear: number, startMonth: number, endYear: number, endMonth: number) {
+  return (endYear - startYear) * 12 + (endMonth - startMonth);
+}
+
+/**
  * 이력서의 기본 정보를 반환합니다.
  *
  * @param data {@link ContentData}
@@ -130,13 +169,7 @@ function getJob(companies: ContentCompany[]) {
           // 현직인 경우, 오늘까지의 기간으로 계산
           if (currJob.still) {
             const today = new Date();
-            return (
-              prevJobDuration +
-              today.getMonth() +
-              1 -
-              currJob.startMonth +
-              12 * (today.getFullYear() - currJob.startYear)
-            );
+            return prevJobDuration + getJobMonthLength(currJob.startYear, currJob.startMonth, today.getFullYear(), today.getMonth() + 1);
           }
 
           // 데이터 확인
@@ -144,7 +177,7 @@ function getJob(companies: ContentCompany[]) {
             throw new Error(`직장 정보가 올바르지 않습니다. 업무 종료 년월 혹은 현직 여부를 확인해주세요. ${currJob}`);
 
           // 현직이 아닌 경우, 종료일까지의 기간으로 계산
-          return prevJobDuration + currJob.endMonth - currJob.startMonth + 12 * (currJob.endYear - currJob.startYear);
+          return prevJobDuration + getJobMonthLength(currJob.startYear, currJob.startMonth, currJob.endYear, currJob.endMonth);
         }, 0)
       );
     }, 0),
@@ -239,8 +272,8 @@ function getCompanies(companies: ContentCompany[]) {
       ...curr.jobs.reduce((prevJob: PolyFillJob[], currJob, i) => {
         const today = new Date();
         const duration = currJob.still
-          ? (today.getFullYear() - currJob.startYear) * 12 + (today.getMonth() + 1 - currJob.startMonth)
-          : (currJob.endYear! - currJob.startYear) * 12 + (currJob.endMonth! - currJob.startMonth);
+          ? getJobMonthLength(currJob.startYear, currJob.startMonth, today.getFullYear(), today.getMonth() + 1)
+          : getJobMonthLength(currJob.startYear, currJob.startMonth, currJob.endYear!, currJob.endMonth!);
 
         return [
           ...prevJob,
@@ -328,9 +361,9 @@ function getProjects(projects: ContentProject[]) {
     const orgName = companyInfo?.handle ?? companyInfo?.company ?? project.organization;
     const today = new Date();
     const duration = project.still
-      ? (today.getFullYear() - project.startYear) * 12 + (today.getMonth() + 1 - project.startMonth)
+      ? getProjectMonthLength(project.startYear, project.startMonth, today.getFullYear(), today.getMonth() + 1)
       : project.endYear && project.endMonth
-        ? (project.endYear - project.startYear) * 12 + (project.endMonth - project.startMonth)
+        ? getProjectMonthLength(project.startYear, project.startMonth, project.endYear, project.endMonth)
         : undefined;
 
     return {
