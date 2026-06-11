@@ -12,6 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { AnimatePresence, domAnimation, LazyMotion } from "framer-motion";
 
+import { initAmplitude } from "@/api";
 import { PageBackground } from "@/components";
 import { content } from "@/contents";
 import { IsModalOpenContext, ModalContext, ThemeContext } from "@/contexts";
@@ -81,6 +82,7 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
 
   useEffect(scrollLock, [isModalOpen]);
   useEffect(observeSystemTheme, []);
+  useEffect(initAmplitude, []);
 
   /**
    * 시스템 테마 변경을 감지합니다.
