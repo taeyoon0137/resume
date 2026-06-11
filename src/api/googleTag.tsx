@@ -13,6 +13,7 @@ import { GoogleAnalytics, sendGAEvent } from "@next/third-parties/google";
  * Google Analytics(GA4) 속성의 측정 ID입니다.
  * 페이지 HTML에 그대로 노출되는 공개 식별자입니다.
  */
+// cSpell:disable-next-line
 const GA_MEASUREMENT_ID = "G-ELXRBRNF7Y";
 
 /**

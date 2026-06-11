@@ -13,6 +13,7 @@ import Clarity from "@microsoft/clarity";
  * Microsoft Clarity 프로젝트의 ID입니다.
  * 페이지 HTML에 그대로 노출되는 공개 식별자입니다.
  */
+// cSpell:disable-next-line
 const CLARITY_PROJECT_ID = "x5fsla9tzp";
 
 /**
