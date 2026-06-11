@@ -46,3 +46,19 @@ export function initAmplitude(): void {
     },
   });
 }
+
+/**
+ * ### Amplitude 이벤트 전송
+ *
+ * Amplitude로 단일 이벤트를 전송합니다.
+ * 초기화 전에 전송한 이벤트는 SDK 큐에 쌓인 채 소비되지 않으므로,
+ * 초기화된 경우에만 전송합니다.
+ *
+ * @param event 전송할 이벤트 이름입니다.
+ * @param properties 이벤트 프로퍼티입니다.
+ */
+export function trackAmplitudeEvent(event: string, properties?: Record<string, unknown>): void {
+  if (!initialized) return;
+
+  amplitude.track(event, properties);
+}

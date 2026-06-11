@@ -6,5 +6,6 @@
  */
 
 export * from "./amplitude";
+export * from "./analytics";
 export * from "./clarity";
 export * from "./googleTag";

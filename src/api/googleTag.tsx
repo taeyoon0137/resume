@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, sendGAEvent } from "@next/third-parties/google";
 
 /**
  * ### Google 태그 측정 ID
@@ -28,3 +28,18 @@ export const GoogleTag = () => {
 
   return <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />;
 };
+
+/**
+ * ### Google 태그 이벤트 전송
+ *
+ * Google Analytics로 단일 이벤트를 전송합니다.
+ * 태그를 로드하지 않는 개발 환경에서는 전송하지 않습니다.
+ *
+ * @param event 전송할 이벤트 이름입니다.
+ * @param properties 이벤트 프로퍼티입니다.
+ */
+export function trackGoogleTagEvent(event: string, properties?: Record<string, unknown>): void {
+  if (process.env.NODE_ENV !== "production") return;
+
+  sendGAEvent("event", event, properties ?? {});
+}

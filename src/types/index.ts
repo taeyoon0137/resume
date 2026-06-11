@@ -5,5 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+export * from "./Analytics.type";
 export * from "./Next.type";
 export * from "./Props.type";
