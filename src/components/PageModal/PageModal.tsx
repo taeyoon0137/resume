@@ -10,7 +10,7 @@
 import { Suspense, useContext, useEffect, useId, useLayoutEffect, useRef } from "react";
 
 import * as stylex from "@stylexjs/stylex";
-import { cubicBezier, motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { IsModalContext, ModalContext, ModalTitleIdContext } from "@/contexts";
@@ -157,7 +157,7 @@ const PageModalInner = ({ children }: PageModalProps) => {
   return (
     <IsModalContext.Provider value={true}>
       <ModalTitleIdContext.Provider value={titleId}>
-        <motion.div
+        <m.div
           key={modalId}
           ref={scrollRef}
           role="dialog"
@@ -174,7 +174,7 @@ const PageModalInner = ({ children }: PageModalProps) => {
             {...stylex.props(styles.backdrop)}
           />
           {children}
-        </motion.div>
+        </m.div>
       </ModalTitleIdContext.Provider>
     </IsModalContext.Provider>
   );
@@ -220,7 +220,7 @@ const transition: MotionProps = {
       bounce: 0,
       delay: 0.2,
       duration: 0.2,
-      ease: cubicBezier(0, 0.6, 1 - 0.6, 1),
+      ease: [0, 0.6, 0.4, 1],
     },
   },
   exit: {

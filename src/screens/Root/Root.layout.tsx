@@ -10,7 +10,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, domAnimation, LazyMotion } from "framer-motion";
 
 import { PageBackground } from "@/components";
 import { content } from "@/contents";
@@ -215,11 +215,13 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
         <ModalContext.Provider value={setModalList}>
           {/* 테마 상태 처리 */}
           <ThemeContext.Provider value={themeContext}>
-            {/* 페이지 처리 */}
-            <IsModalOpenContext.Provider value={isModalOpen}>{children}</IsModalOpenContext.Provider>
+            <LazyMotion features={domAnimation} strict>
+              {/* 페이지 처리 */}
+              <IsModalOpenContext.Provider value={isModalOpen}>{children}</IsModalOpenContext.Provider>
 
-            {/* 상위 페이지 처리 */}
-            <AnimatePresence>{modal}</AnimatePresence>
+              {/* 상위 페이지 처리 */}
+              <AnimatePresence>{modal}</AnimatePresence>
+            </LazyMotion>
           </ThemeContext.Provider>
         </ModalContext.Provider>
       </body>

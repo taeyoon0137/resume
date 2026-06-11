@@ -10,7 +10,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 import { IsModalContext, ModalTitleIdContext } from "@/contexts";
@@ -63,7 +63,7 @@ const PageHeader = ({ title, below, style, ...props }: PageHeaderProps) => {
   }
 
   return (
-    <motion.header
+    <m.header
       ref={headerRef}
       {...stylex.props(styles.symbolContainer, sticky && styles.symbolContainerOnSticky, style)}
       {...props}
@@ -85,7 +85,7 @@ const PageHeader = ({ title, below, style, ...props }: PageHeaderProps) => {
         </button>
       </div>
       {below}
-    </motion.header>
+    </m.header>
   );
 };
 

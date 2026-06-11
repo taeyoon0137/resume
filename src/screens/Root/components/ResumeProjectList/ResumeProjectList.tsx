@@ -10,7 +10,7 @@
 import { useId, useRef, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
-import { domAnimation, HTMLMotionProps, LazyMotion, m } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 
 import { ProjectItem, SectionHeader } from "@/components";
@@ -20,6 +20,8 @@ import { useLiveContent } from "@/hooks";
 
 import { colors } from "../../../../styles/variable/colors.stylex";
 import { spaces } from "../../../../styles/variable/spaces.stylex";
+
+import type { HTMLMotionProps } from "framer-motion";
 
 type ResumeProject = (typeof content.projects)[number];
 type IndexedProject = {
@@ -193,7 +195,7 @@ const ResumeProjectList = () => {
   };
 
   return (
-    <LazyMotion features={domAnimation} strict>
+    <>
       <div {...stylex.props(styles.container, expand && styles.containerExpanded)}>
         <m.div id={contentId} {...animation} {...stylex.props(styles.ignoreCollapse)}>
           <section>
@@ -259,7 +261,7 @@ const ResumeProjectList = () => {
           {expand ? "줄이기" : "모두 보기"}
         </Text>
       </button>
-    </LazyMotion>
+    </>
   );
 };
 

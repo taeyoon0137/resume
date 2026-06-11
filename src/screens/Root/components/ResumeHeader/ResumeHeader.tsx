@@ -10,7 +10,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 import { TaeyoonSymbol } from "@/assets";
 import { IsModalOpenContext, ThemeContext } from "@/contexts";
@@ -52,9 +52,8 @@ const ResumeHeader = () => {
   }
 
   return (
-    <motion.header
+    <m.header
       ref={headerRef}
-      layout
       {...stylex.props(
         !isModalOpen && styles.symbolContainerSticky,
         styles.symbolContainer,
@@ -72,7 +71,7 @@ const ResumeHeader = () => {
       >
         <Icon name="moon" size={20} fill={colors.contentGrayA1} />
       </button>
-    </motion.header>
+    </m.header>
   );
 };
 
