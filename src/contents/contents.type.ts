@@ -172,6 +172,7 @@ const ContentProjectBase = z.object({
   organization: z.string().optional(),
   techStacks: z.string().array().optional(),
   priority: z.number().int().optional(),
+  hidden: z.boolean().optional(),
   content: z
     .object({
       summary: z.string().array().optional(),

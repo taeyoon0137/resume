@@ -375,36 +375,40 @@ function getLicenses(licenses: ContentLicense[]) {
  * @returns 프로젝트 목록
  */
 function getProjects(projects: ContentProject[], now: Date) {
-  return projects.map((project) => {
-    const companyInfo = contentData.companies.find((company) => company.company === project.organization);
-    const orgName = companyInfo?.handle ?? companyInfo?.company ?? project.organization;
-    const duration = project.still
-      ? getProjectMonthLength(project.startYear, project.startMonth, now.getFullYear(), now.getMonth() + 1)
-      : project.endYear && project.endMonth
-        ? getProjectMonthLength(project.startYear, project.startMonth, project.endYear, project.endMonth)
-        : undefined;
-    const durationText = getProjectDurationText(project, duration);
+  // 숨김 처리된 프로젝트는 가공 단계에서 제외하여
+  // 목록, 주요 필터, 검색 등 어떤 화면에도 노출되지 않도록 합니다.
+  return projects
+    .filter((project) => !project.hidden)
+    .map((project) => {
+      const companyInfo = contentData.companies.find((company) => company.company === project.organization);
+      const orgName = companyInfo?.handle ?? companyInfo?.company ?? project.organization;
+      const duration = project.still
+        ? getProjectMonthLength(project.startYear, project.startMonth, now.getFullYear(), now.getMonth() + 1)
+        : project.endYear && project.endMonth
+          ? getProjectMonthLength(project.startYear, project.startMonth, project.endYear, project.endMonth)
+          : undefined;
+      const durationText = getProjectDurationText(project, duration);
 
-    return {
-      title: project.project,
-      rootProject: project.rootProject,
-      role: project.roles?.join(" & "),
-      link: project.link,
-      priority: project.priority,
-      organization: orgName
-        ? {
-            name: orgName,
-            link: companyInfo?.link,
-          }
-        : undefined,
-      techStacks: project.techStacks,
-      summary: project.content?.summary,
-      details: project.content?.details,
-      period: getProjectPeriod(project),
-      duration: durationText,
-      thumbnail: project.thumbnail,
-    };
-  });
+      return {
+        title: project.project,
+        rootProject: project.rootProject,
+        role: project.roles?.join(" & "),
+        link: project.link,
+        priority: project.priority,
+        organization: orgName
+          ? {
+              name: orgName,
+              link: companyInfo?.link,
+            }
+          : undefined,
+        techStacks: project.techStacks,
+        summary: project.content?.summary,
+        details: project.content?.details,
+        period: getProjectPeriod(project),
+        duration: durationText,
+        thumbnail: project.thumbnail,
+      };
+    });
 }
 
 /**
