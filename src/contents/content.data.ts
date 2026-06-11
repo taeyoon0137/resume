@@ -1,8 +1,10 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
+ * The resume content defined in this file is excluded from the MIT
+ * license and remains all rights reserved. See LICENSE for details.
  */
 
 import {
@@ -27,7 +29,6 @@ import {
 	img_side_project_thumbnail_echoscript,
 	img_side_project_thumbnail_sdvd,
 } from "@/assets";
-import { helper } from "@/helpers";
 
 import type { ContentData } from "./contents.type";
 
@@ -39,7 +40,7 @@ import type { ContentData } from "./contents.type";
 export const contentData: ContentData = {
 	name: "이태윤",
 	memo: "산업기능요원 진행 중",
-	copyright: `Copyright ${helper.year} Taeyoon Lee. All Right Reserved.`,
+	copyright: "Copyright {year} Taeyoon Lee. All Rights Reserved.",
 	contacts: [
 		[
 			// { type: "phone", value: "010-3737-1157" },
