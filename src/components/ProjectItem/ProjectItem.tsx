@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -14,7 +14,7 @@ import { m, AnimatePresence } from "framer-motion";
 import * as hangul from "hangul-js";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { Icon, Linkable, Tag, Text } from "@/elements";
 
@@ -42,9 +42,9 @@ const ProjectItem = ({
   duration,
   thumbnail,
   link,
+  searchKeyword,
 }: ProjectItemProps) => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [expand, _setExpand] = useState(false);
 
   /**
@@ -72,8 +72,7 @@ const ProjectItem = ({
    * @returns 기술 스택 태그
    */
   function renderTechStack(techStack: string): React.ReactNode {
-    const currentKeyword = searchParams.get("keyword");
-    const isSearched = currentKeyword && cleanText(techStack).includes(cleanText(currentKeyword));
+    const isSearched = searchKeyword && cleanText(techStack).includes(cleanText(searchKeyword));
 
     return (
       <li key={techStack}>
@@ -81,6 +80,7 @@ const ProjectItem = ({
           href={{ pathname: `/project`, query: { keyword: techStack } }}
           replace={pathname === "/project"}
           scroll={false}
+          prefetch={false}
         >
           <Tag label={techStack} kind={isSearched ? "primary" : "secondary"} pressable />
         </Link>
@@ -124,7 +124,7 @@ const ProjectItem = ({
     <article {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.info)}>
         {/* 제목 */}
-        <h4>
+        <h3>
           <Text kind="title-a2-bold" style={[styles.title, !!link && styles.titleLink]}>
             <Linkable href={link} target="_blank">
               {title}
@@ -135,7 +135,7 @@ const ProjectItem = ({
               )}
             </Linkable>
           </Text>
-        </h4>
+        </h3>
 
         {/* 직책 및 소속 */}
         {role && (
@@ -172,7 +172,7 @@ const ProjectItem = ({
             {period}
             {duration && (
               <>
-                <div {...stylex.props(styles.durationSeparator)}></div>
+                <span {...stylex.props(styles.durationSeparator)}></span>
                 {duration}
               </>
             )}
@@ -183,7 +183,7 @@ const ProjectItem = ({
       {/* 썸네일 */}
       {thumbnail && (
         <figure {...stylex.props(styles.thumbnail)}>
-          <Image src={thumbnail} alt={title} fill />
+          <Image src={thumbnail} alt={title} fill sizes="(max-width: 640px) 100vw, (max-width: 980px) 200px, 240px" />
         </figure>
       )}
     </article>

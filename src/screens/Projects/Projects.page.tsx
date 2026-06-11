@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -15,8 +15,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { PageFooter, PageHeader, PageSheet, ProjectItem } from "@/components";
-import { content } from "@/contents";
 import { Separator, Text, TextInput } from "@/elements";
+import { useLiveContent } from "@/hooks";
 
 import { colors } from "../../styles/variable/colors.stylex";
 import { spaces } from "../../styles/variable/spaces.stylex";
@@ -38,8 +38,9 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const liveContent = useLiveContent();
   const [keyword, setKeyword] = useState(searchParams.get("keyword") ?? "");
-  const projects = useMemo(getProjects, [keyword]);
+  const projects = useMemo(getProjects, [keyword, liveContent]);
   const subKeyword = useMemo(getSubKeyword, [keyword]);
 
   // 페이지가 로드되었을 때, 포커스 여부가 전달되면 검색창에 포커스를 줍니다.
@@ -82,7 +83,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
    * @returns 프로젝트 목록
    */
   function getProjects() {
-    return [...content.projects, ...content.sideProjects].filter((project) => {
+    return [...liveContent.projects, ...liveContent.sideProjects].filter((project) => {
       // 검색어가 없으면 모든 프로젝트를 반환합니다.
       if (!keyword) return true;
 
@@ -180,7 +181,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
   }
 
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense fallback={null}>
       <PageSheet>
         <PageHeader
           title="프로젝트"
@@ -223,6 +224,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
                 duration={project.duration}
                 thumbnail={project.thumbnail}
                 link={project.link}
+                searchKeyword={keyword || undefined}
               />
             </li>
           ))}

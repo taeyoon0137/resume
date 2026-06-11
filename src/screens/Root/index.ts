@@ -1,11 +1,10 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
-import RootError from "./Root.error";
 import RootLayout from "./Root.layout";
 import RootPage from "./Root.page";
 
@@ -24,16 +23,6 @@ export const Root = {
    * @page
    */
   Page: RootPage,
-
-  /**
-   * ### 오류 페이지
-   *
-   * 페이지를 찾지 못했을 떄 표시되는 컴포넌트입니다.
-   *
-   * @param props {@link RootErrorProps}
-   * @error
-   */
-  Error: RootError,
 
   /**
    * ### 레이아웃

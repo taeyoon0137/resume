@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -13,7 +13,7 @@ import * as stylex from "@stylexjs/stylex";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
-import { IsModalContext } from "@/contexts";
+import { IsModalContext, ModalTitleIdContext } from "@/contexts";
 import { Icon, Text } from "@/elements";
 
 import { colors } from "../../styles/variable/colors.stylex";
@@ -33,6 +33,7 @@ const PageHeader = ({ title, below, style, ...props }: PageHeaderProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [sticky, setSticky] = useState(false);
   const isModal = useContext(IsModalContext);
+  const modalTitleId = useContext(ModalTitleIdContext);
   const router = useRouter();
 
   // 페이지가 스크롤되어, 헤더가 고정되는지 확인합니다.
@@ -68,10 +69,20 @@ const PageHeader = ({ title, below, style, ...props }: PageHeaderProps) => {
       {...props}
     >
       <div {...stylex.props(styles.header)}>
-        <Text kind="display-a2-bold" style={styles.title}>
-          {title}
-        </Text>
-        <Icon name="xmark" size={32} onClick={navigateHome} {...stylex.props(styles.closeButton)} />
+        <h2 id={isModal ? modalTitleId : undefined}>
+          <Text kind="display-a2-bold" style={styles.title}>
+            {title}
+          </Text>
+        </h2>
+        <button
+          type="button"
+          onClick={navigateHome}
+          aria-label="페이지 닫기"
+          title="페이지 닫기"
+          {...stylex.props(styles.closeButton)}
+        >
+          <Icon name="xmark" size={32} style={styles.closeIcon} />
+        </button>
       </div>
       {below}
     </motion.header>
@@ -115,8 +126,16 @@ const styles = stylex.create({
     },
   },
   closeButton: {
+    alignItems: "center",
+    justifyContent: "center",
     marginLeft: -4,
     marginRight: -4,
+    padding: 0,
+    borderWidth: 0,
+    backgroundColor: "transparent",
+    cursor: "pointer",
+  },
+  closeIcon: {
     width: {
       default: 32,
       [MOBILE]: 24,
@@ -127,7 +146,6 @@ const styles = stylex.create({
     },
     color: colors.contentGrayA1,
     transition: "transform 200ms",
-    cursor: "pointer",
   },
 });
 

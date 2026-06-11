@@ -1,7 +1,7 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -96,4 +96,12 @@ export interface ProjectItemProps extends Props<HTMLDivElement, "children" | "su
    * 프로젝트에 대해 자세한 내용을 확인할 수 있는 링크입니다.
    */
   link?: string;
+
+  /**
+   * ### 검색 키워드
+   *
+   * 현재 검색 중인 키워드입니다.
+   * 키워드와 일치하는 기술 스택 태그를 강조합니다.
+   */
+  searchKeyword?: string;
 }

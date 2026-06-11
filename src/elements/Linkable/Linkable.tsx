@@ -1,7 +1,7 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -20,8 +20,9 @@ import type { LinkableProps } from "./Linkable.type";
  * @component
  */
 const Linkable = ({ href, style, children, target, rel, ...props }: LinkableProps) => {
+  // 인라인 문맥(span, 제목)에서도 유효한 마크업이 되도록 span으로 렌더링합니다.
   if (!href) {
-    return <div {...stylex.props(style)}>{children}</div>;
+    return <span {...stylex.props(style)}>{children}</span>;
   }
 
   const linkRel = target === "_blank" && !rel ? "noopener noreferrer" : rel;

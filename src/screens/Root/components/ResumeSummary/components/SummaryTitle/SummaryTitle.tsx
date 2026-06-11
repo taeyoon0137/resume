@@ -1,7 +1,7 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -23,11 +23,11 @@ import type { SummaryTitleProps } from "./SummaryTitle.type";
  */
 const SummaryTitle = ({ title }: SummaryTitleProps) => {
   return (
-    <h3 {...stylex.props(styles.sectionTitle)}>
+    <h2 {...stylex.props(styles.sectionTitle)}>
       <Text kind="body-a2-semibold" color={colors.contentGrayA2}>
         {title}
       </Text>
-    </h3>
+    </h2>
   );
 };
 

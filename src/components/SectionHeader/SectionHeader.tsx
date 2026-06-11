@@ -1,7 +1,7 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -23,9 +23,9 @@ import type { SectionHeaderProps } from "./SectionHeader.type";
  */
 const SectionHeader = ({ title, style, ...props }: SectionHeaderProps) => {
   return (
-    <h3 {...stylex.props(styles.container, style)} {...props}>
+    <h2 {...stylex.props(styles.container, style)} {...props}>
       <Text kind="display-a3-bold">{title}</Text>
-    </h3>
+    </h2>
   );
 };
 

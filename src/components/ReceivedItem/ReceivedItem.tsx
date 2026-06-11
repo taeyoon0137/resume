@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -29,7 +29,7 @@ const ReceivedItem = ({ title, info, date, thumbnail, link }: ReceivedItemProps)
   return (
     <article {...stylex.props(styles.container)}>
       <div {...stylex.props(styles.info)}>
-        <h4>
+        <h3>
           <Text kind="title-a2-bold" style={[styles.title, !!link && styles.titleLink]}>
             <Linkable href={link} target="_blank">
               {title}
@@ -40,7 +40,7 @@ const ReceivedItem = ({ title, info, date, thumbnail, link }: ReceivedItemProps)
               )}
             </Linkable>
           </Text>
-        </h4>
+        </h3>
         <Text color={colors.contentGrayA2} style={styles.info}>
           {info}
         </Text>
@@ -50,7 +50,7 @@ const ReceivedItem = ({ title, info, date, thumbnail, link }: ReceivedItemProps)
       </div>
       {thumbnail && (
         <figure {...stylex.props(styles.thumbnail)}>
-          <Image src={thumbnail} alt={title} fill />
+          <Image src={thumbnail} alt={title} fill sizes="(max-width: 640px) 100vw, (max-width: 980px) 200px, 240px" />
         </figure>
       )}
     </article>

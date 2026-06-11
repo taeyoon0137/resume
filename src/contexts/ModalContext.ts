@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -29,3 +29,12 @@ export const IsModalContext = createContext<boolean>(false);
  * layout 상단에 Modal이 렌더링 중인지 여부를 전달하는 컨텍스트입니다.
  */
 export const IsModalOpenContext = createContext<boolean>(false);
+
+/**
+ * ### ModalTitleIdContext
+ *
+ * 모달이 자식에게 제공하는 제목 요소 id입니다.
+ * PageHeader가 모달 내부에서 렌더링될 때 자신의 h2에 이 id를 부착하면,
+ * PageModal이 aria-labelledby로 해당 id를 연결합니다.
+ */
+export const ModalTitleIdContext = createContext<string | undefined>(undefined);

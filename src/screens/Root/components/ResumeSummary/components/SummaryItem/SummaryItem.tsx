@@ -1,7 +1,7 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -17,7 +17,7 @@ const SummaryItem = ({ title, info, caption, link, style, ...props }: SummaryIte
   return (
     <article {...stylex.props(styles.container, style)} {...props}>
       {title && (
-        <h4>
+        <h3>
           <Text kind="heading-a1-bold" style={[styles.title, !!link && styles.titleLink]}>
             <Linkable href={link} target="_blank">
               {title}
@@ -28,7 +28,7 @@ const SummaryItem = ({ title, info, caption, link, style, ...props }: SummaryIte
               )}
             </Linkable>
           </Text>
-        </h4>
+        </h3>
       )}
       <Text kind="body-a3-regular" color={colors.contentGrayA2}>
         {info}
