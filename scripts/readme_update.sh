@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Copyright 2026 Taeyoon Lee. All Rights Reserved.
+#
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -159,6 +165,7 @@ perl -0pe '
   s|\.\./docs|./docs|g;
   s|\.\./AGENTS\.md|./AGENTS.md|g;
   s|\.\./CLAUDE\.md|./CLAUDE.md|g;
+  s|\.\./LICENSE|./LICENSE|g;
 ' "$PROJECT_NAME" "$REPOSITORY_URL" "$BADGE_BLOCK" "$PRESET_README_FILE" > "$README_FILE"
 
 echo "README.md and readme-hero.svg updated successfully"

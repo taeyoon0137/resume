@@ -1,0 +1,39 @@
+MIT License
+
+Copyright (c) 2026 Taeyoon Lee
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+Content License Exception
+
+The MIT license above applies to the source code of this repository only.
+
+The following resume and portfolio content is NOT covered by the MIT license
+and remains the exclusive property of Taeyoon Lee. All rights reserved.
+
+- Resume content defined in `src/contents/content.data.ts`
+  (text, career history, project descriptions, and similar data)
+- Images and icons in `src/assets/` and `public/`
+- Portfolio documents in `downloads/`
+- Hero, favicon, and other artwork in `resources/`
+
+You may fork this repository and use the source code as a template for your
+own resume, provided you replace the content listed above with your own.
