@@ -5,8 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Suspense } from "react";
-
 import { Root } from "@/screens";
 
 /**
@@ -18,11 +16,7 @@ import { Root } from "@/screens";
  * @page
  */
 const RootPage = () => {
-  return (
-    <Suspense>
-      <Root.Page />
-    </Suspense>
-  );
+  return <Root.Page />;
 };
 
 export default RootPage;
