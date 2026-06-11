@@ -12,7 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { AnimatePresence, domAnimation, LazyMotion } from "framer-motion";
 
-import { GoogleTag, initAmplitude, initClarity } from "@/api";
+import { GoogleTag, initAmplitude, initClarity, trackEvent } from "@/api";
 import { PageBackground } from "@/components";
 import { content } from "@/contents";
 import { IsModalOpenContext, ModalContext, ThemeContext } from "@/contexts";
@@ -84,6 +84,7 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
   useEffect(observeSystemTheme, []);
   useEffect(initAmplitude, []);
   useEffect(initClarity, []);
+  useEffect(assignClickAnalyticsListener, []);
 
   /**
    * 시스템 테마 변경을 감지합니다.
@@ -118,6 +119,39 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
     return () => {
       body.style.overflow = "";
     };
+  }
+
+  /**
+   * 링크와 버튼 클릭 분석 이벤트 리스너를 등록합니다.
+   *
+   * @returns 클린업 함수
+   */
+  function assignClickAnalyticsListener(): () => void {
+    function handleClick(event: MouseEvent): void {
+      const target = event.target;
+
+      if (!(target instanceof Element)) return;
+
+      const clickableElement = target.closest("a[href], button");
+
+      if (clickableElement instanceof HTMLAnchorElement) {
+        trackEvent("Link Clicked", {
+          URL: clickableElement.href,
+          Text: getElementLabel(clickableElement) || clickableElement.href,
+        });
+        return;
+      }
+
+      if (clickableElement instanceof HTMLButtonElement) {
+        trackEvent("Button Clicked", {
+          Text: getButtonLabel(clickableElement),
+        });
+      }
+    }
+
+    document.addEventListener("click", handleClick, true);
+
+    return () => document.removeEventListener("click", handleClick, true);
   }
 
   /**
@@ -289,6 +323,49 @@ function createThemeInitializerScript(): string {
     update("add", mode === "light" ? classNames.lightScheme : classNames.darkScheme);
   } catch (error) {}
 })();`;
+}
+
+/**
+ * 요소의 분석 이벤트용 표시 텍스트를 반환합니다.
+ *
+ * @param element 텍스트를 추출할 요소입니다.
+ * @returns 분석 이벤트에 사용할 표시 텍스트입니다.
+ */
+function getElementLabel(element: HTMLElement): string {
+  return getFirstText(element.getAttribute("aria-label"), element.getAttribute("title"), element.textContent);
+}
+
+/**
+ * 버튼의 분석 이벤트용 표시 텍스트를 반환합니다.
+ *
+ * @param button 텍스트를 추출할 버튼입니다.
+ * @returns 분석 이벤트에 사용할 버튼 표시 텍스트입니다.
+ */
+function getButtonLabel(button: HTMLButtonElement): string {
+  return getFirstText(
+    button.getAttribute("aria-label"),
+    button.getAttribute("title"),
+    button.textContent,
+    button.value,
+    button.name,
+    button.type,
+  );
+}
+
+/**
+ * 첫 번째로 비어 있지 않은 텍스트를 반환합니다.
+ *
+ * @param values 후보 텍스트 목록입니다.
+ * @returns 공백이 정리된 첫 번째 텍스트입니다.
+ */
+function getFirstText(...values: Array<string | null | undefined>): string {
+  for (const value of values) {
+    const text = value?.replace(/\s+/g, " ").trim();
+
+    if (text) return text;
+  }
+
+  return "";
 }
 
 const styles = stylex.create({
