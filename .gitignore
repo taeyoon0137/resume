@@ -20,6 +20,9 @@
 .DS_Store
 *.pem
 
+# local agent settings
+.claude
+
 # debug
 npm-debug.log*
 yarn-debug.log*
