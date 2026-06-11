@@ -1,7 +1,7 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -48,30 +48,45 @@ export type ContentContact = z.infer<typeof ContentContact>;
 
 // #region 직장 타입 정의
 /**
- * ### 직무 및 직함
+ * ### 직무 및 직함 (공통 필드)
  *
- * 회사 내에서 담당했던 직무 및 직함, 그 기간을 설정합니다.
- *
- * @param array - 배열 타입 여부
+ * 시작 연월과 역할 정보 등 still/완료 양쪽에서 공통으로 갖는 필드입니다.
  *
  * @zod
  */
-export const ContentJob = z.object({
+const ContentJobBase = z.object({
   roles: z.string().array(),
   startYear: z.number(),
   startMonth: z.number().min(1).max(12),
-  still: z.boolean().optional(),
-  endYear: z.number().optional(),
-  endMonth: z.number().min(1).max(12).optional(),
 });
+
+/**
+ * ### 직무 및 직함
+ *
+ * 회사 내에서 담당했던 직무 및 직함, 그 기간을 설정합니다.
+ * 현직(still: true)인 경우 종료 연월이 없고,
+ * 종료된 경우 종료 연월이 모두 있어야 합니다.
+ *
+ * @zod
+ */
+export const ContentJob = z.union([
+  ContentJobBase.extend({
+    still: z.literal(true),
+    endYear: z.undefined().optional(),
+    endMonth: z.undefined().optional(),
+  }),
+  ContentJobBase.extend({
+    still: z.literal(false).optional(),
+    endYear: z.number(),
+    endMonth: z.number().min(1).max(12),
+  }),
+]);
 export type ContentJob = z.infer<typeof ContentJob>;
 
 /**
  * ### 회사 정보
  *
  * 근무했던 회사 정보를 기록합니다.
- *
- * @param array - 배열 타입 여부
  *
  * @zod
  */
@@ -142,13 +157,13 @@ export type ContentLicense = z.infer<typeof ContentLicense>;
 
 // #region 프로젝트 타입 정의
 /**
- * ### 프로젝트 정보
+ * ### 프로젝트 공통 필드
  *
- * 프로젝트 정보를 기록합니다.
+ * still/완료/단일 시점 분기에서 공통으로 갖는 필드입니다.
  *
  * @zod
  */
-export const ContentProject = z.object({
+const ContentProjectBase = z.object({
   project: z.string(),
   rootProject: z.string().optional(),
   link: z.string().url().optional(),
@@ -166,12 +181,35 @@ export const ContentProject = z.object({
   member: z.number().optional(),
   startYear: z.number(),
   startMonth: z.number().min(1).max(12),
-  still: z.boolean().optional(),
-  endYear: z.number().optional(),
-  endMonth: z.number().min(1).max(12).optional(),
   weeks: z.number().int().positive().optional(),
-  duration: z.number().optional(),
 });
+
+/**
+ * ### 프로젝트 정보
+ *
+ * 프로젝트 정보를 기록합니다.
+ * 진행 중(still: true)인 경우 종료 연월이 없고,
+ * 종료된 경우 종료 연월이 모두 있거나 둘 다 없는(단일 시점) 두 형태를 허용합니다.
+ *
+ * @zod
+ */
+export const ContentProject = z.union([
+  ContentProjectBase.extend({
+    still: z.literal(true),
+    endYear: z.undefined().optional(),
+    endMonth: z.undefined().optional(),
+  }),
+  ContentProjectBase.extend({
+    still: z.literal(false).optional(),
+    endYear: z.number(),
+    endMonth: z.number().min(1).max(12),
+  }),
+  ContentProjectBase.extend({
+    still: z.literal(false).optional(),
+    endYear: z.undefined().optional(),
+    endMonth: z.undefined().optional(),
+  }),
+]);
 export type ContentProject = z.infer<typeof ContentProject>;
 // #endregion 프로젝트 타입 정의
 
