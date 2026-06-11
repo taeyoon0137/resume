@@ -1,7 +1,7 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -82,7 +82,9 @@ async function createFileResponse(): Promise<NextResponse> {
 
   return new NextResponse(new Uint8Array(file), {
     headers: {
-      "Cache-Control": "private, no-store",
+      // PDF 본문은 정적 자산이라 브라우저 1시간, CDN 1일까지 캐시합니다.
+      // 파일이 갱신되면 경로의 날짜 세그먼트(20260610)가 바뀌므로 cache busting은 URL로 처리합니다.
+      "Cache-Control": "public, max-age=3600, s-maxage=86400, must-revalidate",
       "Content-Disposition":
         "attachment; filename=\"Portfolio - Taeyoon Lee 2026.pdf\"; filename*=UTF-8''Portfolio%20%E2%80%93%20Taeyoon%20Lee%202026.pdf",
       "Content-Length": file.byteLength.toString(),
