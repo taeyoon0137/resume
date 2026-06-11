@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 import { domAnimation, HTMLMotionProps, LazyMotion, m } from "framer-motion";
@@ -49,6 +49,7 @@ type PriorityProject = IndexedProject & { project: ResumeProject & { priority: n
 const ResumeProjectList = () => {
   const contentId = useId();
   const liveContent = useLiveContent();
+  const sectionTitleRef = useRef<HTMLDivElement>(null);
   const [expand, setExpand] = useState(false);
   const [showPriorityOnly, setShowPriorityOnly] = useState(false);
   const priorityButtonLabel = "주요 프로젝트만 보기";
@@ -60,6 +61,7 @@ const ResumeProjectList = () => {
   function toggleExpand(): void {
     if (expand) setShowPriorityOnly(false);
     setExpand((prev) => !prev);
+    scrollToSectionTitle();
   }
 
   /**
@@ -68,6 +70,37 @@ const ResumeProjectList = () => {
   function togglePriorityOnly(): void {
     setExpand(true);
     setShowPriorityOnly((prev) => !prev);
+    scrollToSectionTitle();
+  }
+
+  /**
+   * 프로젝트 섹션 제목 위치로 스크롤합니다.
+   * 목록 표시 상태가 바뀔 때 사용자가 목록의 시작점을 보도록 합니다.
+   * 펼침 직후에는 문서 높이가 아직 작아 목표 위치가 클램프될 수 있으므로,
+   * 높이 애니메이션(400ms)이 끝난 뒤 한 번 더 보정합니다.
+   */
+  function scrollToSectionTitle(): void {
+    requestSectionTitleScroll();
+    window.setTimeout(requestSectionTitleScroll, 450);
+  }
+
+  /**
+   * 섹션 제목이 상단 고정 헤더 바로 아래에 오도록 스크롤을 요청합니다.
+   * 제목이 overflow hidden 컨테이너 안에 있어 scrollIntoView가
+   * window를 스크롤하지 않으므로, 위치를 계산해 직접 스크롤합니다.
+   */
+  function requestSectionTitleScroll(): void {
+    const target = sectionTitleRef.current;
+    if (!target) return;
+
+    // 상단 고정 헤더에 가려지지 않도록 여백을 둡니다.
+    const stickyOffset = window.matchMedia("(max-width: 640px)").matches ? 64 : 88;
+    const top = target.getBoundingClientRect().top + window.scrollY - stickyOffset;
+    const behavior: ScrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto"
+      : "smooth";
+
+    window.scrollTo({ top: Math.max(top, 0), behavior });
   }
 
   /**
@@ -164,7 +197,7 @@ const ResumeProjectList = () => {
       <div {...stylex.props(styles.container, expand && styles.containerExpanded)}>
         <m.div id={contentId} {...animation} {...stylex.props(styles.ignoreCollapse)}>
           <section>
-            <div {...stylex.props(styles.sectionHeader)}>
+            <div ref={sectionTitleRef} {...stylex.props(styles.sectionHeader)}>
               <SectionHeader title="프로젝트" style={styles.sectionTitle} />
               <button
                 type="button"
