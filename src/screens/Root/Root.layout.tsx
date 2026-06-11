@@ -12,7 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { AnimatePresence, domAnimation, LazyMotion } from "framer-motion";
 
-import { initAmplitude } from "@/api";
+import { GoogleTag, initAmplitude } from "@/api";
 import { PageBackground } from "@/components";
 import { content } from "@/contents";
 import { IsModalOpenContext, ModalContext, ThemeContext } from "@/contexts";
@@ -209,6 +209,9 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
         {/* 저장된 테마를 첫 페인트 전에 적용 */}
         <script dangerouslySetInnerHTML={{ __html: createThemeInitializerScript() }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
+
+        {/* 방문 분석 (프로덕션 전용) */}
+        <GoogleTag />
 
         {/* 배경 렌더링 */}
         <PageBackground style={styles.background} />

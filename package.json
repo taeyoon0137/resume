@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.43.0",
+    "@next/third-parties": "^16.2.9",
     "@stylexjs/stylex": "^0.18.3",
     "color": "^5.0.3",
     "dayjs": "^1.11.21",
