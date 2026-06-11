@@ -59,6 +59,8 @@
 | `src/contents/contents.type.ts` | 콘텐츠 데이터 구조가 바뀔 때 함께 확인하는 타입 정의입니다.                               |
 | `src/contents/contents.ts`      | 원본 데이터를 화면 렌더링에 맞게 가공합니다.                                              |
 
+프로젝트에 `hidden: true`를 추가하면 목록, 주요 필터, 검색 등 모든 화면에서 해당 프로젝트가 노출되지 않습니다.
+
 화면 구조를 바꿀 때는 책임 범위를 나눠 수정합니다.
 
 - route와 layout은 `src/app/`에서 관리합니다.
@@ -138,3 +140,4 @@ resume
 - [`@stylexjs/nextjs-plugin`](https://www.npmjs.com/package/@stylexjs/nextjs-plugin)은 지원 중단 상태지만 직접 보안 이슈는 없어 우선 유지합니다. 이후 Tailwind CSS 등 유지보수되는 도구로 전환을 검토 중입니다.
 - SWC/Babel 경고는 `.babelrc.js`를 제거하고 StyleX loader가 외부 Babel 설정을 읽지 않도록 처리했습니다.
 - [`postcss` Dependabot 경고](https://github.com/advisories/GHSA-qx2v-qp2m-jg93)는 Next.js 전이 의존성 업데이트가 없어 Yarn `resolutions`로 `8.5.15`를 강제했습니다. Next.js가 패치 버전을 직접 의존하면 이 resolution은 제거합니다.
+- 개발 환경에서 `/dev/error`에 접근하면 에러 페이지 UI를 미리 확인할 수 있습니다.
