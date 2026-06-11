@@ -1906,6 +1906,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@microsoft/clarity@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@microsoft/clarity@npm:1.0.2"
+  checksum: 10c0/43986711a39115097348b38f8203f02e86ebc251d79a1673f05b0e1b562513e21045892e889551d271d6c2186cd6bd84f69a968fd46c3e563ebed5153c262a4e
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^0.2.9":
   version: 0.2.10
   resolution: "@napi-rs/wasm-runtime@npm:0.2.10"
@@ -5631,6 +5638,7 @@ __metadata:
     "@amplitude/analytics-browser": "npm:^2.43.0"
     "@babel/runtime": "npm:^7.29.7"
     "@eslint/js": "npm:^9.39.4"
+    "@microsoft/clarity": "npm:^1.0.2"
     "@next/third-parties": "npm:^16.2.9"
     "@stylexjs/babel-plugin": "npm:^0.18.3"
     "@stylexjs/eslint-plugin": "npm:^0.18.3"
