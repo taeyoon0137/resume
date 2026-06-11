@@ -1,11 +1,11 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
-import { formatMonthLength } from "@/utils";
+import { buildDate, formatMonthLength } from "@/utils";
 
 import { contentData } from "./content.data";
 
@@ -24,28 +24,41 @@ import type {
  * ### 컨텐츠
  *
  * 컴포넌트에 사용되는 텍스트, 이미지 등의 컨텐츠를 정의합니다.
+ * 날짜 의존 값은 빌드 시점 날짜를 기준으로 계산합니다.
  */
-export const content = createContent(contentData);
+export const content = createContent(contentData, buildDate);
+
+/**
+ * 현재 날짜 기준으로 다시 계산한 콘텐츠를 반환합니다.
+ * 마운트 이후 날짜 의존 값을 갱신할 때 사용합니다.
+ *
+ * @param now 기준 날짜
+ * @returns 가공된 컨텐츠
+ */
+export function createLiveContent(now: Date) {
+  return createContent(contentData, now);
+}
 
 /**
  * 원본 콘텐츠를 이력서 렌더링을 위한 형태로 가공하여 반환합니다.
  * 이 데이터를 기반으로 이력서를 생성합니다.
  *
  * @param data {@link ContentData}
+ * @param now 날짜 의존 값 계산의 기준 날짜
  * @returns 가공된 컨텐츠
  */
-function createContent(data: ContentData) {
-  const info = getInfo(data);
-  const job = getJob(data.companies);
+function createContent(data: ContentData, now: Date) {
+  const info = getInfo(data, now);
+  const job = getJob(data.companies, now);
   const contacts = getContacts(data.contacts);
   const techStacks = getTechStacks(data.techStacks);
-  const companies = getCompanies(data.companies);
+  const companies = getCompanies(data.companies, now);
   const schools = getSchools(data.schools);
   const awards = getAwards(data.awards);
   const licenses = getLicenses(data.licenses);
-  const projects = getProjects(data.projects);
-  const sideProjects = getProjects(data.sideProjects);
-  const activities = getProjects(data.activities);
+  const projects = getProjects(data.projects, now);
+  const sideProjects = getProjects(data.sideProjects, now);
+  const activities = getProjects(data.activities, now);
   const style = getStyle(data.style);
 
   return {
@@ -106,15 +119,19 @@ function getMonthDifference(startYear: number, startMonth: number, endYear: numb
 
 /**
  * 이력서의 기본 정보를 반환합니다.
+ * copyright의 `{year}` placeholder를 기준 날짜의 연도로 치환합니다.
  *
  * @param data {@link ContentData}
+ * @param now 기준 날짜
  * @returns 기본 정보
  */
-function getInfo(data?: ContentData) {
+function getInfo(data: ContentData | undefined, now: Date) {
+  const copyright = data?.copyright ?? "Copyright {year}. All Rights Reserved.";
+
   return {
     name: data?.name ?? "이력서",
     memo: data?.memo,
-    copyrights: data?.copyright ?? `Copyright ${new Date().getFullYear()}. All Right Reserved.`,
+    copyrights: copyright.replace("{year}", String(now.getFullYear())),
   };
 }
 
@@ -134,9 +151,10 @@ function getStyle(style?: ContentStyle) {
  * 최근 직책 및 직무 정보를 반환합니다.
  *
  * @param companies {@link ContentCompany}
+ * @param now 기준 날짜
  * @returns 최근 직책 및 직무 정보
  */
-function getJob(companies: ContentCompany[]) {
+function getJob(companies: ContentCompany[], now: Date) {
   // 직무 정보 불러옴
   const recentCompany = companies[0];
   const firstCompany = companies[companies.length - 1];
@@ -167,10 +185,9 @@ function getJob(companies: ContentCompany[]) {
       return (
         prevCompDuration +
         currComp.jobs.reduce((prevJobDuration, currJob) => {
-          // 현직인 경우, 오늘까지의 기간으로 계산
+          // 현직인 경우, 기준 날짜까지의 기간으로 계산
           if (currJob.still) {
-            const today = new Date();
-            return prevJobDuration + getJobMonthLength(currJob.startYear, currJob.startMonth, today.getFullYear(), today.getMonth() + 1);
+            return prevJobDuration + getJobMonthLength(currJob.startYear, currJob.startMonth, now.getFullYear(), now.getMonth() + 1);
           }
 
           // 데이터 확인
@@ -264,17 +281,17 @@ interface PolyFillJob {
  * 회사 목록을 반환합니다.
  *
  * @param companies {@link ContentCompany}[]
+ * @param now 기준 날짜
  * @returns 회사 목록
  */
-function getCompanies(companies: ContentCompany[]) {
+function getCompanies(companies: ContentCompany[], now: Date) {
   return companies.reduce((prev: PolyFillJob[], curr) => {
     return [
       ...prev,
       ...curr.jobs.reduce((prevJob: PolyFillJob[], currJob, i) => {
-        const today = new Date();
         const duration = currJob.still
-          ? getJobMonthLength(currJob.startYear, currJob.startMonth, today.getFullYear(), today.getMonth() + 1)
-          : getJobMonthLength(currJob.startYear, currJob.startMonth, currJob.endYear!, currJob.endMonth!);
+          ? getJobMonthLength(currJob.startYear, currJob.startMonth, now.getFullYear(), now.getMonth() + 1)
+          : getJobMonthLength(currJob.startYear, currJob.startMonth, currJob.endYear, currJob.endMonth);
 
         return [
           ...prevJob,
@@ -354,15 +371,15 @@ function getLicenses(licenses: ContentLicense[]) {
  * 프로젝트 목록을 반환합니다.
  *
  * @param projects {@link ContentProject}[]
+ * @param now 기준 날짜
  * @returns 프로젝트 목록
  */
-function getProjects(projects: ContentProject[]) {
+function getProjects(projects: ContentProject[], now: Date) {
   return projects.map((project) => {
     const companyInfo = contentData.companies.find((company) => company.company === project.organization);
     const orgName = companyInfo?.handle ?? companyInfo?.company ?? project.organization;
-    const today = new Date();
     const duration = project.still
-      ? getProjectMonthLength(project.startYear, project.startMonth, today.getFullYear(), today.getMonth() + 1)
+      ? getProjectMonthLength(project.startYear, project.startMonth, now.getFullYear(), now.getMonth() + 1)
       : project.endYear && project.endMonth
         ? getProjectMonthLength(project.startYear, project.startMonth, project.endYear, project.endMonth)
         : undefined;

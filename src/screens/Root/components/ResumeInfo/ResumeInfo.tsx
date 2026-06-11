@@ -1,7 +1,9 @@
+"use client";
+
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -12,6 +14,7 @@ import Link from "next/link";
 
 import { content } from "@/contents";
 import { Icon, Text } from "@/elements";
+import { useLiveContent } from "@/hooks";
 
 import { colors } from "../../../../styles/variable/colors.stylex";
 import { spaces } from "../../../../styles/variable/spaces.stylex";
@@ -41,11 +44,11 @@ const ResumeInfo = ({ style }: ResumeInfoProps) => {
  */
 const ResumeName = () => {
   return (
-    <h2>
+    <h1>
       <Text kind="display-a1-bold" style={styles.name}>
         {content.info.name}
       </Text>
-    </h2>
+    </h1>
   );
 };
 
@@ -55,6 +58,8 @@ const ResumeName = () => {
  * 이름 하단에 표시할 최근 회사 정보입니다.
  */
 const ResumeJob = () => {
+  const liveContent = useLiveContent();
+
   return (
     <div {...stylex.props(styles.jobContainer)}>
       <Text kind="body-a1-medium">
@@ -88,11 +93,11 @@ const ResumeJob = () => {
       </Text>
       <Text kind="body-a1-regular" color={colors.contentGrayA2}>
         {content.job.period}
-        <div {...stylex.props(styles.workDateSeparator)}></div>
-        <Text style={styles.period}>{content.job.duration}차</Text>
+        <span {...stylex.props(styles.workDateSeparator)}></span>
+        <Text style={styles.period}>{liveContent.job.duration}차</Text>
         {content.info.memo && (
           <>
-            <div {...stylex.props(styles.workDateSeparator)}></div>
+            <span {...stylex.props(styles.workDateSeparator)}></span>
             <Text style={styles.period}>{content.info.memo}</Text>
           </>
         )}

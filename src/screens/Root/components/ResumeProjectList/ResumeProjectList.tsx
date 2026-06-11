@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -16,6 +16,7 @@ import Link from "next/link";
 import { ProjectItem, SectionHeader } from "@/components";
 import { content } from "@/contents";
 import { Icon, Separator, Tag, Text, TextInput } from "@/elements";
+import { useLiveContent } from "@/hooks";
 
 import { colors } from "../../../../styles/variable/colors.stylex";
 import { spaces } from "../../../../styles/variable/spaces.stylex";
@@ -47,6 +48,7 @@ type PriorityProject = IndexedProject & { project: ResumeProject & { priority: n
  */
 const ResumeProjectList = () => {
   const contentId = useId();
+  const liveContent = useLiveContent();
   const [expand, setExpand] = useState(false);
   const [showPriorityOnly, setShowPriorityOnly] = useState(false);
   const priorityButtonLabel = "주요 프로젝트만 보기";
@@ -111,7 +113,7 @@ const ResumeProjectList = () => {
    * @returns 기존 순서를 포함한 프로젝트 목록
    */
   function getIndexedProjects(): IndexedProject[] {
-    return [...content.projects, ...content.sideProjects, ...content.activities].map((project, index) => ({
+    return [...liveContent.projects, ...liveContent.sideProjects, ...liveContent.activities].map((project, index) => ({
       project,
       index,
     }));
@@ -191,7 +193,7 @@ const ResumeProjectList = () => {
             >
               <TextInput placeholder="프로젝트나 기술 검색" mocking />
             </Link>
-            <ul>{(showPriorityOnly ? priorityProjects : content.projects).map(renderProject)}</ul>
+            <ul>{(showPriorityOnly ? priorityProjects : liveContent.projects).map(renderProject)}</ul>
             {showPriorityOnly && priorityProjects.length === 0 && (
               <div {...stylex.props(styles.empty)}>
                 <Text color={colors.contentGrayA3}>표시할 주요 프로젝트가 없습니다.</Text>
@@ -203,12 +205,12 @@ const ResumeProjectList = () => {
               <Separator />
               <section>
                 <SectionHeader title="사이드 프로젝트" />
-                <ul>{content.sideProjects.map(renderProject)}</ul>
+                <ul>{liveContent.sideProjects.map(renderProject)}</ul>
               </section>
               <Separator />
               <section>
                 <SectionHeader title="활동" />
-                <ul>{content.activities.map(renderProject)}</ul>
+                <ul>{liveContent.activities.map(renderProject)}</ul>
               </section>
             </>
           )}

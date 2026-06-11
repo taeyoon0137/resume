@@ -1,7 +1,9 @@
+"use client";
+
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -11,6 +13,7 @@ import * as stylex from "@stylexjs/stylex";
 
 import { content } from "@/contents";
 import { Text } from "@/elements";
+import { useLiveContent } from "@/hooks";
 
 import { SummaryItem, SummaryMore, SummaryTitle } from "./components";
 
@@ -27,12 +30,14 @@ import type { ResumeSummaryProps } from "./ResumeSummary.type";
  * @component
  */
 const ResumeSummary = ({ style }: ResumeSummaryProps) => {
+  const liveContent = useLiveContent();
+
   return (
     <section {...stylex.props(styles.container, style)}>
       <div {...stylex.props(styles.workGroup)}>
         <section {...stylex.props(styles.workColumn)}>
           <SummaryTitle title="경력" />
-          <ul>{renderCompanies()}</ul>
+          <ul>{renderCompanies(liveContent.companies)}</ul>
         </section>
         <section {...stylex.props(styles.workColumn)}>
           <SummaryTitle title="학력" />
@@ -57,9 +62,11 @@ const ResumeSummary = ({ style }: ResumeSummaryProps) => {
 
 /**
  * 회사 경력을 렌더링합니다.
+ *
+ * @param companies 렌더링할 회사 경력 목록
  */
-function renderCompanies() {
-  return content.companies.map((company) => (
+function renderCompanies(companies: (typeof content)["companies"]) {
+  return companies.map((company) => (
     <li key={company.company + company.roles.join()}>
       <SummaryItem
         title={company.company}
@@ -75,7 +82,7 @@ function renderCompanies() {
         caption={
           <>
             {company.period}
-            <div {...stylex.props(styles.rowSeparator)}></div>
+            <span {...stylex.props(styles.rowSeparator)}></span>
             <Text style={styles.duration}>{company.duration}</Text>
           </>
         }

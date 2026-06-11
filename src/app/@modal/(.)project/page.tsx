@@ -1,11 +1,9 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-import type { PageProps } from "@/types";
 
 import { PageModal } from "@/components/PageModal";
 import { Projects } from "@/screens/Projects";
@@ -15,13 +13,12 @@ import { Projects } from "@/screens/Projects";
  *
  * 참여했던 프로젝트 목록을 모달로 확인할 수 있는 페이지입니다.
  *
- * @param props {@link PageProps}
  * @page
  */
-const ProjectsPage = ({ ...props }: PageProps) => {
+const ProjectsPage = () => {
   return (
     <PageModal>
-      <Projects.Page {...props} />
+      <Projects.Page />
     </PageModal>
   );
 };

@@ -1,7 +1,7 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -18,7 +18,7 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       allow: "/",
-      disallow: ["/portfolio", "/download/portfolio", "/Portfolio%20%E2%80%93%20Taeyoon%20Lee%202026.pdf"],
+      disallow: ["/portfolio", "/download/portfolio"],
       userAgent: "*",
     },
     sitemap: "https://resume.taeyoon.xyz/sitemap.xml",

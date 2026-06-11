@@ -1,7 +1,9 @@
+"use client";
+
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -10,6 +12,7 @@ import Link from "next/link";
 
 import { content } from "@/contents";
 import { Icon, Text } from "@/elements";
+import { useLiveContent } from "@/hooks";
 
 import { colors } from "../../styles/variable/colors.stylex";
 import { spaces } from "../../styles/variable/spaces.stylex";
@@ -24,6 +27,8 @@ import type { PageFooterProps } from "./PageFooter.type";
  * @component
  */
 const PageFooter = ({ style, ...props }: PageFooterProps) => {
+  const liveContent = useLiveContent();
+
   /**
    * 연락처 그룹을 렌더링합니다.
    *
@@ -74,7 +79,7 @@ const PageFooter = ({ style, ...props }: PageFooterProps) => {
 
   return (
     <footer {...stylex.props(styles.footer, style)} {...props}>
-      <Text color={colors.contentGrayA3}>{content.info.copyrights}</Text>
+      <Text color={colors.contentGrayA3}>{liveContent.info.copyrights}</Text>
       <ul {...stylex.props(styles.contact)}>{content.contacts.map(renderContactGroup)}</ul>
     </footer>
   );

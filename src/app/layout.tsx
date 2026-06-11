@@ -1,7 +1,7 @@
 /**
- * Copyright 2024 Taeyoon Lee. All Right Reserved.
+ * Copyright 2026 Taeyoon Lee. All Rights Reserved.
  *
- * This source code is licensed under the file found in the
+ * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
@@ -9,18 +9,9 @@ import "../styles/css/globals.css";
 
 import { Root } from "@/screens";
 import { LayoutProps } from "@/types";
+import { openGraphImage, siteDescription, siteTitle, siteUrl, titleTemplate } from "@/utils";
 
 import type { Metadata, Viewport } from "next";
-
-const siteUrl = "https://resume.taeyoon.xyz";
-const siteTitle = "taeyoon. – resume";
-const siteDescription = "반갑습니다. Product Designer & FE Engineer(RN)로 활동 중인 이태윤입니다.";
-const openGraphImage = {
-  alt: siteTitle,
-  height: 630,
-  url: "/img_open_graph.png",
-  width: 1200,
-};
 
 /**
  * ### metadata 프로퍼티
@@ -32,7 +23,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   // 기본 메타 태그
-  title: siteTitle,
+  title: {
+    default: siteTitle,
+    template: titleTemplate,
+  },
   description: siteDescription,
   applicationName: siteTitle,
   authors: [{ name: "Taeyoon Lee", url: "https://taeyoon.xyz" }],
