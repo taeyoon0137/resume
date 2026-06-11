@@ -8,7 +8,8 @@
 import * as stylex from "@stylexjs/stylex";
 import Link from "next/link";
 
-import { Text } from "@/elements";
+import { TaeyoonSymbol } from "@/assets";
+import { Tag, Text } from "@/elements";
 
 import type { PageEmptyProps } from "./PageEmpty.type";
 
@@ -25,22 +26,19 @@ import type { PageEmptyProps } from "./PageEmpty.type";
 const PageEmpty = ({ title, description, homeLabel = "홈으로 돌아가기" }: PageEmptyProps) => {
   return (
     <main {...stylex.props(styles.container)}>
-      <div {...stylex.props(styles.content)}>
-        <h1 {...stylex.props(styles.title)}>
-          <Text kind="display-a2-bold" style={styles.titleText}>
-            {title}
-          </Text>
-        </h1>
-        {description && (
-          <Text kind="body-a1-regular" style={styles.description}>
-            {description}
-          </Text>
-        )}
-      </div>
-      <Link href="/" {...stylex.props(styles.button)}>
-        <Text kind="body-a1-medium" style={styles.buttonText}>
-          {homeLabel}
+      <TaeyoonSymbol aria-hidden="true" {...stylex.props(styles.icon)} />
+      <h1 {...stylex.props(styles.title)}>
+        <Text kind="display-a2-bold" style={styles.titleText}>
+          {title}
         </Text>
+      </h1>
+      {description && (
+        <Text kind="body-a1-regular" style={styles.description}>
+          {description}
+        </Text>
+      )}
+      <Link href="/" {...stylex.props(styles.homeLink)}>
+        <Tag label={homeLabel} pressable style={styles.homeTag} />
       </Link>
     </main>
   );
@@ -50,20 +48,21 @@ const MOBILE = "@media (max-width: 640px)";
 const styles = stylex.create({
   container: {
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    gap: 12,
     minHeight: "100vh",
     paddingTop: 48,
     paddingBottom: 56,
     paddingLeft: 24,
     paddingRight: 24,
     textAlign: "center",
-    textShadow: "0 1px 12px rgba(0, 0, 0, 0.2)",
+    textShadow: "0 4px 48px rgba(0, 0, 0, 0.08)",
   },
-  content: {
-    flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 12,
+  icon: {
+    width: 64,
+    height: 64,
+    marginBottom: 8,
+    color: "#ffffff",
   },
   title: {
     margin: 0,
@@ -79,25 +78,13 @@ const styles = stylex.create({
     color: "rgba(255, 255, 255, 0.78)",
     maxWidth: 420,
   },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 14,
-    paddingBottom: 14,
-    paddingLeft: 28,
-    paddingRight: 28,
-    borderRadius: 999,
-    backgroundColor: {
-      default: "rgba(255, 255, 255, 0.16)",
-      ":hover": "rgba(255, 255, 255, 0.24)",
-      ":active": "rgba(255, 255, 255, 0.32)",
-    },
-    backdropFilter: "blur(12px)",
-    textDecoration: "none",
-    transition: "background-color 200ms",
+  homeLink: {
+    marginTop: 12,
   },
-  buttonText: {
+  homeTag: {
     color: "#ffffff",
+    backgroundColor: "rgba(255, 255, 255, 0.16)",
+    backdropFilter: "blur(12px)",
   },
 });
 

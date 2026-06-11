@@ -23,12 +23,10 @@ const GlobalError = () => {
   return (
     <html lang="ko">
       <body style={bodyStyle}>
-        <div style={contentStyle}>
-          <h1 style={titleStyle}>문제가 발생했어요</h1>
-          <p style={descriptionStyle}>
-            페이지를 표시하는 중 오류가 발생했어요. 새로고침 후에도 문제가 계속되면 잠시 후 다시 방문해 주세요.
-          </p>
-        </div>
+        <h1 style={titleStyle}>문제가 발생했어요</h1>
+        <p style={descriptionStyle}>
+          페이지를 표시하는 중 오류가 발생했어요. 새로고침 후에도 문제가 계속되면 잠시 후 다시 방문해 주세요.
+        </p>
         {/* RootLayout이 실패한 최후 fallback이므로 next/link 대신 일반 anchor를 사용합니다. */}
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" style={buttonStyle}>
@@ -45,7 +43,8 @@ const bodyStyle: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  justifyContent: "space-between",
+  justifyContent: "center",
+  gap: 12,
   padding: "48px 24px 56px",
   textAlign: "center",
   color: "#ffffff",
@@ -57,16 +56,7 @@ const bodyStyle: React.CSSProperties = {
     "radial-gradient(circle at 86% 88%, #4535C1 0%, transparent 40%)",
   fontFamily:
     '-apple-system, BlinkMacSystemFont, Pretendard, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',
-  textShadow: "0 1px 12px rgba(0, 0, 0, 0.2)",
-};
-
-const contentStyle: React.CSSProperties = {
-  flexGrow: 1,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: 12,
+  textShadow: "0 4px 48px rgba(0, 0, 0, 0.08)",
 };
 
 const titleStyle: React.CSSProperties = {
@@ -84,13 +74,15 @@ const descriptionStyle: React.CSSProperties = {
 };
 
 const buttonStyle: React.CSSProperties = {
-  padding: "14px 28px",
-  borderRadius: 999,
+  marginTop: 12,
+  padding: "4px 12px",
+  borderRadius: 8,
   backgroundColor: "rgba(255, 255, 255, 0.16)",
   color: "#ffffff",
   textDecoration: "none",
-  fontSize: 17,
+  fontSize: 15,
   fontWeight: 500,
+  lineHeight: "160%",
 };
 
 export default GlobalError;
