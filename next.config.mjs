@@ -24,6 +24,19 @@ const nextConfig = {
     // 재직 기간 등 날짜 의존 값의 hydration 기준값으로 사용됩니다.
     NEXT_PUBLIC_BUILD_DATE: new Date().toISOString(),
   },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+    ];
+  },
   outputFileTracingRoot: __dirname,
   outputFileTracingIncludes: {
     "/download/portfolio/20260610": [portfolioFilePath],
