@@ -8,17 +8,24 @@
 import { buildDate, formatMonthLength } from "@/utils";
 
 import { contentData } from "./content.data";
+import { ContentData } from "./contents.type";
 
 import type {
   ContentAward,
   ContentCompany,
   ContentContact,
-  ContentData,
   ContentLicense,
   ContentProject,
   ContentSchool,
   ContentStyle,
 } from "./contents.type";
+
+// 콘텐츠 원본을 zod 스키마로 검증합니다.
+// 빌드 프리렌더와 서버 렌더 시점에만 실행해 클라이언트 시작 비용을 피하고,
+// 잘못된 데이터는 빌드 실패로 드러나도록 합니다.
+if (typeof window === "undefined") {
+  ContentData.parse(contentData);
+}
 
 /**
  * ### 컨텐츠
