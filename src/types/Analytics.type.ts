@@ -35,10 +35,17 @@ export interface AnalyticsEventMap {
 
   /**
    * ### 버튼 클릭
-   * 
+   *
    * 특정 버튼을 클릭한 경우입니다.
    */
   ['Button Clicked']: Pick<AnalyticsParametersMap, 'Text'>
+
+  /**
+   * ### 파일 다운로드
+   *
+   * 다운로드 페이지에서 파일 다운로드를 시작한 경우입니다.
+   */
+  ['File Downloaded']: Pick<AnalyticsParametersMap, 'URL'>;
 };
 
 /**

@@ -42,5 +42,10 @@ export const GoogleTag = () => {
 export function trackGoogleTagEvent(event: string, properties?: Record<string, unknown>): void {
   if (process.env.NODE_ENV !== "production") return;
 
+  // gtag 부트스트랩 스크립트보다 먼저 호출되면 sendGAEvent가 이벤트를 버리므로,
+  // dataLayer를 미리 만들어 큐에 쌓이게 합니다. 쌓인 이벤트는 gtag.js 로드 시 소비됩니다.
+  const tagWindow = window as typeof window & { dataLayer?: unknown[] };
+  tagWindow.dataLayer = tagWindow.dataLayer ?? [];
+
   sendGAEvent("event", event, properties ?? {});
 }

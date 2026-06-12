@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { trackAmplitudeEvent } from "./amplitude";
+import { flushAmplitudeEvents, trackAmplitudeEvent } from "./amplitude";
 import { trackGoogleTagEvent } from "./googleTag";
 
 import type { AnalyticsEventMap } from "@/types";
@@ -34,4 +34,15 @@ export function trackEvent<E extends keyof AnalyticsEventMap>(event: E, ...args:
 export function trackEvent(event: string, properties?: Record<string, unknown>): void {
   trackGoogleTagEvent(event, properties);
   trackAmplitudeEvent(event, properties);
+}
+
+/**
+ * ### 이벤트 즉시 전송
+ *
+ * 큐에 남아 있는 분석 이벤트를 즉시 전송합니다.
+ * GA는 이벤트를 큐 없이 바로 전송하므로 Amplitude 큐만 비웁니다.
+ * 리다이렉트처럼 페이지 이탈이 예정된 상황에서 호출합니다.
+ */
+export function flushAnalytics(): void {
+  flushAmplitudeEvents();
 }

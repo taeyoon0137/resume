@@ -62,3 +62,15 @@ export function trackAmplitudeEvent(event: string, properties?: Record<string, u
 
   amplitude.track(event, properties);
 }
+
+/**
+ * ### Amplitude 이벤트 즉시 전송
+ *
+ * SDK 큐에 쌓인 이벤트를 자동 전송 주기를 기다리지 않고 즉시 전송합니다.
+ * 리다이렉트처럼 페이지 이탈이 예정된 상황에서 호출합니다.
+ */
+export function flushAmplitudeEvents(): void {
+  if (!initialized) return;
+
+  amplitude.flush();
+}

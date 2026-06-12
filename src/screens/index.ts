@@ -7,5 +7,6 @@
 
 export * from "./Awards";
 export * from "./Licenses";
+export * from "./Portfolio";
 export * from "./Projects";
 export * from "./Root";
