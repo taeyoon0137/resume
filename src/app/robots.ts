@@ -5,6 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { siteUrl } from "@/utils";
+
 import type { MetadataRoute } from "next";
 
 /**
@@ -21,6 +23,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ["/portfolio", "/download/portfolio", "/dev"],
       userAgent: "*",
     },
-    sitemap: "https://resume.taeyoon.xyz/sitemap.xml",
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

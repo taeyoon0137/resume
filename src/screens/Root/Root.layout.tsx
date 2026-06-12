@@ -16,6 +16,7 @@ import { GoogleTag, initAmplitude, trackEvent } from "@/api";
 import { PageBackground } from "@/components";
 import { content } from "@/contents";
 import { IsModalOpenContext, ModalContext, ThemeContext } from "@/contexts";
+import { siteTitle, siteUrl } from "@/utils";
 
 import { colors, darkTheme, lightTheme } from "../../styles/variable/colors.stylex";
 
@@ -23,7 +24,6 @@ import type { RootLayoutProps } from "./Root.type";
 import type { ResolvedThemeMode, ThemeMode } from "@/contexts";
 
 const THEME_STORAGE_KEY = "theme-mode";
-const siteUrl = "https://resume.taeyoon.xyz";
 const profilePageId = `${siteUrl}/#profile`;
 const personId = `${siteUrl}/#person`;
 const flatContacts = content.contacts.flat();
@@ -58,7 +58,7 @@ const structuredData = JSON.stringify({
       mainEntity: {
         "@id": personId,
       },
-      name: "taeyoon. – resume",
+      name: siteTitle,
       url: siteUrl,
     },
   ],

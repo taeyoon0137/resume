@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import type { MetadataRoute } from "next";
+import { siteUrl } from "@/utils";
 
-const siteUrl = "https://resume.taeyoon.xyz";
+import type { MetadataRoute } from "next";
 
 /**
  * ### sitemap.xml
