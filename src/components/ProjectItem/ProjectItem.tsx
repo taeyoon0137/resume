@@ -183,7 +183,13 @@ const ProjectItem = ({
       {/* 썸네일 */}
       {thumbnail && (
         <figure {...stylex.props(styles.thumbnail)}>
-          <Image src={thumbnail} alt={title} fill sizes="(max-width: 640px) 100vw, (max-width: 980px) 200px, 240px" />
+          <Image
+            src={thumbnail}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 980px) 200px, 240px"
+            {...stylex.props(styles.thumbnailImage)}
+          />
         </figure>
       )}
     </article>
@@ -295,6 +301,9 @@ const styles = stylex.create({
     borderColor: colors.lineOutline,
     borderRadius: 8,
     overflow: "hidden",
+  },
+  thumbnailImage: {
+    objectFit: "cover",
   },
 });
 
