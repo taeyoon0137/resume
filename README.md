@@ -38,6 +38,7 @@
 - [🗂️ 레포지토리 구성](#레포지토리-구성)
 - [📄 라이선스](#라이선스)
 - [📝 노트](#노트)
+- [📋 투두](#투두)
 
 <a id="시작하기"></a>
 
@@ -141,3 +142,9 @@ resume
 - SWC/Babel 경고는 `.babelrc.js`를 제거하고 StyleX loader가 외부 Babel 설정을 읽지 않도록 처리했습니다.
 - [`postcss` Dependabot 경고](https://github.com/advisories/GHSA-qx2v-qp2m-jg93)는 Next.js 전이 의존성 업데이트가 없어 Yarn `resolutions`로 `8.5.15`를 강제했습니다. Next.js가 패치 버전을 직접 의존하면 이 resolution은 제거합니다.
 - 개발 환경에서 `/dev/error`에 접근하면 에러 페이지 UI를 미리 확인할 수 있습니다.
+
+<a id="투두"></a>
+
+## 📋 투두
+
+- 라이트 모드 보조 텍스트 색 대비를 디자인 레벨에서 재조정합니다. `contentGrayA2`(`#00000066`)는 흰 배경 기준 2.84:1로 WCAG AA 기준(4.5:1)에 미달하며, Lighthouse 접근성 감점의 원인입니다. `contentGrayA3`도 함께 검토합니다. 색상 토큰 전반의 조정이 필요해 코드 수정 없이 보류 중입니다.
