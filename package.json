@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.43.0",
-    "@microsoft/clarity": "^1.0.2",
     "@next/third-parties": "^16.2.9",
     "@stylexjs/stylex": "^0.18.3",
     "color": "^5.0.3",

@@ -12,7 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import * as stylex from "@stylexjs/stylex";
 import { AnimatePresence, domAnimation, LazyMotion } from "framer-motion";
 
-import { GoogleTag, initAmplitude, initClarity, trackEvent } from "@/api";
+import { GoogleTag, initAmplitude, trackEvent } from "@/api";
 import { PageBackground } from "@/components";
 import { content } from "@/contents";
 import { IsModalOpenContext, ModalContext, ThemeContext } from "@/contexts";
@@ -83,7 +83,6 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
   useEffect(scrollLock, [isModalOpen]);
   useEffect(observeSystemTheme, []);
   useEffect(initAmplitude, []);
-  useEffect(initClarity, []);
   useEffect(assignClickAnalyticsListener, []);
 
   /**
