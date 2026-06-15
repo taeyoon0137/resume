@@ -240,6 +240,11 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
       )}
     >
       <body>
+        {/* Pretendard 폰트 CDN 연결을 미리 수립해 폰트 요청 체인을 단축합니다. */}
+        {/* 폰트 파일은 CORS로 요청되므로 crossOrigin을 지정합니다. */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+
         {/* 저장된 테마를 첫 페인트 전에 적용 */}
         <script dangerouslySetInnerHTML={{ __html: createThemeInitializerScript() }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
