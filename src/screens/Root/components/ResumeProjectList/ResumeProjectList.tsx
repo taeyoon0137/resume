@@ -13,6 +13,7 @@ import * as stylex from "@stylexjs/stylex";
 import { m } from "framer-motion";
 import Link from "next/link";
 
+import { trackEvent } from "@/api";
 import { ProjectItem, SectionHeader } from "@/components";
 import { content } from "@/contents";
 import { Icon, Separator, Tag, Text, TextInput } from "@/elements";
@@ -61,6 +62,7 @@ const ResumeProjectList = () => {
    * 프로젝트를 펼치거나 닫습니다.
    */
   function toggleExpand(): void {
+    trackEvent(expand ? "All Resume Hidden" : "All Resume Revealed");
     if (expand) setShowPriorityOnly(false);
     setExpand((prev) => !prev);
     scrollToSectionTitle();
