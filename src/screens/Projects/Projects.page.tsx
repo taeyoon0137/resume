@@ -98,6 +98,9 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
 
       // 프로젝트 기술에서 검색
       if (project.techStacks?.some((techStack) => cleanText(techStack).includes(cleanKeyword))) return true;
+
+      // 역할에서 검색
+      if (project.role && cleanText(project.role).includes(cleanKeyword)) return true;
     });
   }
 
