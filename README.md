@@ -108,9 +108,11 @@ resume
 │   ├── components/             # 페이지 조립용 컴포넌트
 │   ├── elements/               # 작은 재사용 UI 요소
 │   ├── contents/               # 이력서 콘텐츠 source of truth
+│   ├── constants/              # 포트폴리오 버전 등 공용 상수
 │   ├── styles/                 # StyleX 변수와 전역 CSS
 │   └── assets/                 # 코드에서 import하는 이미지와 아이콘
 ├── public/                     # 브라우저에서 직접 제공되는 정적 파일
+├── downloads/                  # 포트폴리오 PDF 등 다운로드 제공 파일
 ├── resources/
 │   ├── README.preset.md        # README 생성 원본
 │   ├── readme-hero.preset.svg  # README 히어로 SVG 원본
