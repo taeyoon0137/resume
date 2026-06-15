@@ -7,9 +7,13 @@
 
 import stylexPlugin from "@stylexjs/nextjs-plugin";
 
+import portfolio from "./src/constants/portfolioVersion.json" with { type: "json" };
+
 const __dirname = new URL(".", import.meta.url).pathname;
 
-const portfolioFilePath = "./downloads/portfolio/20260610.pdf";
+// 포트폴리오 날짜 버전은 src/constants/portfolio.json을 단일 출처로 사용합니다.
+const portfolioDownloadPath = `/download/portfolio/${portfolio.date}`;
+const portfolioFilePath = `./downloads/portfolio/${portfolio.date}.pdf`;
 
 /**
  * ### Next.js 설정
@@ -39,7 +43,7 @@ const nextConfig = {
   },
   outputFileTracingRoot: __dirname,
   outputFileTracingIncludes: {
-    "/download/portfolio/20260610": [portfolioFilePath],
+    [portfolioDownloadPath]: [portfolioFilePath],
     "/download/portfolio": [portfolioFilePath],
     "/portfolio": [portfolioFilePath],
   },

@@ -12,13 +12,14 @@ import { useEffect, useRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 
 import { flushAnalytics, initAmplitude, trackEvent } from "@/api";
+import { PORTFOLIO_DOWNLOAD_PATH } from "@/constants";
 import { Text } from "@/elements";
 
 import { colors } from "../../styles/variable/colors.stylex";
 
 import type { PortfolioDownloadProps } from "./Portfolio.type";
 
-const PORTFOLIO_FILE_PATH = "/download/portfolio/20260610";
+const PORTFOLIO_FILE_PATH = PORTFOLIO_DOWNLOAD_PATH;
 const HOME_PATH = "/";
 const REDIRECT_DELAY_MS = 1200;
 
