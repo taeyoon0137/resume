@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { siteUrl } from "@/utils";
+import { buildDate, siteUrl } from "@/utils";
 
 import type { MetadataRoute } from "next";
 
@@ -19,5 +19,6 @@ import type { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return ["", "/project", "/award", "/license"].map((path) => ({
     url: `${siteUrl}${path}`,
+    lastModified: buildDate,
   }));
 }
