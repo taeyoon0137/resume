@@ -88,7 +88,6 @@ export const metadata: Metadata = {
     { rel: "icon", type: "image/png", sizes: "72x72", url: "/favicon/android-icon-72x72.png" },
     { rel: "icon", type: "image/png", sizes: "96x96", url: "/favicon/android-icon-96x96.png" },
     { rel: "icon", type: "image/png", sizes: "144x144", url: "/favicon/android-icon-144x144.png" },
-    { rel: "icon", type: "image/png", sizes: "192x192", url: "/favicon/android-icon-192x192.png" },
   ],
 };
 
@@ -99,7 +98,9 @@ export const metadata: Metadata = {
  */
 export const viewport: Viewport = {
   initialScale: 1.0,
-  themeColor: "#000000",
+  // 배경 그라디언트는 라이트/다크가 동일하므로 그 시작색을 상단 바 색으로 사용합니다.
+  // 값은 content.style.backgrounds[0]의 기본값과 일치시킵니다.
+  themeColor: "#77E4C8",
 };
 
 /**
