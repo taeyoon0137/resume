@@ -10,11 +10,22 @@ import { Suspense } from "react";
 import { Awards } from "@/screens";
 
 import type { PageProps } from "@/types";
+import type { Metadata } from "next";
+
+/**
+ * ### metadata 프로퍼티
+ *
+ * 단수형 `/award`로 리다이렉트하는 경로이므로 중복 색인을 막기 위해
+ * 검색 엔진이 색인하지 않도록 처리합니다.
+ */
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 /**
  * ### 수상 내역 페이지
  *
- * 이력서 메인 페이지입니다.
+ * 수상 내역 단수형 경로로 리다이렉트하는 페이지입니다.
  *
  * @param props {@link PageProps}
  * @page
