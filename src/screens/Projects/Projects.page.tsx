@@ -211,29 +211,30 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
           </Text>
         )}
 
-        <ul {...stylex.props(styles.scroll)}>
-          {projects.map((project) => (
-            <li key={project.title}>
-              <ProjectItem
-                title={project.title}
-                role={project.role}
-                organization={project.organization ?? { name: "개인 프로젝트" }}
-                techStacks={project.techStacks}
-                summary={project.summary}
-                period={project.period}
-                duration={project.duration}
-                thumbnail={project.thumbnail}
-                link={project.link}
-                searchKeyword={keyword || undefined}
-              />
-            </li>
-          ))}
-          {projects.length === 0 && (
-            <div {...stylex.props(styles.empty)}>
-              <Text color={colors.contentGrayA3}>검색 결과가 없습니다.</Text>
-            </div>
-          )}
-        </ul>
+        {projects.length > 0 ? (
+          <ul {...stylex.props(styles.scroll)}>
+            {projects.map((project) => (
+              <li key={project.title}>
+                <ProjectItem
+                  title={project.title}
+                  role={project.role}
+                  organization={project.organization ?? { name: "개인 프로젝트" }}
+                  techStacks={project.techStacks}
+                  summary={project.summary}
+                  period={project.period}
+                  duration={project.duration}
+                  thumbnail={project.thumbnail}
+                  link={project.link}
+                  searchKeyword={keyword || undefined}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div {...stylex.props(styles.scroll, styles.empty)}>
+            <Text color={colors.contentGrayA3}>검색 결과가 없습니다.</Text>
+          </div>
+        )}
         <Separator />
         <PageFooter />
       </PageSheet>
