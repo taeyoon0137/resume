@@ -10,13 +10,13 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
-import * as hangul from "hangul-js";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { PageFooter, PageHeader, PageSheet, ProjectItem } from "@/components";
 import { Separator, Text, TextInput } from "@/elements";
 import { useLiveContent } from "@/hooks";
+import { cleanText } from "@/utils";
 
 import { colors } from "../../styles/variable/colors.stylex";
 import { spaces } from "../../styles/variable/spaces.stylex";
@@ -107,7 +107,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
    * @returns 보조 검색 키워드
    */
   function getSubKeyword(): string | undefined {
-    // 검색어가 없으면 모든 아무것도 반환하지 않습니다.
+    // 검색어가 없으면 아무것도 반환하지 않습니다.
     if (!keyword) return;
 
     // 검색어를 정제합니다.
@@ -128,22 +128,6 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
     return subKeyword?.[1];
   }
 
-  /**
-   * 유연한 검색을 위해, 텍스트를 정제합니다.
-   * 또한 자모를 분리하여, 중간 검색이 가능하도록 합니다.
-   *
-   * @param text - 정제할 텍스트
-   * @returns 정제된 텍스트
-   */
-  function cleanText(text: string): string {
-    // 정규식: /[^가-힣a-zA-Z0-9]/g
-    // '가-힣' : 한글
-    // 'a-zA-Z' : 영어 대소문자
-    // '0-9' : 숫자
-    // ^ : not (이외의 문자들)
-    // g : 전역 검색
-    return hangul.disassemble(text.replace(/[^가-힣a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ]/g, "").toLowerCase()).join("");
-  }
 
   /**
    * 검색어가 변경되었을 때 호출되는 함수입니다.

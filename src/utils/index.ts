@@ -6,5 +6,6 @@
  */
 
 export * from "./buildDate";
+export * from "./cleanText";
 export * from "./createPageMetadata";
 export * from "./formatMonthLength";
