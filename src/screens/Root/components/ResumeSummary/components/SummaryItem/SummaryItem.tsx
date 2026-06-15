@@ -63,14 +63,6 @@ const styles = stylex.create({
     marginTop: 6,
     textDecoration: "none",
   },
-  dateSeparator: {
-    display: "inline-block",
-    marginLeft: 8,
-    marginRight: 8,
-    width: 1,
-    height: 10,
-    backgroundColor: colors.lineSeparatorStroke,
-  },
 });
 
 export default SummaryItem;

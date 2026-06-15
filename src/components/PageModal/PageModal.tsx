@@ -57,7 +57,7 @@ const PageModalInner = ({ children }: PageModalProps) => {
   /**
    * 해당 모달이 렌더링 될 때, 모달의 렌더링 내역을 저장합니다.
    *
-   * @returns 모달이 렌더링 해제 될 떄, 모달의 렌더링 내역을 제거합니다.
+   * @returns 모달이 렌더링 해제 될 때, 모달의 렌더링 내역을 제거합니다.
    */
   function updateModal(): () => void {
     addModal();
@@ -237,7 +237,7 @@ const styles = stylex.create({
     right: 0,
     bottom: 0,
     display: "block",
-    overflow: "scroll",
+    overflow: "auto",
     cursor: "pointer",
   },
   backdrop: {

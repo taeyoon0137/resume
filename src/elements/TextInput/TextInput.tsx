@@ -25,7 +25,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInpu
   useImperativeHandle(ref, () => inputRef.current!);
 
   /**
-   * 인풋이 포커스 되었을 떄의 동작을 처리합니다.
+   * 인풋이 포커스 되었을 때의 동작을 처리합니다.
    *
    * @param event - 포커스 이벤트
    */

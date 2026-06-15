@@ -96,54 +96,8 @@ const styles = stylex.create({
   info: {
     marginTop: 2,
   },
-  orgLink: {
-    display: "inline",
-  },
-  orgLinkable: {
-    textDecoration: {
-      default: "none",
-      ":hover": "underline",
-    },
-    textDecorationColor: colors.contentGrayA3,
-  },
-  techStack: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-    marginTop: 8,
-    marginBottom: 8,
-  },
-  summary: {
-    paddingTop: 8,
-    paddingBottom: 4,
-  },
-  summaryItem: {
-    "::before": {
-      content: "'•'",
-      display: "flex",
-      marginLeft: 6,
-      marginRight: 6,
-      color: colors.contentGrayA2,
-
-      // "body-a2-regular"
-      fontSize: 15,
-      fontWeight: 400,
-      letterSpacing: 0.02,
-      lineHeight: "160%",
-    },
-
-    flexDirection: "row",
-  },
   date: {
     marginTop: 8,
-  },
-  durationSeparator: {
-    display: "inline-block",
-    marginLeft: 8,
-    marginRight: 8,
-    width: 1,
-    height: 10,
-    backgroundColor: colors.lineSeparatorStroke,
   },
   thumbnail: {
     position: "relative",

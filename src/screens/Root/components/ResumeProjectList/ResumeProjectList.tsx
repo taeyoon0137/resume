@@ -254,6 +254,7 @@ const ResumeProjectList = () => {
         </m.div>
       </div>
       <button
+        type="button"
         onClick={toggleExpand}
         aria-expanded={expand}
         aria-controls={contentId}
