@@ -24,6 +24,32 @@ import { spaces } from "../../styles/variable/spaces.stylex";
 import type { ProjectsPageProps } from "./Projects.type";
 import type { ChangeEvent } from "react";
 
+// 찾아볼 보조 검색어 목록입니다.
+// 한글 표기로 검색해도 영문 기술 스택을 안내하도록 매핑합니다.
+// 접두사가 겹치는 항목은 더 짧은 표기를 먼저 두어 의도한 스택이 우선 매칭되게 합니다.
+const SUB_KEYWORDS = Object.entries({
+  피그마: "Figma",
+  리액트: "React",
+  리액트네이티브: "React Native",
+  로티: "Lottie",
+  타입스크립트: "TypeScript",
+  넥스트: "Next.js",
+  앰플리튜드: "Amplitude",
+  노드: "Node",
+  테일윈드: "Tailwind",
+  프로토파이: "Protopie",
+  포토샵: "Photoshop",
+  일러스트레이터: "Illustrator",
+  인디자인: "InDesign",
+  스케치: "Sketch",
+  애프터이펙트: "After Effects",
+  파이널컷: "Final Cut Pro",
+  슈파베이스: "Supabase",
+  센트리: "Sentry",
+  워드프레스: "WordPress",
+  핵클: "Hackle",
+});
+
 /**
  * ### ProjectsPage
  *
@@ -101,6 +127,9 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
 
       // 역할에서 검색
       if (project.role && cleanText(project.role).includes(cleanKeyword)) return true;
+
+      // 어떤 조건에도 일치하지 않으면 제외합니다.
+      return false;
     });
   }
 
@@ -116,34 +145,8 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
     // 검색어를 정제합니다.
     const cleanKeyword = cleanText(keyword);
 
-    // 찾아볼 보조 검색어 목록입니다.
-    // 한글 표기로 검색해도 영문 기술 스택을 안내하도록 매핑합니다.
-    // 접두사가 겹치는 항목은 더 짧은 표기를 먼저 두어 의도한 스택이 우선 매칭되게 합니다.
-    const subKeywords = Object.entries({
-      피그마: "Figma",
-      리액트: "React",
-      리액트네이티브: "React Native",
-      로티: "Lottie",
-      타입스크립트: "TypeScript",
-      넥스트: "Next.js",
-      앰플리튜드: "Amplitude",
-      노드: "Node",
-      테일윈드: "Tailwind",
-      프로토파이: "Protopie",
-      포토샵: "Photoshop",
-      일러스트레이터: "Illustrator",
-      인디자인: "InDesign",
-      스케치: "Sketch",
-      애프터이펙트: "After Effects",
-      파이널컷: "Final Cut Pro",
-      슈파베이스: "Supabase",
-      센트리: "Sentry",
-      워드프레스: "WordPress",
-      핵클: "Hackle",
-    });
-
     // 보조 검색어를 찾습니다.
-    const subKeyword = subKeywords.find(([key]) => cleanText(key).includes(cleanKeyword));
+    const subKeyword = SUB_KEYWORDS.find(([key]) => cleanText(key).includes(cleanKeyword));
 
     // 보조 검색어가 1개라면 반환합니다.
     return subKeyword?.[1];
@@ -196,6 +199,7 @@ const ProjectsPage = (_props: ProjectsPageProps) => {
               value={keyword}
               onChange={handleKeywordChange}
               onKeyDown={handleKeydown}
+              aria-label="프로젝트 검색"
               placeholder={`${projects.length}개의 프로젝트`}
               style={styles.searchBar}
             />
