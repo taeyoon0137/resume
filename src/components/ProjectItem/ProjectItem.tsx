@@ -7,10 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useState } from "react";
-
 import * as stylex from "@stylexjs/stylex";
-import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -36,7 +33,6 @@ const ProjectItem = ({
   role,
   organization,
   techStacks,
-  details,
   summary,
   period,
   duration,
@@ -45,7 +41,6 @@ const ProjectItem = ({
   searchKeyword,
 }: ProjectItemProps) => {
   const pathname = usePathname();
-  const [expand, _setExpand] = useState(false);
 
   /**
    * 기술 스택 목록을 렌더링합니다.
@@ -68,22 +63,6 @@ const ProjectItem = ({
           <Tag label={techStack} kind={isSearched ? "primary" : "secondary"} pressable />
         </Link>
       </li>
-    );
-  }
-
-  /**
-   * 상세 내용을 렌더링합니다.
-   *
-   * @param detail - 상세 내용
-   * @returns 상세 내용
-   */
-  function renderDetail(detail: string): React.ReactNode {
-    return (
-      <p key={detail} {...stylex.props(styles.summaryItem)}>
-        <Text kind="body-a2-regular" color={colors.contentGrayA2}>
-          {detail}
-        </Text>
-      </p>
     );
   }
 
@@ -142,12 +121,8 @@ const ProjectItem = ({
         {/* 기술 스택 */}
         {techStacks && <ul {...stylex.props(styles.techStack)}>{techStacks.map(renderTechStack)}</ul>}
 
-        {/* 상세 내용 */}
-        <AnimatePresence>
-          {expand
-            ? details && <m.div>{details.map(renderDetail)}</m.div>
-            : summary && <m.ul {...stylex.props(styles.summary)}>{summary.map(renderSummary)}</m.ul>}
-        </AnimatePresence>
+        {/* 요약 내용 */}
+        {summary && <ul {...stylex.props(styles.summary)}>{summary.map(renderSummary)}</ul>}
 
         {/* 기간 */}
         {period && (

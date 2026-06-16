@@ -70,13 +70,6 @@ export interface ProjectItemProps extends Props<HTMLDivElement, "children" | "su
   summary?: string[];
 
   /**
-   * ### 프로젝트 상세
-   *
-   * 프로젝트 상세 내용을 작성한 내용입니다.
-   */
-  details?: string[];
-
-  /**
    * ### 프로젝트 기간
    *
    * 프로젝트를 진행했던 기간입니다.
