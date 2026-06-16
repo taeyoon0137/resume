@@ -24,7 +24,14 @@ const portfolioFilePath = join(process.cwd(), "downloads", "portfolio", PORTFOLI
  * @returns PDF 다운로드 응답입니다.
  */
 export async function GET(): Promise<Response> {
-  const file = await readFile(portfolioFilePath);
+  let file: Buffer;
+
+  try {
+    file = await readFile(portfolioFilePath);
+  } catch {
+    // 파일이 없거나 읽을 수 없으면 서버 오류 대신 404로 응답합니다.
+    return new NextResponse("Not Found", { status: 404 });
+  }
 
   return new NextResponse(new Uint8Array(file), {
     headers: {

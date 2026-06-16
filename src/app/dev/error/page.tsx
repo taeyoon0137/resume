@@ -5,6 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { notFound } from "next/navigation";
+
 import ErrorPreview from "./ErrorPreview";
 
 import type { Metadata } from "next";
@@ -30,6 +32,9 @@ export const metadata: Metadata = {
  * @page
  */
 const DevErrorPage = () => {
+  // 개발 전용 미리보기 경로이므로 프로덕션에서는 노출하지 않습니다.
+  if (process.env.NODE_ENV === "production") notFound();
+
   return <ErrorPreview />;
 };
 
