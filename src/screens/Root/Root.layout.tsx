@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import * as stylex from "@stylexjs/stylex";
 import { AnimatePresence, domAnimation, LazyMotion } from "framer-motion";
@@ -79,6 +79,8 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
   const [systemThemeMode, setSystemThemeMode] = useState<ResolvedThemeMode>("light");
   const isModalOpen = useMemo(getIsModalOpen, [modalList.length]);
   const resolvedThemeMode = themeMode === "system" ? systemThemeMode : themeMode;
+  // themeMode가 바뀔 때만 새로 만들어 context 값의 불필요한 재생성을 막습니다.
+  const toggleThemeMode = useCallback(handleToggleThemeMode, [themeMode]);
 
   useEffect(scrollLock, [isModalOpen]);
   useEffect(observeSystemTheme, []);
@@ -166,8 +168,8 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
    * 테마 버튼을 눌렀을 때 다음 테마 상태로 변경합니다.
    * 새로고침 후에도 유지되도록 변경된 테마를 저장합니다.
    */
-  function toggleThemeMode(): void {
-    const nextThemeMode = getNextThemeMode();
+  function handleToggleThemeMode(): void {
+    const nextThemeMode = getNextThemeMode(themeMode);
 
     setThemeMode(nextThemeMode);
     storeThemeMode(nextThemeMode);
@@ -194,10 +196,11 @@ const RootLayout = ({ modal, children }: RootLayoutProps) => {
   /**
    * 다음 테마 상태를 반환합니다.
    *
+   * @param currentThemeMode 현재 테마 상태입니다.
    * @returns 다음 테마 상태
    */
-  function getNextThemeMode(): ThemeMode {
-    if (themeMode === "system") {
+  function getNextThemeMode(currentThemeMode: ThemeMode): ThemeMode {
+    if (currentThemeMode === "system") {
       const currentSystemThemeMode = getCurrentSystemThemeMode();
 
       return currentSystemThemeMode === "dark" ? "light" : "dark";
