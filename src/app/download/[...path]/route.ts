@@ -47,7 +47,8 @@ export async function GET(request: NextRequest, props: DownloadRouteProps): Prom
   }
 
   const sourceFileName = basename(downloadLink.filePath);
-  const isRegularDownload = Boolean(regularLink) || request.nextUrl.searchParams.get(regularDownloadSearchParam) === "1";
+  const isRegularDownload =
+    Boolean(regularLink) || request.nextUrl.searchParams.get(regularDownloadSearchParam) === "1";
   const downloadFileName = isRegularDownload ? removeVersion(sourceFileName) : sourceFileName;
   let file: Buffer;
 
