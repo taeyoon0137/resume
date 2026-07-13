@@ -8,12 +8,11 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { shortlinks } from "@/configs";
-import { isOpenGraphBot, usesDestinationOpenGraph } from "@/utils";
 
 import { trackShortlinkEvent } from "@/api/amplitudeServer";
-import { createOpenGraphResponse } from "@/utils/openGraphResponse";
 
 const deviceIdCookie = "shortlink-device-id";
+const permanentRedirectStatus = 301;
 
 interface ShortlinkRouteProps {
   params: Promise<{ shortlink?: string[] }>;
@@ -32,19 +31,16 @@ interface ShortlinkRouteProps {
 export async function GET(request: NextRequest, props: ShortlinkRouteProps): Promise<Response> {
   const { shortlink: shortlinkSegments = [] } = await props.params;
   const shortlink = shortlinkSegments.join("/");
-  const shortlinkConfig = getLinkValue(shortlinks, shortlink);
+  const destination = getLinkValue(shortlinks, shortlink);
 
-  if (!shortlinkConfig) return NextResponse.redirect(new URL("/", request.url));
+  if (!destination) return NextResponse.redirect(new URL("/", request.url), permanentRedirectStatus);
 
   const storedDeviceId = request.cookies.get(deviceIdCookie)?.value;
   const deviceId = storedDeviceId ?? crypto.randomUUID();
 
-  await trackShortlinkEvent(deviceId, shortlink, shortlinkConfig.destination, request.headers.get("referer"));
+  await trackShortlinkEvent(deviceId, shortlink, destination, request.headers.get("referer"));
 
-  const response =
-    isOpenGraphBot(request.headers.get("user-agent")) && !usesDestinationOpenGraph(shortlinkConfig.openGraph)
-      ? createOpenGraphResponse(request.nextUrl.pathname, shortlinkConfig.openGraph)
-      : NextResponse.redirect(shortlinkConfig.destination);
+  const response = NextResponse.redirect(destination, permanentRedirectStatus);
 
   if (!storedDeviceId) {
     response.cookies.set(deviceIdCookie, deviceId, {
