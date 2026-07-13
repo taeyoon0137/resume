@@ -25,7 +25,10 @@ const namedLinks: Record<string, string> = {
  *
  * 단순 URL 축약을 위해 제공되는 링크 목록입니다.
  */
-const unnamedLinks: Record<string, string> = {};
+const unnamedLinks: Record<string, string> = {
+  eep6k1:
+    "https://resume.taeyoon.xyz/portfolio/visual?utm_source=inedit&utm_medium=email&utm_campaign=job_application&utm_content=portfolio_visual",
+};
 
 /**
  * ### Shortlink 목록
