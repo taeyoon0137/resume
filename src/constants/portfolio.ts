@@ -8,9 +8,9 @@
 import { regularDownloadLinks, specificDownloadLinks } from "@/configs";
 
 const portfolioRegularDownloadPath = "/download/portfolio";
-const portfolioFilePath = regularDownloadLinks[portfolioRegularDownloadPath];
+const portfolioLink = regularDownloadLinks[portfolioRegularDownloadPath];
 const portfolioSpecificDownloadPath = Object.entries(specificDownloadLinks).find(
-  ([path, filePath]) => path.startsWith(`${portfolioRegularDownloadPath}/`) && filePath === portfolioFilePath,
+  ([path, link]) => path.startsWith(`${portfolioRegularDownloadPath}/`) && link.filePath === portfolioLink.filePath,
 )?.[0];
 
 if (!portfolioSpecificDownloadPath) {

@@ -8,8 +8,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { shortlinks } from "@/configs";
+import { isOpenGraphBot, usesDestinationOpenGraph } from "@/utils";
 
 import { trackShortlinkEvent } from "@/api/amplitudeServer";
+import { createOpenGraphResponse } from "@/utils/openGraphResponse";
 
 const deviceIdCookie = "shortlink-device-id";
 
@@ -30,16 +32,19 @@ interface ShortlinkRouteProps {
 export async function GET(request: NextRequest, props: ShortlinkRouteProps): Promise<Response> {
   const { shortlink: shortlinkSegments = [] } = await props.params;
   const shortlink = shortlinkSegments.join("/");
-  const destination = getLinkValue(shortlinks, shortlink);
+  const shortlinkConfig = getLinkValue(shortlinks, shortlink);
 
-  if (!destination) return NextResponse.redirect(new URL("/", request.url));
+  if (!shortlinkConfig) return NextResponse.redirect(new URL("/", request.url));
 
   const storedDeviceId = request.cookies.get(deviceIdCookie)?.value;
   const deviceId = storedDeviceId ?? crypto.randomUUID();
 
-  await trackShortlinkEvent(deviceId, shortlink, destination, request.headers.get("referer"));
+  await trackShortlinkEvent(deviceId, shortlink, shortlinkConfig.destination, request.headers.get("referer"));
 
-  const response = NextResponse.redirect(destination);
+  const response =
+    isOpenGraphBot(request.headers.get("user-agent")) && !usesDestinationOpenGraph(shortlinkConfig.openGraph)
+      ? createOpenGraphResponse(request.nextUrl.pathname, shortlinkConfig.openGraph)
+      : NextResponse.redirect(shortlinkConfig.destination);
 
   if (!storedDeviceId) {
     response.cookies.set(deviceIdCookie, deviceId, {
@@ -62,6 +67,6 @@ export async function GET(request: NextRequest, props: ShortlinkRouteProps): Pro
  * @param property 요청 프로퍼티입니다.
  * @returns 리다이렉트 대상 URL입니다.
  */
-function getLinkValue(links: Record<string, string>, property: string): string | undefined {
+function getLinkValue<T>(links: Record<string, T>, property: string): T | undefined {
   return Object.hasOwn(links, property) ? links[property] : undefined;
 }

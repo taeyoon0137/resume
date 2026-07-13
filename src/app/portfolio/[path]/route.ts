@@ -8,6 +8,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { simpleDownloadLinks } from "@/configs";
+import { isOpenGraphBot, usesDestinationOpenGraph } from "@/utils";
+
+import { createOpenGraphResponse } from "@/utils/openGraphResponse";
 
 interface PortfolioRouteProps {
   params: Promise<{ path: string }>;
@@ -25,11 +28,15 @@ interface PortfolioRouteProps {
 export async function GET(request: NextRequest, props: PortfolioRouteProps): Promise<Response> {
   const { path } = await props.params;
   const simplePath = `portfolio/${path}`;
-  const downloadPath = getLinkValue(simpleDownloadLinks, simplePath);
+  const downloadLink = getLinkValue(simpleDownloadLinks, simplePath);
 
-  if (!downloadPath) return new NextResponse(null, { status: 404 });
+  if (!downloadLink) return new NextResponse(null, { status: 404 });
 
-  return NextResponse.redirect(new URL(downloadPath, request.url));
+  if (isOpenGraphBot(request.headers.get("user-agent")) && !usesDestinationOpenGraph(downloadLink.openGraph)) {
+    return createOpenGraphResponse(request.nextUrl.pathname, downloadLink.openGraph);
+  }
+
+  return NextResponse.redirect(new URL(downloadLink.destination, request.url));
 }
 
 /**
@@ -41,6 +48,6 @@ export async function GET(request: NextRequest, props: PortfolioRouteProps): Pro
  * @param path 요청 경로입니다.
  * @returns 연결된 다운로드 경로입니다.
  */
-function getLinkValue(links: Record<string, string>, path: string): string | undefined {
+function getLinkValue<T>(links: Record<string, T>, path: string): T | undefined {
   return Object.hasOwn(links, path) ? links[path] : undefined;
 }

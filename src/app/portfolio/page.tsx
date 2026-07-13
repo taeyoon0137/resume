@@ -5,18 +5,28 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+import { simpleDownloadLinks } from "@/configs";
 import { Portfolio } from "@/screens";
+import { isOpenGraphBot, usesDestinationOpenGraph } from "@/utils";
 
 import type { Metadata } from "next";
 
 import { createPortfolioMetadata } from "@/app/download/portfolio/portfolioMetadata";
+
+const portfolioLink = simpleDownloadLinks.portfolio;
 
 /**
  * ### metadata 프로퍼티
  *
  * 포트폴리오 다운로드 페이지의 메타데이터를 정의합니다.
  */
-export const metadata: Metadata = createPortfolioMetadata("/portfolio");
+export const metadata: Metadata = createPortfolioMetadata(
+  "/portfolio",
+  usesDestinationOpenGraph(portfolioLink.openGraph) ? undefined : portfolioLink.openGraph,
+);
 
 /**
  * ### 빠른 포트폴리오 다운로드 페이지
@@ -26,7 +36,13 @@ export const metadata: Metadata = createPortfolioMetadata("/portfolio");
  *
  * @page
  */
-const PortfolioPage = () => {
+const PortfolioPage = async () => {
+  if (usesDestinationOpenGraph(portfolioLink.openGraph)) {
+    const userAgent = (await headers()).get("user-agent");
+
+    if (isOpenGraphBot(userAgent)) redirect(portfolioLink.destination);
+  }
+
   return <Portfolio.Download />;
 };
 

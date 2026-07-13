@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { regularDownloadLinks } from "@/configs";
 import { Portfolio } from "@/screens";
 
 import type { Metadata } from "next";
@@ -16,7 +17,10 @@ import { createPortfolioMetadata } from "@/app/download/portfolio/portfolioMetad
  *
  * 포트폴리오 다운로드 페이지의 메타데이터를 정의합니다.
  */
-export const metadata: Metadata = createPortfolioMetadata("/download/portfolio");
+export const metadata: Metadata = createPortfolioMetadata(
+  "/download/portfolio",
+  regularDownloadLinks["/download/portfolio"].openGraph,
+);
 
 /**
  * ### 포트폴리오 다운로드 페이지

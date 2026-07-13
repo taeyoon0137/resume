@@ -20,7 +20,9 @@ const downloadConfigCode = ts.transpileModule(downloadConfigSource, {
 }).outputText;
 const downloadConfigUrl = `data:text/javascript;base64,${Buffer.from(downloadConfigCode).toString("base64")}`;
 const { regularDownloadLinks, specificDownloadLinks } = await import(downloadConfigUrl);
-const downloadFilePaths = [...new Set([...Object.values(regularDownloadLinks), ...Object.values(specificDownloadLinks)])];
+const downloadFilePaths = [
+  ...new Set([...Object.values(regularDownloadLinks), ...Object.values(specificDownloadLinks)].map((link) => link.filePath)),
+];
 const invalidDownloadFilePaths = downloadFilePaths.filter((filePath) => !filePath.startsWith("src/files/"));
 const missingDownloadFilePaths = downloadFilePaths.filter((filePath) => !existsSync(resolve(filePath)));
 

@@ -11,6 +11,9 @@ import { basename, join, parse } from "node:path";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { regularDownloadLinks, specificDownloadLinks } from "@/configs";
+import { isOpenGraphBot } from "@/utils";
+
+import { createOpenGraphResponse } from "@/utils/openGraphResponse";
 
 export const runtime = "nodejs";
 
@@ -33,21 +36,23 @@ interface DownloadRouteProps {
 export async function GET(request: NextRequest, props: DownloadRouteProps): Promise<Response> {
   const { path } = await props.params;
   const downloadPath = `/download/${path.join("/")}`;
-  const regularFilePath = getLinkValue(regularDownloadLinks, downloadPath);
-  const specificFilePath = getLinkValue(specificDownloadLinks, downloadPath);
-  const sourceFilePath = regularFilePath ?? specificFilePath;
+  const regularLink = getLinkValue(regularDownloadLinks, downloadPath);
+  const specificLink = getLinkValue(specificDownloadLinks, downloadPath);
+  const downloadLink = regularLink ?? specificLink;
 
-  if (!sourceFilePath) return new NextResponse(null, { status: 404 });
+  if (!downloadLink) return new NextResponse(null, { status: 404 });
 
-  if (isBotRequest(request)) return createOpenGraphResponse(request);
+  if (isOpenGraphBot(request.headers.get("user-agent"))) {
+    return createOpenGraphResponse(request.nextUrl.pathname, downloadLink.openGraph);
+  }
 
-  const sourceFileName = basename(sourceFilePath);
-  const isRegularDownload = Boolean(regularFilePath) || request.nextUrl.searchParams.get(regularDownloadSearchParam) === "1";
+  const sourceFileName = basename(downloadLink.filePath);
+  const isRegularDownload = Boolean(regularLink) || request.nextUrl.searchParams.get(regularDownloadSearchParam) === "1";
   const downloadFileName = isRegularDownload ? removeVersion(sourceFileName) : sourceFileName;
   let file: Buffer;
 
   try {
-    file = await readFile(join(process.cwd(), sourceFilePath));
+    file = await readFile(join(process.cwd(), downloadLink.filePath));
   } catch {
     return new NextResponse("Not Found", { status: 404 });
   }
@@ -73,7 +78,7 @@ export async function GET(request: NextRequest, props: DownloadRouteProps): Prom
  * @param path 요청 경로입니다.
  * @returns 연결된 파일명입니다.
  */
-function getLinkValue(links: Record<string, string>, path: string): string | undefined {
+function getLinkValue<T>(links: Record<string, T>, path: string): T | undefined {
   return Object.hasOwn(links, path) ? links[path] : undefined;
 }
 
@@ -103,54 +108,4 @@ function createContentDisposition(fileName: string): string {
   const fallbackFileName = fileName.replaceAll("–", "-").replaceAll(/[^ -~]/g, "_");
 
   return `attachment; filename="${fallbackFileName}"; filename*=UTF-8''${encodeURIComponent(fileName)}`;
-}
-
-/**
- * ### 봇 요청 여부 확인
- *
- * 검색엔진과 링크 프리뷰 봇으로 보이는 요청인지 확인합니다.
- *
- * @param request 요청 객체입니다.
- * @returns 봇 요청 여부입니다.
- */
-function isBotRequest(request: NextRequest): boolean {
-  const userAgent = request.headers.get("user-agent") ?? "";
-
-  return /bot|crawl|preview|slack|spider/i.test(userAgent);
-}
-
-/**
- * ### 오픈그래프 응답 생성
- *
- * 다운로드 링크 프리뷰용 HTML을 생성합니다.
- *
- * @param request 요청 객체입니다.
- * @returns 오픈그래프 HTML 응답입니다.
- */
-function createOpenGraphResponse(request: NextRequest): NextResponse {
-  const canonicalUrl = new URL(request.nextUrl.pathname, "https://resume.taeyoon.xyz").toString();
-
-  return new NextResponse(`<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="robots" content="${noIndexValue}" />
-    <title>taeyoon. – portfolio</title>
-    <meta name="description" content="Taeyoon Lee as Product Designer" />
-    <meta property="og:site_name" content="taeyoon. – resume" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="taeyoon. – portfolio" />
-    <meta property="og:description" content="Taeyoon Lee as Product Designer" />
-    <meta property="og:url" content="${canonicalUrl}" />
-    <meta property="og:image" content="https://resume.taeyoon.xyz/img_open_graph.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-  </head>
-</html>`, {
-    headers: {
-      "Cache-Control": "private, no-store",
-      "Content-Type": "text/html; charset=utf-8",
-      Vary: "User-Agent",
-      "X-Robots-Tag": noIndexValue,
-    },
-  });
 }
