@@ -7,13 +7,7 @@
 
 import stylexPlugin from "@stylexjs/nextjs-plugin";
 
-import portfolio from "./src/constants/portfolioVersion.json" with { type: "json" };
-
 const __dirname = new URL(".", import.meta.url).pathname;
-
-// 포트폴리오 날짜 버전은 src/constants/portfolio.json을 단일 출처로 사용합니다.
-const portfolioDownloadPath = `/download/portfolio/${portfolio.date}`;
-const portfolioFilePath = `./downloads/portfolio/${portfolio.date}.pdf`;
 
 // Content-Security-Policy 후보 정책입니다.
 // 인라인 스크립트(테마 초기화, 구조화 데이터)와 GA gtag, StyleX 스타일 주입 때문에
@@ -36,7 +30,6 @@ const contentSecurityPolicy = [
   "frame-ancestors 'none'",
   "object-src 'none'",
 ].join("; ");
-
 /**
  * ### Next.js 설정
  *
@@ -66,9 +59,10 @@ const nextConfig = {
   },
   outputFileTracingRoot: __dirname,
   outputFileTracingIncludes: {
-    [portfolioDownloadPath]: [portfolioFilePath],
-    "/download/portfolio": [portfolioFilePath],
-    "/portfolio": [portfolioFilePath],
+    "/download/**": ["./src/files/*"],
+  },
+  outputFileTracingExcludes: {
+    "/download/**": ["./src/files/.DS_Store"],
   },
   webpack(config) {
     config.module.rules.push({

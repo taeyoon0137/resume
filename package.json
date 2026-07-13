@@ -8,10 +8,11 @@
   "scripts": {
     "clean": "rm -rf ./.next",
     "dev": "yarn clean && next dev --webpack",
-    "build": "yarn clean && next build --webpack",
+    "build": "yarn clean && yarn validate:downloads && next build --webpack",
     "start": "next start",
     "lint": "eslint .",
-    "readme": "./scripts/readme_update.sh"
+    "readme": "./scripts/readme_update.sh",
+    "validate:downloads": "node ./scripts/download_validate.mjs"
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.43.0",
