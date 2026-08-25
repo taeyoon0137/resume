@@ -107,6 +107,15 @@
 
 검증을 실행할 수 없으면 이유를 보고합니다. 빌드 경고가 남아 있으면 실패인지 경고인지 구분해서 설명합니다.
 
+## 의존성 보안 후속 조치
+
+2026-08-25 의존성 보안 조치에서는 GitHub Dependabot 취약점을 패치 버전으로 갱신하고, 폐기된 `@stylexjs/nextjs-plugin`을 공식 `@stylexjs/postcss-plugin` 경로로 교체했습니다.
+
+- `@stylexjs/nextjs-plugin`과 취약한 PostCSS 버전을 강제하던 기존 `resolutions`는 다시 추가하지 않습니다. StyleX는 `babel.config.js`, `postcss.config.js`, 전역 CSS의 `@stylex` 지시문을 함께 유지합니다.
+- `yarn npm audit --all --recursive`가 보고하는 `eslint@9.39.5` 지원 종료 알림은 GitHub 보안 advisory가 아닙니다. 현재 `eslint-config-taeyoon@0.2.2`, `eslint-plugin-import@2.32.0`, `eslint-plugin-react@7.37.5`의 peer 범위가 ESLint 10을 지원하지 않으므로 ESLint 9의 최신 패치를 유지합니다.
+- TypeScript 7은 현재 `typescript-eslint`가 지원하지 않으므로 TypeScript 6의 최신 패치를 유지합니다.
+- 위 도구들이 새 major를 공식 지원하면 ESLint와 `@eslint/js`, TypeScript와 `@typescript-eslint/*`를 각각 함께 갱신한 뒤 `yarn install --immutable`, 보안 감사, 린트, 빌드를 실행합니다. 지원 종료 알림까지 해소되면 이 후속 조치에서 해당 제한을 제거합니다.
+
 ## 문서와 산출물
 
 - 이 작업 지침의 source of truth는 `AGENTS.md`입니다.
@@ -150,6 +159,9 @@
 ## 배포와 운영 반영
 
 - 이 저장소는 Git 푸시 후 Vercel Git 연동으로 자동 배포됩니다.
+- 릴리즈할 변경에는 `corepack yarn changeset`으로 changeset을 추가합니다.
+- changeset이 포함된 커밋이 `main`에 직접 반영되면 `.github/workflows/release.yml`이 별도 PR 없이 버전 커밋과 태그를 같은 `main` 트리에 추가하고 GitHub Release를 발행합니다. npm publish는 실행하지 않습니다.
+- `main` 커밋에 changeset이 없으면 새 버전과 태그를 만들지 않습니다. 이전 실행에서 태그만 반영되고 GitHub Release 발행이 실패한 경우에만 해당 Release를 복구합니다.
 - 사용자가 커밋/푸시와 함께 배포를 요청하면, `main`과 `develop` 푸시를 수행해 Vercel 자동 배포를 트리거합니다.
 - 별도 요청이 없으면 Vercel CLI 배포를 추가로 실행하지 않습니다.
 - 도메인, Vercel 프로젝트 설정, 운영 캐시 초기화 같은 작업은 사용자가 명시적으로 요청하고 필요한 권한과 절차가 확인된 경우에만 수행합니다.
