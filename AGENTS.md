@@ -32,7 +32,7 @@
 이 저장소는 `resume.taeyoon.xyz`로 사용되는 개인 이력서/포트폴리오 웹사이트입니다.
 
 - Next.js App Router 기반의 React 애플리케이션입니다.
-- 패키지 매니저는 Corepack이 관리하는 Yarn Berry입니다.
+- Node.js와 Yarn Berry 버전은 `mise.toml`에 고정하며 Mise가 관리합니다.
 - StyleX와 Babel 설정을 사용하므로 Next 빌드에서 SWC 관련 경고가 나올 수 있습니다.
 - 주요 이력서 콘텐츠의 source of truth는 `src/contents/`입니다.
 
@@ -42,7 +42,7 @@
 
 - `git status --short`
 - 변경 대상 파일의 기존 문체, export 방식, 디렉터리 구조
-- `package.json`의 scripts와 현재 Yarn 버전
+- `package.json`의 scripts와 `mise.toml`의 현재 Node.js, Yarn 버전
 - 기존 `AGENTS.md`, `CLAUDE.md` 존재 여부와 `CLAUDE.md` 링크 대상
 - README, `resources/`, 설정 파일에서 확인되는 source of truth와 생성 파일 관계
 - 작업에 관련된 콘텐츠 원본이 `src/contents/`에 있는지 여부
@@ -87,6 +87,8 @@
 
 ## 명령어
 
+Mise가 `mise.toml`에 고정된 Node.js 24.19.0과 Yarn 4.18.0을 선택합니다. 처음에는 `mise install`로 도구를 설치합니다.
+
 - 의존성 설치: `yarn install`
 - 개발 서버: `yarn dev`
 - 린트: `yarn lint`
@@ -115,6 +117,16 @@
 - `yarn npm audit --all --recursive`가 보고하는 `eslint@9.39.5` 지원 종료 알림은 GitHub 보안 advisory가 아닙니다. 현재 `eslint-config-taeyoon@0.2.2`, `eslint-plugin-import@2.32.0`, `eslint-plugin-react@7.37.5`의 peer 범위가 ESLint 10을 지원하지 않으므로 ESLint 9의 최신 패치를 유지합니다.
 - TypeScript 7은 현재 `typescript-eslint`가 지원하지 않으므로 TypeScript 6의 최신 패치를 유지합니다.
 - 위 도구들이 새 major를 공식 지원하면 ESLint와 `@eslint/js`, TypeScript와 `@typescript-eslint/*`를 각각 함께 갱신한 뒤 `yarn install --immutable`, 보안 감사, 린트, 빌드를 실행합니다. 지원 종료 알림까지 해소되면 이 후속 조치에서 해당 제한을 제거합니다.
+
+## 툴체인 운영
+
+- Node.js와 Yarn 실행 버전의 source of truth는 `mise.toml`이며 다운로드 잠금 정보는 `mise.lock`입니다. `package.json`의 `packageManager`는 같은 Yarn 버전과 무결성 값을 패키지 생태계 메타데이터로 유지합니다.
+- `.nvmrc`, 다른 도구 관리자 설정, Corepack 명령을 다시 추가하지 않습니다.
+- `package.json`의 `engines.node`는 배포 환경 호환 범위만 나타내며 정확한 패치 버전은 `mise.toml`을 따릅니다.
+- Yarn은 `mise.toml`의 HTTP backend에 공식 CLI URL과 SHA-512를 함께 고정해 설치 시 검증합니다.
+- GitHub Actions는 커밋 SHA로 고정된 공식 Mise Action과 SHA-256으로 고정된 Mise 2026.8.14를 사용하고 `mise.lock`에 따라 도구를 설치합니다.
+- Vercel의 설치와 빌드는 `scripts/mise_yarn.sh`가 공식 Mise 바이너리의 SHA-256을 확인한 뒤 `mise install --locked`와 `mise exec`으로 Yarn을 실행합니다. `vercel.json`의 두 명령을 함께 유지합니다.
+- Mise, Node.js 또는 Yarn 버전을 바꿀 때는 `mise.toml`, `mise.lock`, `packageManager`, CI와 Vercel의 Mise 버전 및 체크섬을 함께 확인합니다.
 
 ## 문서와 산출물
 
@@ -159,7 +171,7 @@
 ## 배포와 운영 반영
 
 - 이 저장소는 Git 푸시 후 Vercel Git 연동으로 자동 배포됩니다.
-- 릴리즈할 변경에는 `corepack yarn changeset`으로 changeset을 추가합니다.
+- 릴리즈할 변경에는 `yarn changeset`으로 changeset을 추가합니다.
 - changeset이 포함된 커밋이 `main`에 직접 반영되면 `.github/workflows/release.yml`이 별도 PR 없이 버전 커밋과 태그를 같은 `main` 트리에 추가하고 GitHub Release를 발행합니다. npm publish는 실행하지 않습니다.
 - `main` 커밋에 changeset이 없으면 새 버전과 태그를 만들지 않습니다. 이전 실행에서 태그만 반영되고 GitHub Release 발행이 실패한 경우에만 해당 Release를 복구합니다.
 - 사용자가 커밋/푸시와 함께 배포를 요청하면, `main`과 `develop` 푸시를 수행해 Vercel 자동 배포를 트리거합니다.

@@ -28,14 +28,11 @@ jobs:
           fetch-tags: true
           persist-credentials: false
 
-      - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      - name: Setup Mise
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
-          node-version: 24
-          package-manager-cache: false
-
-      - name: Enable Corepack
-        run: corepack enable
+          version: 2026.8.14
+          sha256: 7cd12d6002d5b3c83a89cad79023712faf2a36f9e8b2ee2061dac5135b3de0ed
 
       - name: Recover an unfinished GitHub Release
         env:
@@ -83,15 +80,15 @@ jobs:
 
       - name: Install dependencies
         if: steps.changesets.outputs.pending == 'true'
-        run: corepack yarn install --immutable
+        run: yarn install --immutable
 
       - name: Validate changesets and application
         if: steps.changesets.outputs.pending == 'true'
         shell: bash
         run: |
-          corepack yarn changeset status
-          corepack yarn lint
-          corepack yarn build
+          yarn changeset status
+          yarn lint
+          yarn build
           git diff --exit-code
 
       - name: Create the version commit and tag
@@ -102,9 +99,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          corepack yarn changeset version
-          YARN_ENABLE_IMMUTABLE_INSTALLS=false corepack yarn install --mode=update-lockfile
-          corepack yarn install --immutable
+          yarn changeset version
+          YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install --mode=update-lockfile
+          yarn install --immutable
+          yarn readme
 
           version="$(node -p "require('./package.json').version")"
           tag="v${version}"
@@ -114,7 +112,7 @@ jobs:
             exit 1
           fi
 
-          allowed_paths='^(\.changeset/|CHANGELOG\.md$|package\.json$|yarn\.lock$)'
+          allowed_paths='^(\.changeset/|CHANGELOG\.md$|README\.md$|package\.json$|resources/readme-hero\.svg$|yarn\.lock$)'
           unexpected_tracked="$(git diff --name-only | grep -Ev "${allowed_paths}" || true)"
           unexpected_untracked="$(git ls-files --others --exclude-standard | grep -Ev "${allowed_paths}" || true)"
 
@@ -125,7 +123,7 @@ jobs:
             exit 1
           fi
 
-          git add -A -- .changeset package.json CHANGELOG.md yarn.lock
+          git add -A -- .changeset package.json CHANGELOG.md README.md resources/readme-hero.svg yarn.lock
 
           if git diff --cached --quiet; then
             echo "Changesets did not produce version changes." >&2
@@ -133,7 +131,7 @@ jobs:
           fi
 
           git commit -m "Chore: ${tag} 릴리즈"
-          corepack yarn changeset git-tag
+          yarn changeset git-tag
 
           if [[ "$(git rev-parse "${tag}^{commit}")" != "$(git rev-parse HEAD)" ]]; then
             echo "Tag does not point to the version commit: ${tag}" >&2

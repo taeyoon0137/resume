@@ -37,6 +37,8 @@ ${badgeBlock}
 
 본 프로젝트는 프로덕트 디자이너 및 프론트엔드 엔지니어로 근무 중인 이태윤의 이력서이자 포트폴리오 웹사이트입니다. 이력서에 표시되는 데이터는 `src/contents/content.data.ts`에서 관리되며, 화면에 표시되는 UI는 Next.js와 StyleX를 사용하여 구현되었습니다.
 
+개발 도구 버전은 Mise가 관리합니다. Mise를 설치한 뒤 `mise install`을 실행하면 `mise.toml`에 고정된 Node.js 24.19.0과 Yarn 4.18.0이 설치됩니다.
+
 본 레포지토리를 포크하여 `src/contents/content.data.ts`를 수정하는 것으로 자신의 이력서 템플릿으로 사용이 가능합니다. 소스 코드는 MIT 라이선스로 공개되어 있으며, 이력서 콘텐츠와 이미지 등은 라이선스 대상에서 제외됩니다. 자세한 내용은 [라이선스](#라이선스) 섹션을 확인하세요.
 
 <a id="콘텐츠-관리"></a>
@@ -109,13 +111,17 @@ resume
 │   ├── readme-hero.preset.svg  # README 히어로 SVG 원본
 │   └── readme-hero.svg         # README 히어로 SVG 생성 결과물
 ├── scripts/
-│   └── readme_update.sh        # README 생성 명령
+│   ├── download_validate.mjs   # 다운로드 파일 검증 명령
+│   ├── readme_update.sh        # README 생성 명령
+│   └── mise_yarn.sh            # Vercel용 Mise 설치 및 Yarn 실행 명령
 ├── @types/                     # 전역 타입 선언
 ├── AGENTS.md                   # 작업 지침
 ├── CLAUDE.md                   # AGENTS.md 심볼릭 링크
 ├── LICENSE                     # 코드 MIT 라이선스와 콘텐츠 제외 조항
+├── mise.lock                   # Mise 도구 다운로드 잠금 정보
+├── mise.toml                   # Node.js와 Yarn 버전 핀
 ├── next.config.mjs             # Next.js와 StyleX 설정
-├── package.json                # Yarn scripts와 의존성 목록
+├── package.json                # Yarn 메타데이터, scripts와 의존성 목록
 └── README.md                   # 자동 생성 결과물
 ```
 
