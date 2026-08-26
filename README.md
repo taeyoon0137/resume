@@ -22,7 +22,7 @@
 <p align="center">반가워요 👋 프로덕트 디자이너 & 프론트엔드 엔지니어, 이태윤입니다.</p>
 
 <p align="center">
-  <a href="https://github.com/taeyoon0137/resume"><img src="https://img.shields.io/badge/0.1.1-%23101010?label=resume&labelColor=%234D24E2" /></a>
+  <a href="https://github.com/taeyoon0137/resume"><img src="https://img.shields.io/badge/0.1.2-%23101010?label=resume&labelColor=%234D24E2" /></a>
 </p>
 <p align="center">
   <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-%23000000?&logo=nextdotjs&logoColor=%23FFFFFF" /></a>
